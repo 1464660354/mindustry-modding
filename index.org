@@ -12,7 +12,7 @@
 
 #+TODO: TODO UNTESTED | DONE
 
-#+TEXINFO_HEADER: Modding documentation for Mindustry v99 (117)
+#+TEXINFO_HEADER: Modding documentation for Mindustry v99 (133)
 
 Submit pull requests, issues or suggestions on Github: https://github.com/SimonWoodburyForget/mindustry-modding
 
@@ -52,6 +52,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * Linux: =~/.local/share/Mindustry/mods/=
    * Steam: =steam/steamapps/common/Mindustry/mods/=
    * Windows: =%appdata%/Mindustry/mods/=
+
 
 ** ~mod.json~
    :PROPERTIES:
@@ -144,7 +145,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 
    All you need to make sprites, is an image editor that supports transparency /(aka: not paint)./ Block sprites should be ~32 * size~, so a ~2x2~ block would require a ~64x64~ image. Images must be ~.png~ files with 32 bit depth.
 
-   Sprites can simply be dropped in the ~sprites/~ subdirectory. The content parser will look through it recursively, so you can organize them how ever you feel. 
+   Sprites can simply be dropped in the ~sprites/~ subdirectory. The content parser will look through it recursively, so you can organize them how ever you feel.
 
    Content is going to look for sprites relative to it's own name. ~content/blocks/my-hail.json~ has the name ~my-hail~ and similarly ~sprites/my-hail.png~ has the name ~my-hail~, so it'll be used by this content.
 
@@ -303,6 +304,15 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 
    /As of now, the only purpose of schematics is to give a zone a loadout./
 
+** Mindustry JSON
+
+   Mindustry doesn't actually use JSON, but most valid JSON should work, and as of now here are the specific expected differences:
+   * ~//~ double pounds may be used for single line comments;
+   * ~//~ double pounds can't be used in strings;
+   * ~"~ quotes ~"~ aren't required for strings;
+   * ~,~ commas aren't required for arrays ~[]~ or objects ~{}~;
+   * ~[ value, ]~ commas can trail within.
+
 ** FAQ
     :PROPERTIES:
     :DESCRIPTION: simple questions and awnsers
@@ -319,13 +329,13 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
   :PROPERTIES:
   :DESCRIPTION: the universe and everything in it.
   :END:
-  
+
 ** Block
    :PROPERTIES:
    :DESCRIPTION: base type of types that go on tiles
    :end:
 
-   Extends [[BlockStorage][BlockStorage]] 
+   Extends [[BlockStorage][BlockStorage]]
 
    Fields for all objects that are blocks.
 
@@ -397,7 +407,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    #+BEGIN_SRC json
    {
        "items": {
-           "items": [ 
+           "items": [
                { "amount": 10, "item": "copper" },
                { "amount": 5, "item": "surge-alloy" }
            ],
@@ -426,7 +436,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | update   | boolean | true    |            |
 
    * <<ConsumeItems>> ~ConsumeItems~, consume an itemstack.
-      
+
      | field | type      |
      |-------+-----------|
      | items | [[ItemStack][ItemStack]] |
@@ -1014,7 +1024,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     |--------------+-------+---------|
     | burstSpacing | float |       5 |
 *** PowerTurret
-    [[Abstract][Abstract]] type that extends [[CooledTurret][CooledTurret]] -- Turret which uses power has ammo to shoot.
+    Extends [[CooledTurret][CooledTurret]] -- Turret which uses power has ammo to shoot.
 
     | field     | type       | default |
     |-----------+------------+---------|
@@ -1297,10 +1307,6 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 *** LiquidJunction
     Extends [[LiquidBlock][LiquidBlock]]
 
-    | field      | default |
-    |------------+---------|
-    | hasLiquids | true    |
-
 *** LiquidBridge
     Extends [[LiquidBridge][LiquidBridge]]
 
@@ -1491,7 +1497,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
      |----------------+---------|
      | hasPower       | true    |
      | hasLiquids     | true    |
-     | liquidCapacity | 30f     |
+     | liquidCapacity | 30      |
      | hasItems       | true    |
      | outputsPower   | true    |
      | consumesPower  | true    |
@@ -1687,7 +1693,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 
 *** MechPad
     :PROPERTIES:
-    :DESCRIPTION: 
+    :DESCRIPTION:
     :END:
 
     Extends [[Block][Block]] -- A block which will spawn a player in a mech.
@@ -1750,7 +1756,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     :DESCRIPTION: block who's only purpose is to store things
     :END:
 
-    Extends [[StorageBlock][StorageBlock]] 
+    Extends [[StorageBlock][StorageBlock]]
 
     Defaults:
 
@@ -2041,9 +2047,9 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    :DESCRIPTION: type used to add maps into campaign
    :END:
 
-   Extends [[Content]] 
-   
-   A ~Zone~ is a type that takes a map named and puts it into campaign. /(a zone isn't a map)/
+   Extends [[Content]]
+
+   A ~Zone~ is a type that takes a map /(named the same as the json's filename)/ and puts it into campaign. /(a zone isn't a map)/
 
    Every ~Zone~ has a ~Generator~, which once initialized, ~MapGenerator~ will run through the map and do /initialization related stuff./ One of those notable things, is deleting all cores on in your map and placing a ~loadout~ on top of a random one of them. This allows your campaign map to have multiple core locations. /(it doesn't matter which core was previously on the map, ~loadout~ will dictate that)/
 
@@ -2264,7 +2270,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     :DESCRIPTION: colored destruction
     :END:
 
-    Extends [[BulletType]] 
+    Extends [[BulletType]]
 
     This types purpose is to give basic bullets their sprites. The ~bulletSprite~ will be used as the shape of the bullet. The visible pixels in your sprites will be tinted with ~backColor~ and ~frontColor~ respectively. For example if you had sprites ~router.png~ and ~router-back.png~ where ~Test Mod~ was your mods name, you could do this to include your ~bulletSprite~:
 
@@ -2506,7 +2512,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
   :DESCRIPTION: types to set game objectives
   :END:
 
-  Objective is a trait, which a few types implement, which is used by [[Zone]] to give campaign maps objectives. 
+  Objective is a trait, which a few types implement, which is used by [[Zone]] to give campaign maps objectives.
 
   Types which implement Objective are as follows:
 

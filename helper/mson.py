@@ -3,12 +3,19 @@
 This parser may be more forgiving then 
 the actual Mindustry parser itself, so
 to make parsing other mods possible.
+
+The specific implimentation changes goes as follows:
+- `##` maybe used for single line comments,
+  and also cannot technically be used in strings;
+- `"` quotes aren't required for strings;
+- `,` commas aren't required for arrays or objects.
 """
 
 from parsy import generate, regex, string
 
-whitespace = regex(r'\s*')
-lexeme = lambda p: p << whitespace
+
+whitespace = regex(r'\s*(//.*)?')
+lexeme = lambda p: whitespace >> p << whitespace
 lbrace = lexeme(string('{'))
 rbrace = lexeme(string('}'))
 lbrack = lexeme(string('['))
@@ -36,7 +43,7 @@ string_esc = string('\\') >> (
 quoted = lexeme(string('"') >>
                 (string_part | string_esc).many().concat()
                 << string('"'))
-unquoted = lexeme(( regex(r"[a-zA-Z-]")).many().concat()
+unquoted = lexeme(( regex(r"[a-zA-Z0-9-]")).many().concat()
                   << regex("[ -,\s\t\n\r]")) # no idea, but it works
 
 # Circular dependency between array and value means we use `generate` form here
@@ -57,21 +64,22 @@ def object_pair():
     yield comma.optional()
     return (key, val)
 
-
 json_object = lbrace >> object_pair.sep_by(comma).map(dict) << rbrace
 value = quoted | number | json_object | array | true | false | null | unquoted
 json = whitespace >> value
 
 TEST = """
+// Comment 0
 {
-	"name": "Silver Crags",
+	"name": "Silver Crags", // Comment 4
 	"description": "Salt and silver lie here.",
-	"loadout": "basicFoundation",
-    "startingItems": [
+	// Comment 5 "loadout": "basicFoundation",
+    "startingItems": [ 
     	{"item": "copper", "amount": 200},
     	{"item": "lead", "amount": 300},
     ],
-    "conditionWave": 10,
+// Comment 1
+    "conditi//onWave": 10, // Comment 2
     "launchPeriod": 10
     "brequirements": [
     	{ type : ZoneWave
@@ -95,4 +103,3 @@ block": "kiln"
 
 if __name__ == '__main__':
     print(json.parse(TEST))
-    
