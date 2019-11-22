@@ -4,6 +4,9 @@ Note: this can do plenty of invalid things, if you insert data manually
 although the game wont really care about it, as it doesn't manual inputs.
 For example, in the example below, you'll see a 3x3 block, inserted into 
 a 1x1 schematic.
+
+This package uses a custom version of parsec.py fixed for byte parsing:
+- https://github.com/SimonWoodburyForget/parsec.py
 """
 
 from pathlib import Path
@@ -173,7 +176,7 @@ def dump(data, encode=False):
         return str(b64encode(data), "utf8")
     else:
         return data
-
+    
 if __name__ == "__main__":
     test = "1572947991821.msch"
     user_data = Path(".local/share/Mindustry/schematics")
@@ -191,3 +194,17 @@ if __name__ == "__main__":
         1, 1, {"name": "Core Block"}, [Schematic("core-shard", (0, 0), 0, 0)]
     ), True))
 
+    ##########################################
+    # vault replaced with core-nucleus example
+    ##########################################
+    #
+    # schematic with vault at place of core
+    print(load("bXNjaAB4nGPgZuBmZGDJS8xNZWALSS0uUXBkZuDOSSxOLdJNKcrMyWFgLUsszSlhECjILweK5eWnpOrmJBalpzIwMLAxMDACIQQwMnBCaVYgBAEmoAJGiBBQDqaOE6oOAMywEOk="))
+    #
+    # rename `vault` with `core-nucleus`
+    print(dump(Schematics(width=11, height=11, tags={'name': 'Test A'}, tiles=[Schematic(name='laser-drill', pos=(2, 1), config=0, rotation=0), Schematic(name='laser-drill', pos=(2, 9), config=0, rotation=0), Schematic(name='core-nucleus', pos=(10, 5), config=0, rotation=0), Schematic(name='power-node-large', pos=(12, 1), config=0, rotation=1), Schematic(name='laser-drill', pos=(18, 1), config=0, rotation=0), Schematic(name='laser-drill', pos=(18, 9), config=0, rotation=0)]), True))
+    #
+    # no repositioning is required, even though
+    # the vault is smaller then the core.
+
+    

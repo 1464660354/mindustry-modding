@@ -6,13 +6,13 @@
 
 #+LANGUAGE: en
 #+TEXINFO_DEFFN: t
-#+OPTIONS: H:4 num:3 toc:2
+#+OPTIONS: H:4 num:4 toc:2
 
 #+TEXINFO_FILENAME: index
 
-#+TODO: TODO UNTESTED | DONE
+#+TODO: TODO UNTESTED | NEW DONE
 
-#+TEXINFO_HEADER: Modding documentation for Mindustry v99 (133)
+#+TEXINFO_HEADER: Modding documentation for Mindustry v100 (40)
 
 Submit pull requests, issues or suggestions on Github: https://github.com/SimonWoodburyForget/mindustry-modding
 
@@ -53,12 +53,14 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * Steam: =steam/steamapps/common/Mindustry/mods/=
    * Windows: =%appdata%/Mindustry/mods/=
 
+   *Note;* your filenames should be lowercased and hyphen separated:
+   * correct: ~my-custom-block.json~
+   * incorrect: ~My Custom Block.json~
 
 ** ~mod.json~
    :PROPERTIES:
    :DESCRIPTION: the project configuration file.
    :END:
-
 
    At the root of your project directory, you must have a ~mod.json~ which defines the basic metadata for your project.
 
@@ -137,6 +139,23 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
        }
    }
    #+END_SRC
+
+** Tech Tree
+   :PROPERTIES:
+   :DESCRIPTION: putting blocks into the tech tree
+   :END:
+
+   Much like ~type~ there exist another magical field known as ~research~ which can go at the root of any block object to put it in the techtree.
+
+   #+BEGIN_SRC json
+   {
+       "research": "duo"
+   }
+   #+END_SRC
+
+   This would put your block after ~duo~ in the techtree, and to put it after your own mods block you would write your ~<block-name>~, a mod name prefix is only required if you're using the content from another mod.
+
+   Research cost will be ~30 + requirements * 6~, where ~requirements~ is the build cost of your block. /(in otherwords you can't set ~requirements~ and ~research cost~ individually)/
 
 ** Sprites
    :PROPERTIES:
@@ -298,20 +317,42 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * Chinese CN ~bundle_zh_CN.properties~
    * Chinese TW ~bundle_zh_TW.properties~
 
+** Hjson
+   :PROPERTIES:
+   :DESCRIPTION: content parser syntax
+   :END:
+
+   *[new v99]* /currently partially implimented, where only ~content/~ uses Hjson./
+
+   As of now, Mindustry doesn't actually use Json, /(but any valid JSON should work)/ it uses a variant of Json called [[https://hjson.org/][Hjson]].
+
+   #+BEGIN_SRC fundamental
+   {
+       # single line comment
+
+       // single line comment
+
+       /* multiline
+          comment */
+
+       key1: single line string
+
+       key2: '''
+             multiline
+             string
+             '''
+
+       key3: [ value 1
+               value 2
+               value 3 ]
+   }
+   #+END_SRC
+
 ** Schematic
 
    Fields that require the type ~Schematic~ can either take a built-in loadout /(see the [[Zone]] section)/ a base64 string, or the stem name of a ~.msch~ file in the ~schematics/~ subdirectory.
 
    /As of now, the only purpose of schematics is to give a zone a loadout./
-
-** Mindustry JSON
-
-   Mindustry doesn't actually use JSON, but most valid JSON should work, and as of now here are the specific expected differences:
-   * ~//~ double pounds may be used for single line comments;
-   * ~//~ double pounds can't be used in strings;
-   * ~"~ quotes ~"~ aren't required for strings;
-   * ~,~ commas aren't required for arrays ~[]~ or objects ~{}~;
-   * ~[ value, ]~ commas can trail within.
 
 ** FAQ
     :PROPERTIES:
@@ -322,20 +363,23 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     * ~ticks~ /sometimes called ~frames~,/ are assumed to be 60/1 second;
     * ~range~ or most forms of distance is 1/10 of a tile;
     * to calculate range out of ~lifetime~ and ~speed~ you can do ~lifetime * speed = range~;
-    * <<Abstract>> /Abstract/: all you need to know about abstract types, is this is a Java specific term, which means you cannot instantiate/initialize this specific type by itself. If you do so you'll probably get an /"initialization exception"/ of some kind.
-    * research cost is ~30 + requirements * 6~
+    * <<Abstract>> what is ~abstract~? all you need to know about abstract types, is this is a Java specific term, which means you cannot instantiate/initialize this specific type by itself. If you do so you'll probably get an /"initialization exception"/ of some kind;
+    * what is a ~NullPointerException~? This is an error message that indicates a field is null and shouldn't be null, meaning one of the required fields may be missing;
+    * <<bleeding-edge>> what is ~bleeding-edge~? This is the developer version of Mindustry, specifically it's refering to the Github master branch. Changes on bleeding-edge usually make it into Mindustry in the next release.
 
 * World
   :PROPERTIES:
   :DESCRIPTION: the universe and everything in it.
   :END:
 
-** Block
+** NEW Block
    :PROPERTIES:
    :DESCRIPTION: base type of types that go on tiles
    :end:
 
    Extends [[BlockStorage][BlockStorage]]
+
+   Block is the base type of all blocks in the game. All blocks have at least one sprite, which is picked relative to the blocks name.
 
    Fields for all objects that are blocks.
 
@@ -363,6 +407,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | priority            | TargetPriority  |         base | Targeting priority of this block, as seen by enemies. |
    | configurable        | boolean         |              | Whether the block can be tapped and selected to configure. |
    | consumesTap         | boolean         |              | Whether this block consumes touchDown events when tapped. |
+   | drawLiquidLight     | boolean         |         true | *[new v99 (268)]* Whether to draw the glow of the liquid for this block, if it has one. |
    | posConfig           | boolean         |              | Whether the config is positional and needs to be shifted. |
    | targetable          | boolean         |         true | Whether units target this block. |
    | canOverdrive        | boolean         |         true | Whether the overdrive core has any effect on this block. |
@@ -374,7 +419,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | activeSoundVolume   | float           |          0.5 | Active sound base volume. |
    | idleSound           | [[Sound][Sound]]           |         none | The sound that this block makes while idle. Uses one sound loop for all blocks. |
    | idleSoundVolume     | float           |          0.5 | Idle sound base volume. |
-   | requirements        | [[ItemStack][ItemStack]]       |              | Cost of constructing and researching this block. |
+   | requirements        | [ [[ItemStack][ItemStack]] ]   |              | Cost of constructing and researching this block. |
    | category            | [[Category][Category]]        | distribution | Category in place menu. |
    | buildCost           | float           |              | Cost of building this block; do not modify directly! |
    | buildVisibility     | [[BuildVisibility][BuildVisibility]] |       hidden | Whether this block is visible and can currently be built. |
@@ -383,6 +428,9 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | alwaysUnlocked      | boolean         |        false |            |
    | layer               | [[Layer][Layer]]           |         null | Layer to draw extra stuff on. |
    | layer2              | [[Layer][Layer]]           |         null | Extra layer to draw extra stuff on. |
+
+   Sprites:
+   * ~<name>~ the main sprite for the block.
 
 ** Consumers
    :PROPERTIES:
@@ -437,9 +485,9 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 
    * <<ConsumeItems>> ~ConsumeItems~, consume an itemstack.
 
-     | field | type      |
-     |-------+-----------|
-     | items | [[ItemStack][ItemStack]] |
+     | field | type          |
+     |-------+---------------|
+     | items | [ [[ItemStack][ItemStack]] ] |
 
    * <<ConsumeLiquid>> ~ConsumeLiquid~, consume a liquid.
 
@@ -461,10 +509,12 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 
 ** BlockStorage
    :PROPERTIES:
-   :DESCRIPTION: base of storage
+   :DESCRIPTION: base of itemw and liquid storage
    :END:
 
-   [[Abstract][Abstract]] type that extends [[Content][Content]] -- This is for blocks that can store a buffer of items.
+   [[Abstract][Abstract]] type that extends [[Content][Content]]
+
+   Type for blocks which may store a buffer of items or liquid.
 
    | field          | type      | default |
    |----------------+-----------+---------|
@@ -474,10 +524,11 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | hasPower       | boolean   |         |
    | outputsLiquid  | boolean   |   false |
    | consumesPower  | boolean   |    true |
-   | outputsPower   | bolean    |   false |
+   | outputsPower   | boolean   |   false |
    | itemCapacity   | int       |      10 |
    | liquidCapacity | float     |      10 |
    | item           | float     |      10 |
+   | liquidPressure | float     |       1 |
    | consumes       | [[Consumers][Consumers]] |         |
 
 ** Environment
@@ -485,13 +536,18 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    :DESCRIPTION: environmental blocks
    :END:
 
-
    Environmental blocks are blocks that must be placed from the editor, and they're the ones that will generally dictate how the game can or will be played. These blocks wont appear on a map unless you've built a map to support them.
 
 *** Floor
-    Extends [[Block][Block]] -- Environmental floors. Requires a sprite, so to be visible in the map editor.
+    :PROPERTIES:
+    :DESCRIPTION: environmental floors
+    :END:
 
-    | field             | type         | default | notes      |
+    Extends [[Block][Block]]
+
+    Type used for floors themselves or extended to make ores and other things.
+
+    | envir             | type         | default | notes      |
     |-------------------+--------------+---------+------------|
     |                   |              |     <r> | <10>       |
     | variants          | int          |       3 | number of different variant regions to use. |
@@ -512,17 +568,27 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     | updateEffect      | [[Effect][Effect]]       |    none | effect displayed when randomly updated. |
     | attributes        | [[Attributes][Attributes]]   |         | array of affinities to certain things. |
 
-    Sprite lookup names:
-    - ~<name><1..>~
+    Notes:
+    * this type requires a sprite to be visible from the map editor.
+
+    Sprites:
+    * ~<name><1..>~ for variant sprites of the floor;
+    * ~<name>-edge~ optional edge sprite.
 
 *** OverlayFloor
+    :PROPERTIES:
+    :DESCRIPTION: type of floor that is overlaid on top of Floor
+    :END:
 
-    Extends [[Floor][Floor]] -- A type of floor that is overlaid on top of other floors.
+    Extends [[Floor][Floor]]
 
     For example:
     * ~tendrils~
 
 *** DoubleOverlayFloor
+    :PROPERTIES:
+    :DESCRIPTION: type of floor that is overlaid on top of OverlayFloor
+    :END:
 
     Extends [[OverlayFloor][OverlayFloor]]
 
@@ -530,8 +596,11 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     * ~pebbles~
 
 *** OreBlock
+    :PROPERTIES:
+    :DESCRIPTION: overlayfloor for a specific item type
+    :END:
 
-    Extends [[OverlayFloor][OverlayFloor]] -- An overlay ore for a specific item type.
+    Extends [[OverlayFloor][OverlayFloor]]
 
     | field    | default |
     |----------+---------|
@@ -566,7 +635,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     | solid         |    true |
     | variants      |       2 |
 
-    Extra Sprites:
+    Sprites:
     * ~<name>-large.png~ which is a 2x2 variant of the block.
 
 *** StaticTree
@@ -618,7 +687,9 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     | idleSoundVolume |    0.03 |
 
 *** GenericSmelter
-    Extends [[GenericCrafter][GenericCrafter]] -- A GenericCrafter with a new glowing region drawn on top.
+    Extends [[GenericCrafter][GenericCrafter]] 
+
+    A GenericCrafter with a new glowing region drawn on top.
 
     | field      | type  | default |
     |------------+-------+---------|
@@ -626,24 +697,27 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     | flameColor | [[Color][Color]] |  ffc999 |
 
     Sprite suffix:
-    * ~-top~
+    * ~<name>-top~
 
 *** Separator
+    :PROPERTIES:
+    :DESCRIPTION: turn a liquid into many solids
+    :END:
     Extends [[Block][Block]]
 
-    Separator will take liquid as an input and produce items from it's stack randomly relative to their amount.
+    Separator takes liquid as an input, and will produce items from it's stack randomly, using the amount of items in the stack as probability. Separator can't accept items as input, as it will output all the items you put in it, regardless of what you put in ~results~.
 
-    | field            | type      | default | notes      |
-    |------------------+-----------+---------+------------|
-    |                  |           |         | <10>       |
-    | results          | [[ItemStack][ItemStack]] |         | *[required]* |
-    | craftTime        | float     |         |            |
-    | spinnerRadius    | float     |     2.5 |            |
-    | spinnerLength    | float     |       1 |            |
-    | spinnerThickness | float     |       1 |            |
-    | spinnerSpeed     | float     |       2 |            |
-    | color            | [[Color][Color]]     |  858585 |            |
-    | liquidRegion     | int       |         |            |
+    | field            | type          | default | notes      |
+    |------------------+---------------+---------+------------|
+    |                  |               |         | <10>       |
+    | results          | [ [[ItemStack][ItemStack]] ] |         | *[required]* |
+    | craftTime        | float         |         |            |
+    | spinnerRadius    | float         |     2.5 |            |
+    | spinnerLength    | float         |       1 |            |
+    | spinnerThickness | float         |       1 |            |
+    | spinnerSpeed     | float         |       2 |            |
+    | color            | [[Color][Color]]         |  858585 |            |
+    | liquidRegion     | int           |         |            |
 
     Defaults:
     | field      | default |
@@ -655,7 +729,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     | hasLiquids |    true |
 
     Sprite suffixes:
-    * ~-liquid~
+    * ~<name>-liquid~
 ** Sandbox
    :PROPERTIES:
    :DESCRIPTION: the magical stuff
@@ -912,33 +986,38 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    This section is for turret types. All turrets shoot [[BulletType]], and this means [[LiquidTurret]] can shoot [[MissileBulletType]] and [[ItemTurret]] can shoot [[LiquidBulletType]].
 
 *** Turret
+    :PROPERTIES:
+    :DESCRIPTION: base fields for all turrets
+    :END:
 
-    [[Abstract][Abstract]] type which extends [[Block][Block]] -- All turrets extend from [[Turret]], which holds all the common fields.
+    [[Abstract][Abstract]] type which extends [[Block][Block]]
+
+    The purpose of a turret type is to be a ~Block~ that shoots bullets. ~Turret~ is the base type for all turrets, it's /abstract/ meaning it shouldn't be used directly, but everything which extends it will get it's fields.
 
     | field         | type    |    default | notes      |
     |---------------+---------+------------+------------|
     |               |         |            | <10>       |
-    | heatColor     | [[Color][Color]]   | turretHeat |            |
-    | shootEffect   | [[Effect][Effect]]  |       none |            |
-    | smokeEffect   | [[Effect][Effect]]  |       none |            |
-    | ammoUseEffect | [[Effect][Effect]]  |       none |            |
-    | shootSound    | [[Sound][Sound]]   |      shoot |            |
-    | ammoPerShot   | int     |          1 |            |
-    | ammoEjectBack | float   |          1 |            |
-    | range         | float   |         50 |            |
-    | reload        | float   |         10 |            |
-    | inaccuracy    | float   |          0 |            |
-    | shots         | int     |          1 |            |
-    | spread        | float   |          4 |            |
-    | recoil        | float   |          1 |            |
-    | restitution   | float   |       0.02 |            |
-    | cooldown      | float   |       0.02 |            |
-    | rotatespeed   | float   |          5 | in degrees per tick |
-    | shootCone     | float   |          8 |            |
-    | shootShake    | float   |          0 |            |
-    | xRand         | float   |          0 |            |
-    | targetAir     | boolean |       true |            |
-    | targetGround  | boolean |       true |            |
+    | heatColor     | [[Color][Color]]   | turretHeat | The color of the ~-heat~ sprite. |
+    | shootEffect   | [[Effect][Effect]]  |       none | An effect fired on tile in the direction the turret is aiming when it shoots. |
+    | smokeEffect   | [[Effect][Effect]]  |       none | An effect fired on tile in the direction the turret is aiming when it shoots. |
+    | ammoUseEffect | [[Effect][Effect]]  |       none | An effect fired on the tile, when ammo is consumed. |
+    | shootSound    | [[Sound][Sound]]   |      shoot | A sound created from the tile when a bullet is fired. |
+    | ammoPerShot   | int     |          1 | The amount of ammo used per shot. |
+    | ammoEjectBack | float   |          1 | The eject angle of shells in radians. |
+    | range         | float   |         50 | The range at which the turret can target enemies. |
+    | reload        | float   |         10 | The amount of ticks it takes to reload. |
+    | inaccuracy    | float   |          0 | The degrees of inaccuracy. |
+    | shots         | int     |          1 | The numbers of bullets fired at once. |
+    | spread        | float   |          4 | The angular spread of multiple bullets when shot. |
+    | recoil        | float   |          1 | The recoil of the turret when fired. |
+    | restitution   | float   |       0.02 | The restitution from recoil after shooting. /(time taken to recenter)/ |
+    | cooldown      | float   |       0.02 | The amount of time it takes for the ~-heat~ sprite to become transparent. |
+    | rotatespeed   | float   |          5 | The degrees per tick at which the turret can rotate. |
+    | shootCone     | float   |          8 | The angle used to determine whether the turret should be shooting. |
+    | shootShake    | float   |          0 | The amount of camera shake. |
+    | xRand         | float   |          0 | The random ~x~ axis multiplier, to make bullets appear to come out of multiple places. Used in Swarmer for example. |
+    | targetAir     | boolean |       true | Whether this target can target air units. |
+    | targetGround  | boolean |       true | Whether this turret can target ground units or blocks. |
 
     Defaults:
 
@@ -970,27 +1049,41 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     * doesn't take hot fluid
 
 *** ItemTurret
+    :PROPERTIES:
+    :DESCRIPTION: use item as ammo
+    :END:
 
-    Extends [[CooledTurret][CooledTurret]] -- Turrets that uses items as ammo. The ~ammo~ field is simple an object of items names, paired with an [[BulletType]].
+    Extends [[CooledTurret][CooledTurret]]
 
-    #+BEGIN_SRC json
+    This type is a turret that uses items as ammo. The key to the ~ammo~ field should be the name of an [[Item]], while the value may be any [[Built-in Bullets]] or a [[BulletType]] itself.
+
+    #+BEGIN_SRC fundamental
     {
-        "ammo": {
-            "copper": "standardCopper",
-            "metaglass": {
-                "type": "MissileBulletType",
-                "damage": 2
+        type: ItemTurret
+        ammo: {
+            copper: standardCopper
+
+            metaglass: {
+                type: MissileBulletType
+                damage: 2
+            }
+
+            surge-alloy: {
+                type: LiquidBulletType
+                damage: 3
             }
         }
     }
     #+END_SRC
 
-    Here we're using ~copper~ to shoot ~standardCopper~ (built-in bullet) and ~metalglass~ to shoot a custom bullet type.
+    Here we're using ~copper~ to shoot ~standardCopper~ (built-in bullet) and ~metalglass~ to shoot a custom bullet of type `MissileBulletType`.
 
-    | field   | type                 | default |
-    |---------+----------------------+---------|
-    | maxAmmo | int                  |      30 |
-    | ammo    | { [[Item][Item]]: [[BulletType][BulletType]] } |         |
+    | field   | type                   | default | notes      |
+    |---------+------------------------+---------+------------|
+    |         |                        |         | <10>       |
+    | maxAmmo | int                    |      30 |            |
+    | ammo    | { String: [[BulletType][BulletType]] } |         | String is the name of an [[Item]], which will be used to select the type of bullet which will be shot. |
+
 
     Defaults:
 
@@ -998,8 +1091,50 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     |----------+---------|
     | hasItems | true    |
 
+*** LiquidTurret
+    :PROPERTIES:
+    :DESCRIPTION: use liquid as ammo
+    :END:
+
+    Extends [[Turret]]
+
+    This type is just a turret that uses liquid as ammo. The key to ~ammo~ must be the name of a [[Liquid]], while the value may either be the name of any [[Built-in Bullets]] or a [[BulletType]] itself.
+
+    For example you could do something like this:
+
+    #+BEGIN_SRC fundamental
+    {
+        type: LiquidTurret
+        ammo: {
+            water: {
+                type: MissileBulletType
+                damage: 9000
+            }
+
+            slag: {
+                type: LiquidBulletType
+                damage: 0
+            }
+        }
+    }
+
+    #+END_SRC
+
+
+    | fields | type                   | notes                                     |
+    |--------+------------------------+-------------------------------------------|
+    | ammo   | { String: [[BulletType]] } | object with [[Liquid]] names to bullet types. |
+
+    Defaults:
+    | fields      | default |
+    |-------------+---------|
+    | hasLiquids  | true    |
+    | activeSound | spray   |
+
 *** DoubleTurret
-    Extends [[ItemTurret][ItemTurret]] -- Turret that shoots from two side by side barrels.
+    Extends [[ItemTurret][ItemTurret]]
+
+    ItemTurret that shoots from two side-by-side barrels.
 
     | field     | type  | default |
     |-----------+-------+---------|
@@ -1026,10 +1161,10 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 *** PowerTurret
     Extends [[CooledTurret][CooledTurret]] -- Turret which uses power has ammo to shoot.
 
-    | field     | type       | default |
-    |-----------+------------+---------|
-    | shootType | [[BulletType][BulletType]] |         |
-    | powerUse  | float      |       1 |
+    | field     | type       | default | notes        |
+    |-----------+------------+---------+--------------|
+    | shootType | [[BulletType][BulletType]] |         | *[required]* |
+    | powerUse  | float      |       1 |              |
 
     Defaults:
 
@@ -1067,19 +1202,6 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     Doesn't update shoot if:
     * liquid temperature greater or equal to ~0.5~
     * liquid flammability greater then ~0.1~
-
-*** LiquidTurret
-    Extends [[Turret]]
-
-    | fields | type                   | notes                                     |
-    |--------+------------------------+-------------------------------------------|
-    | ammo   | { String: [[BulletType]] } | object with [[Liquid]] names to bullet types. |
-
-    Defaults:
-    | fields      | default |
-    |-------------+---------|
-    | hasLiquids  | true    |
-    | activeSound | spray   |
 ** Distribution
    :PROPERTIES:
    :DESCRIPTION: blocks to move items around
@@ -1284,8 +1406,12 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     | group    | liquids |
     | floating | true    |
 
-*** Conduit
+*** NEW Conduit
     Extends [[LiquidBlock][LiquidBlock]]
+
+    | field          | type | default | notes             |
+    |----------------+------+---------+-------------------|
+    | leakResistance |      |         | *[new v99 (268)]* |
 
     Defaults:
 
@@ -1295,8 +1421,30 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     | solid    | false   |
     | floating | true    |
 
-    Sprite lookup name /(where ~i~ can be anything from 0-6)/:
-    * ~<name>-top-<i>~
+    Sprites:
+    * ~<name>-top-<0..6>~
+
+*** NEW ArmoredConduit
+    *[new type v99 (268)]* -- Extends [[Conduit]]
+
+    Defaults:
+    | field          | default |
+    |----------------+---------|
+    | leakResistance | 10      |
+
+    Sprites:
+    * ~<name>-cap~
+
+*** NEW LiquidOverflowGate
+    *[new type v99 (268)]* -- Extends [[LiquidBlock]]
+
+    Defaults:
+    | field  | default |
+    |--------+---------|
+    | rotate | true    |
+
+    Sprites:
+    * ~<name>-top~
 
 *** LiquidRouter
     Extends [[LiquidBlock][LiquidBlock]]
@@ -1407,28 +1555,32 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
      | generateEffect | [[Effect][Effect]] | none    |            |
 
 **** ItemLiquidGenerator
-     Extends [[PowerGenerator][PowerGenerator]] -- Base power generation block which can use items, liquids or both as input sources for power production. Liquids will take priority over items.
+     Extends [[PowerGenerator][PowerGenerator]] -- Base of power generation blocks.
 
-    | field               | type    | default       | notes      |
-    |---------------------+---------+---------------+------------|
-    |                     |         |               | <10>       |
-    | minItemEfficiency   | float   | 0.2           |            |
-    | itemDuration        | float   | 70            | number of ticks during which a single item will produce power. |
-    | minLiquidEfficiency | float   | 0.2           |            |
-    | maxLiquidGenerate   | float   | 0.4           | Maximum liquid used per frame. |
-    | generateEffect      | [[Effect][Effect]]  | generatespark |            |
-    | explodeEffect       | [[Effect][Effect]]  | generatespark |            |
-    | heatColor           | [[Color][Color]]   | ff9b59        |            |
-    | randomlyExplode     | boolean | true          |            |
-    | defaults            | boolean | false         |            |
+     Notes:
+     * item efficiency is *always* 0.0
+     * liquid efficiency is *always* 0.0
 
-    Notes:
-    * item efficiency is always 0.0
-    * liquid efficiency is always 0.0
+     /(this type doesn't produce power)/
 
-    Extra sprites:
-    * ~<name>-top~ if ~hasItems~ is ~true~
-    * ~<name>-liquid~
+
+     | field               | type    | default       | notes      |
+     |---------------------+---------+---------------+------------|
+     |                     |         |               | <10>       |
+     | minItemEfficiency   | float   | 0.2           |            |
+     | itemDuration        | float   | 70            | number of ticks during which a single item will produce power. |
+     | minLiquidEfficiency | float   | 0.2           |            |
+     | maxLiquidGenerate   | float   | 0.4           | Maximum liquid used per frame. |
+     | generateEffect      | [[Effect][Effect]]  | generatespark |            |
+     | explodeEffect       | [[Effect][Effect]]  | generatespark |            |
+     | heatColor           | [[Color][Color]]   | ff9b59        |            |
+     | randomlyExplode     | boolean | true          |            |
+     | defaults            | boolean | false         |            |
+
+
+     Extra sprites:
+     * ~<name>-top~ if ~hasItems~ is ~true~
+     * ~<name>-liquid~
 
 **** SingleTypeGenerator
      Extends [[ItemLiquidGenerator][ItemLiquidGenerator]] -- Generates power from an item.
@@ -1449,12 +1601,13 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
      Notes:
      * Lower targetting priority then other generators.
 
-**** NuclearReactor
+**** NEW NuclearReactor
      Extends [[PowerGenerator][PowerGenerator]] -- Generates power relative to how many items are in storage, and explodes if it runs out of coolant.
 
      | field           | type  |  default | notes      |
      |-----------------+-------+----------+------------|
      |                 |       |          | <10>       |
+     | lightColor      | [[Color]] |   7f19ea | *[new v99 (268)]* |
      | coolColor       | [[Color][Color]] | ffffff00 |            |
      | hotColor        | [[Color][Color]] | ff9575a3 |            |
      | itemDuration    | float |      120 | time to consume 1 fuel |
@@ -1505,6 +1658,37 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
      Sprites:
      * ~<name>-bottom~ bottom region
      * ~<name>-plasma-<i>~ plasma regions, where ~i~ is ~0~ to ~plasmas - 1~.
+*** PowerDiode
+    Extends [[Block]]
+
+    Defaults:
+    | field     | default |
+    |-----------+---------|
+    | rotate    | true    |
+    | update    | true    |
+    | solid     | true    |
+    | insulated | true    |
+
+    Sprites:
+    - ~<name>-arrow~
+*** NEW LightBlock
+    *[new type v99 (268)]* -- Extends [[Block]]
+
+    | field      | type  | default |
+    |------------+-------+---------|
+    | brightness | float |     0.9 |
+    | radius     | float |     200 |
+
+    Defaults:
+    | field        | default |
+    |--------------+---------|
+    | hasPower     | true    |
+    | update       | true    |
+    | configurable | true    |
+
+    Sprites:
+    * ~<name>-top~
+
 ** Production
    :PROPERTIES:
    :DESCRIPTION: blocks to extract materials from the environment
@@ -1849,7 +2033,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * ~spores~
    * ~water~
    * ~oil~
-** BuildVisibility
+** NEW BuildVisibility
 
    Options for build visibility include:
    * ~hidden~
@@ -1857,6 +2041,8 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * ~debugOnly~
    * ~sandboxOnly~
    * ~campaignOnly~
+   * ~lightingOnly~ *[new v99 (268)]*
+
 ** BlockGroup
 
    Groups for blocks to build on top of each other:
@@ -1868,7 +2054,6 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * ~liquids~
    * ~drills~
 
-
 * Type
   :PROPERTIES:
   :DESCRIPTION: the building blocks of the universe.
@@ -1878,27 +2063,39 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 
    Extends [[Content][Content]] -- It's the object that can ride conveyors, sorters and be stored in containers, and is commonly used in crafters.
 
-   | field          | type     | default | notes      |
-   |----------------+----------+---------+------------|
-   |                |          |         | <10>       |
-   | color          | [[Color][Color]]    |         | hex string of color |
-   | type           | [[Item][ItemType]] |         | resource or material; used for tabs and core acceptance |
-   | explosiveness  | float    | ~0~     | how explosive this item is. |
-   | flammability   | float    | ~0~     | flammability above 0.3 makes this eleigible for item burners. |
-   | radioactivity  | float    |         | how radioactive this item is. 0=none, 1=chernobyl ground zero |
-   | hardness       | int      | ~0~     | drill hardness of the item |
-   | cost           | float    | ~1~     | used for calculating place times; 1 cost = 1 tick added to build time |
-   | alwaysUnlocked | boolean  | ~false~ | If true, item is always unlocked. |
+   | field          | type      | default | notes      |
+   |----------------+-----------+---------+------------|
+   |                |           |         | <10>       |
+   | color          | [[Color][Color]]     |         | *[required]* hex string of color  |
+   | type           | [[ItemType][ItemTypes]] |         | used for tabs and core acceptance |
+   | explosiveness  | float     |       0 | how explosive this item is. |
+   | flammability   | float     |       0 | flammability above 0.3 makes this eleigible for item burners. |
+   | radioactivity  | float     |         | how radioactive this item is. 0=none, 1=chernobyl ground zero |
+   | hardness       | int       |       0 | drill hardness of the item |
+   | cost           | float     |       1 | used for calculating place times; 1 cost = 1 tick added to build time |
+   | alwaysUnlocked | boolean   |   false | If true, item is always unlocked. |
+
+   <<ItemType>> *ItemTypes:*
+   * ~resource~ can go in the core;
+   * ~material~ can't go in the core.
+
 ** ItemStack
+   :PROPERTIES:
+   :DESCRIPTION: amount of item types
+   :END:
 
-   This type is used to tell blocks to calculate their output/input rates. An item stack is simply an array of objects with the following fields:
+   This type is used when you need to describe an amount of items to the game for what ever reason.
 
-   | field  | type | default |
-   |--------+------+---------|
-   | amount | int  |       1 |
-   | item   | [[Item][Item]] |         |
+   *[new [[968f3ace3]]]:* An ~ItemStack~ can be a string with the following format ~"item/amount"~.
 
-   For example:
+   An ~ItemStack~ can be an object with the following fields:
+
+   | field  | type   | notes                    |
+   |--------+--------+--------------------------|
+   | item   | string | The name of an [[Item]].     |
+   | amount | int    | The amount of said item. |
+
+   Often you'll see ~[ ItemStack ]~, which stands for an array of ~ItemStack~, for example:
 
    #+BEGIN_SRC json
    [
@@ -1907,15 +2104,19 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    ]
    #+END_SRC
 
-** Liquid
 
-   Extends [[Content]] -- Object that defines the properties of a liquid.
+** NEW Liquid
+
+   Extends [[Content]]
+
+   Type which defines the properties of a liquid. Like [[Item]] this will go into it's own subdirectory ~content/liquids/liquid-name.json~, and from it's stem name you can reuse it from your other mod content.
 
    | field         | type         | default | notes      |
    |---------------+--------------+---------+------------|
    |               |              |     <r> | <10>       |
    | color         | [[Color][Color]]        |         | *[required]* color of liquid |
    | barColor      | [[Color]]        |         | /[optional]/ color used in bars. |
+   | lightColor    | [[Color]]        |         | *[new v99 (268)]* Color used to draw lights. Note that the alpha channel is used to dictate brightness. |
    | flammability  | float        |         | 0 to 1; 0 is completely inflammable, above that may catch fire when exposed to heat. |
    | temperature   | float        |     0.5 | 0.5 is 'room' temperature, 0 is very cold, 1 is molten hot |
    | heatCapacity  | float        |     0.5 | used in cooling; water is 0.4 |
@@ -1923,22 +2124,32 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | explosiveness | float        |         | explosiveness when heated; 0 is nothing, 1 is nuke |
    | effect        | [[StatusEffect][StatusEffect]] |    none | the associated status effect. |
 
+   Sprites:
+   * ~<name>~, the sprite used when displaying the liquid from a menu.
+
 ** LiquidStack
+   :PROPERTIES:
+   :DESCRIPTION: amount of liquid types
+   :END:
 
-    This type is used by blocks, to consume a liquid, just like [[ItemStack][ItemStack]] except that it can only contain 1 liquid.
+   This type is used when you need to describe an amount of liquid to the game for what ever reason.
 
-    | field  | type   |
-    |--------+--------|
-    | liquid | [[Liquid][Liquid]] |
-    | amount | float  |
+   *[new [[968f3ace3]]]:* A ~LiquidStack~ can be a string with the following format ~"liquid/amount"~.
+
+    A ~LiquidStack~ can be an object with the following fields:
+
+    | field  | type   | notes                      |
+    |--------+--------+----------------------------|
+    | liquid | string | The name of a [[Liquid]].      |
+    | amount | float  | The amount of said liquid. |
 
     For example:
 
     #+BEGIN_SRC json
- {
-    "liquid": "water",
-    "amount": 0.5
- }
+    {
+        "liquid": "water",
+        "amount": 0.5
+    }
     #+END_SRC
 
 ** Weapon
@@ -1948,7 +2159,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | field          | type       | default | notes      |
    |----------------+------------+---------+------------|
    |                |            |         | <10>       |
-   | name           | string     |         |            |
+   | name           | String     |         | used to fetch the sprite of the weapon |
    | nimPlayerDist  | float      |      20 | minimum cursor distance from player, fixes 'cross-eyed' shooting. |
    | sequenceNum    | int        |       0 |            |
    | bullet         | [[BulletType][BulletType]] |         | bullet shot |
@@ -1967,6 +2178,10 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | shotDelay      | float      |       0 | delay in ticks between shots |
    | ignoreRotation | boolean    |   false | whether shooter rotation is ignored when shooting. |
    | shootSound     | [[Sound][Sound]]      |     pew |            |
+
+   Sprite:
+   * ~<name>~ or ~<name>-equip~
+
 ** UnitType
 
    Extends [[Content]]
@@ -1997,6 +2212,11 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | weaponOffsetY   | float    |         |
    | engineOffset    | float    |         |
    | engineSize      | float    |         |
+
+   Sprites:
+   * ~<name>~
+   * ~<name>-leg~
+   * ~<name>-base~
 
 ** Mech
 
@@ -2058,9 +2278,9 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | field                | type          | default     | notes      |
    |----------------------+---------------+-------------+------------|
    |                      |               |             | <10>       |
-   | baseLaunchCost       | [[ItemStack]]     |             |            |
-   | launchCost           | [[ItemStack]]     |             |            |
-   | startingItems        | [[ItemStack]]     |             | Items you start with on the map. |
+   | baseLaunchCost       | [ [[ItemStack]] ] |             |            |
+   | launchCost           | [ [[ItemStack]] ] |             |            |
+   | startingItems        | [ [[ItemStack]] ] |             | Items you start with on the map. |
    | conditionWave        | int           | MAX_VALUE   |            |
    | alwaysUnlocked       | boolean       | false       | Whether this map is always unlocked |
    | launchPeriod         | int           | 10          | Rate of waves at which the core may be launched. |
@@ -2068,7 +2288,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | resources            | [ String ]    |             | Array of [[Item][item]] names. |
    | requirements         | [ [[Objective]] ] |             | An array of requirements to unlock configuration. |
    | configureObjective   | [[Objective]]     | ZoneWave 15 |            |
-   | defaultStartingItems | [[ItemStack]]     |             |            |
+   | defaultStartingItems | [ [[ItemStack]] ] |             |            |
 
    Sprites:
    * ~zone-<name>~ preview
@@ -2188,7 +2408,6 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
      |--------+-------|
      | damage |   0.1 |
 
-
 * Graphics
   :PROPERTIES:
   :DESCRIPTION: the rendering specific stuff.
@@ -2213,14 +2432,52 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * ~00ffff~ is cyan,
    * /ect../
 
-
 * Entities
   :PROPERTIES:
   :DESCRIPTION: the things that exists as themselves.
   :END:
 ** BulletType
 
-   [[Abstract][Abstract]] type which extends [[Content][Content]] -- BulletType can either be an object or a string, where a string would be reusing a built-in one, and an object would be making a custom one. There are two major categories of bullet types: [[BasicBulletType]] and other special bullets.
+   [[Abstract][Abstract]] type which extends [[Content][Content]]
+
+   BulletType can either be an object ~{}~ or a ~"string"~, where a string would be reusing [[Built-in Bullets]] and an object would be making a custom one.
+
+   There are two major categories of bullet types:
+   * [[BasicBulletType]] and,
+   * other special bullets.
+
+   Here's an example of a custom bullet:
+
+   #+BEGIN_SRC json
+   {
+       "type": "MissileBulletType",
+       "lifetime": 1000,
+       "speed": 2,
+       "splashDamageRadius": 2,
+       "splashDamage": 9,
+       "frontColor": "ffff00",
+       "backColor": "00ffff",
+       "homingPower": 1,
+       "homingRange": 20,
+       "fragBullets": 3,
+       "fragBullet": {
+           "type": "LiquidBulletType"
+           "liquid": "oil",
+           "lifetime": 2,
+           "speed": 1,
+           "fragBullets": 2,
+           "fragBullet": {
+               "type": "LiquidBulletType"
+               "liquid": "slag",
+               "lifetime": 1,
+               "speed": 2,
+               "damage": 1,
+           }
+       }
+   }
+   #+END_SRC
+
+   [[file:img/green-cyan-oil-slag-missiles.png]]
 
    | field              | type         | default | notes      |
    |--------------------+--------------+---------+------------|
@@ -2276,12 +2533,8 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 
     #+BEGIN_SRC json
     {
-        "ammo": {
-            "copper": {
-                "type": "BasicBulletType",
-                "bulletSprite": "test-mod-router"
-            }
-        }
+        "type": "BasicBulletType",
+        "bulletSprite": "test-mod-router"
     }
     #+END_SRC
 
@@ -2506,7 +2759,6 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * ~base~
    * ~turret~
 
-
 * Objective
   :PROPERTIES:
   :DESCRIPTION: types to set game objectives
@@ -2536,6 +2788,22 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
   :PROPERTIES:
   :DESCRIPTION: ...
   :END:
+
+** Change Log
+   :PROPERTIES:
+   :DESCRIPTION: log of changes
+   :END:
+   This is a log of changes done on the Mindustry Master branch. Each section is separated by tags, for example [[v100]] and then subsectioned into commit hash, for example [[968f3ace3]].
+
+*** v100
+**** 968f3ace3
+     :PROPERTIES:
+     :DESCRIPTION: better mod parsing
+     :END:
+     * ~"liquid/amount"~ can now be used as a string to do the same thing as ~{ "liquid": "xxxx", "amount": xx }~ where a field type is [[LiquidStack]];
+     * ~"item/amount"~ can now be used as a string to do the same thing as ~{ "item": "xxxx", "amount": xx }~ where a field type is [[ItemStack]];
+     * ~mod.json~ now supports hjson;
+     * ~mod.js~ can be used instead of ~mod.json~.
 
 ** Mindustry Source Structure
 

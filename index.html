@@ -377,7 +377,7 @@ body
 
 <body lang="en">
 <h1 class="settitle" align="center">Mindustry Modding Guide</h1>
-<p>Modding documentation for Mindustry v99 (133)
+<p>Modding documentation for Mindustry v100 (40)
 </p>
 
 <a name="SEC_Contents"></a>
@@ -392,17 +392,18 @@ body
     <li><a name="toc-mod_002ejson" href="#modjson">1.2 <code>mod.json</code></a></li>
     <li><a name="toc-Content-1" href="#Content">1.3 Content</a></li>
     <li><a name="toc-Types-1" href="#Types">1.4 Types</a></li>
-    <li><a name="toc-Sprites-1" href="#Sprites">1.5 Sprites</a></li>
-    <li><a name="toc-Sound-1" href="#Sound">1.6 Sound</a></li>
-    <li><a name="toc-Dependencies-1" href="#Dependencies">1.7 Dependencies</a></li>
-    <li><a name="toc-Bundles-1" href="#Bundles">1.8 Bundles</a></li>
-    <li><a name="toc-Schematic-1" href="#Schematic">1.9 Schematic</a></li>
-    <li><a name="toc-Mindustry-JSON-1" href="#Mindustry-JSON">1.10 Mindustry JSON</a></li>
-    <li><a name="toc-FAQ-1" href="#FAQ">1.11 FAQ</a></li>
+    <li><a name="toc-Tech-Tree-1" href="#Tech-Tree">1.5 Tech Tree</a></li>
+    <li><a name="toc-Sprites-1" href="#Sprites">1.6 Sprites</a></li>
+    <li><a name="toc-Sound-1" href="#Sound">1.7 Sound</a></li>
+    <li><a name="toc-Dependencies-1" href="#Dependencies">1.8 Dependencies</a></li>
+    <li><a name="toc-Bundles-1" href="#Bundles">1.9 Bundles</a></li>
+    <li><a name="toc-Hjson-1" href="#Hjson">1.10 Hjson</a></li>
+    <li><a name="toc-Schematic-1" href="#Schematic">1.11 Schematic</a></li>
+    <li><a name="toc-FAQ-1" href="#FAQ">1.12 FAQ</a></li>
   </ul></li>
   <li><a name="toc-World-1" href="#World">2 World</a>
   <ul class="no-bullet">
-    <li><a name="toc-Block-1" href="#Block">2.1 Block</a></li>
+    <li><a name="toc-NEW-Block" href="#Block">2.1 <strong>NEW</strong> Block</a></li>
     <li><a name="toc-Consumers-1" href="#Consumers">2.2 Consumers</a></li>
     <li><a name="toc-Consume-1" href="#Consume">2.3 Consume</a></li>
     <li><a name="toc-BlockStorage-1" href="#BlockStorage">2.4 BlockStorage</a></li>
@@ -451,13 +452,13 @@ body
       <li><a name="toc-Turret-1" href="#Turret">2.10.1 Turret</a></li>
       <li><a name="toc-CooledTurret-1" href="#CooledTurret">2.10.2 CooledTurret</a></li>
       <li><a name="toc-ItemTurret-1" href="#ItemTurret">2.10.3 ItemTurret</a></li>
-      <li><a name="toc-DoubleTurret-1" href="#DoubleTurret">2.10.4 DoubleTurret</a></li>
-      <li><a name="toc-ArtilleryTurret-1" href="#ArtilleryTurret">2.10.5 ArtilleryTurret</a></li>
-      <li><a name="toc-BurstTurret-1" href="#BurstTurret">2.10.6 BurstTurret</a></li>
-      <li><a name="toc-PowerTurret-1" href="#PowerTurret">2.10.7 PowerTurret</a></li>
-      <li><a name="toc-ChargeTurret-1" href="#ChargeTurret">2.10.8 ChargeTurret</a></li>
-      <li><a name="toc-LaserTurret-1" href="#LaserTurret">2.10.9 LaserTurret</a></li>
-      <li><a name="toc-LiquidTurret-1" href="#LiquidTurret">2.10.10 LiquidTurret</a></li>
+      <li><a name="toc-LiquidTurret-1" href="#LiquidTurret">2.10.4 LiquidTurret</a></li>
+      <li><a name="toc-DoubleTurret-1" href="#DoubleTurret">2.10.5 DoubleTurret</a></li>
+      <li><a name="toc-ArtilleryTurret-1" href="#ArtilleryTurret">2.10.6 ArtilleryTurret</a></li>
+      <li><a name="toc-BurstTurret-1" href="#BurstTurret">2.10.7 BurstTurret</a></li>
+      <li><a name="toc-PowerTurret-1" href="#PowerTurret">2.10.8 PowerTurret</a></li>
+      <li><a name="toc-ChargeTurret-1" href="#ChargeTurret">2.10.9 ChargeTurret</a></li>
+      <li><a name="toc-LaserTurret-1" href="#LaserTurret">2.10.10 LaserTurret</a></li>
     </ul></li>
     <li><a name="toc-Distribution-1" href="#Distribution">2.11 Distribution</a>
     <ul class="no-bullet">
@@ -475,12 +476,14 @@ body
     <ul class="no-bullet">
       <li><a name="toc-LiquidBlock-1" href="#LiquidBlock">2.12.1 LiquidBlock</a></li>
       <li><a name="toc-Pump-1" href="#Pump">2.12.2 Pump</a></li>
-      <li><a name="toc-Conduit-1" href="#Conduit">2.12.3 Conduit</a></li>
-      <li><a name="toc-LiquidRouter-1" href="#LiquidRouter">2.12.4 LiquidRouter</a></li>
-      <li><a name="toc-LiquidTank-1" href="#LiquidTank">2.12.5 LiquidTank</a></li>
-      <li><a name="toc-LiquidJunction-1" href="#LiquidJunction">2.12.6 LiquidJunction</a></li>
-      <li><a name="toc-LiquidBridge-1" href="#LiquidBridge">2.12.7 LiquidBridge</a></li>
-      <li><a name="toc-LiquidExtendingBridge-1" href="#LiquidExtendingBridge">2.12.8 LiquidExtendingBridge</a></li>
+      <li><a name="toc-NEW-Conduit" href="#Conduit">2.12.3 <strong>NEW</strong> Conduit</a></li>
+      <li><a name="toc-NEW-ArmoredConduit" href="#ArmoredConduit">2.12.4 <strong>NEW</strong> ArmoredConduit</a></li>
+      <li><a name="toc-NEW-LiquidOverflowGate" href="#LiquidOverflowGate">2.12.5 <strong>NEW</strong> LiquidOverflowGate</a></li>
+      <li><a name="toc-LiquidRouter-1" href="#LiquidRouter">2.12.6 LiquidRouter</a></li>
+      <li><a name="toc-LiquidTank-1" href="#LiquidTank">2.12.7 LiquidTank</a></li>
+      <li><a name="toc-LiquidJunction-1" href="#LiquidJunction">2.12.8 LiquidJunction</a></li>
+      <li><a name="toc-LiquidBridge-1" href="#LiquidBridge">2.12.9 LiquidBridge</a></li>
+      <li><a name="toc-LiquidExtendingBridge-1" href="#LiquidExtendingBridge">2.12.10 LiquidExtendingBridge</a></li>
     </ul></li>
     <li><a name="toc-Power-1" href="#Power">2.13 Power</a>
     <ul class="no-bullet">
@@ -490,15 +493,17 @@ body
       <li><a name="toc-Battery-1" href="#Battery">2.13.4 Battery</a></li>
       <li><a name="toc-PowerGenerator-1" href="#PowerGenerator">2.13.5 PowerGenerator</a>
       <ul class="no-bullet">
-        <li><a name="toc-ThermalGenerator-1" href="#ThermalGenerator">ThermalGenerator</a></li>
-        <li><a name="toc-ItemLiquidGenerator-1" href="#ItemLiquidGenerator">ItemLiquidGenerator</a></li>
-        <li><a name="toc-SingleTypeGenerator-1" href="#SingleTypeGenerator">SingleTypeGenerator</a></li>
-        <li><a name="toc-BurnerGenerator-1" href="#BurnerGenerator">BurnerGenerator</a></li>
-        <li><a name="toc-DecayGenerator-1" href="#DecayGenerator">DecayGenerator</a></li>
-        <li><a name="toc-SolarGenerator-1" href="#SolarGenerator">SolarGenerator</a></li>
-        <li><a name="toc-NuclearReactor-1" href="#NuclearReactor">NuclearReactor</a></li>
-        <li><a name="toc-ImpactReactor-1" href="#ImpactReactor">ImpactReactor</a></li>
+        <li><a name="toc-ThermalGenerator-1" href="#ThermalGenerator">2.13.5.1 ThermalGenerator</a></li>
+        <li><a name="toc-ItemLiquidGenerator-1" href="#ItemLiquidGenerator">2.13.5.2 ItemLiquidGenerator</a></li>
+        <li><a name="toc-SingleTypeGenerator-1" href="#SingleTypeGenerator">2.13.5.3 SingleTypeGenerator</a></li>
+        <li><a name="toc-BurnerGenerator-1" href="#BurnerGenerator">2.13.5.4 BurnerGenerator</a></li>
+        <li><a name="toc-DecayGenerator-1" href="#DecayGenerator">2.13.5.5 DecayGenerator</a></li>
+        <li><a name="toc-SolarGenerator-1" href="#SolarGenerator">2.13.5.6 SolarGenerator</a></li>
+        <li><a name="toc-NEW-NuclearReactor" href="#NuclearReactor">2.13.5.7 <strong>NEW</strong> NuclearReactor</a></li>
+        <li><a name="toc-ImpactReactor-1" href="#ImpactReactor">2.13.5.8 ImpactReactor</a></li>
       </ul></li>
+      <li><a name="toc-PowerDiode-1" href="#PowerDiode">2.13.6 PowerDiode</a></li>
+      <li><a name="toc-NEW-LightBlock" href="#LightBlock">2.13.7 <strong>NEW</strong> LightBlock</a></li>
     </ul></li>
     <li><a name="toc-Production-1" href="#Production">2.14 Production</a>
     <ul class="no-bullet">
@@ -525,14 +530,14 @@ body
     </ul></li>
     <li><a name="toc-Attributes-1" href="#Attributes">2.17 Attributes</a></li>
     <li><a name="toc-Attribute-1" href="#Attribute">2.18 Attribute</a></li>
-    <li><a name="toc-BuildVisibility-1" href="#BuildVisibility">2.19 BuildVisibility</a></li>
+    <li><a name="toc-NEW-BuildVisibility" href="#BuildVisibility">2.19 <strong>NEW</strong> BuildVisibility</a></li>
     <li><a name="toc-BlockGroup-1" href="#BlockGroup">2.20 BlockGroup</a></li>
   </ul></li>
   <li><a name="toc-Type-1" href="#Type">3 Type</a>
   <ul class="no-bullet">
     <li><a name="toc-Item-1" href="#Item">3.1 Item</a></li>
     <li><a name="toc-ItemStack-1" href="#ItemStack">3.2 ItemStack</a></li>
-    <li><a name="toc-Liquid-1" href="#Liquid">3.3 Liquid</a></li>
+    <li><a name="toc-NEW-Liquid" href="#Liquid">3.3 <strong>NEW</strong> Liquid</a></li>
     <li><a name="toc-LiquidStack-1" href="#LiquidStack">3.4 LiquidStack</a></li>
     <li><a name="toc-Weapon-1" href="#Weapon">3.5 Weapon</a></li>
     <li><a name="toc-UnitType-1" href="#UnitType">3.6 UnitType</a></li>
@@ -552,10 +557,10 @@ body
     <ul class="no-bullet">
       <li><a name="toc-BasicBulletType-1" href="#BasicBulletType">5.1.1 BasicBulletType</a>
       <ul class="no-bullet">
-        <li><a name="toc-ArtilleryBulletType-1" href="#ArtilleryBulletType">ArtilleryBulletType</a></li>
-        <li><a name="toc-FlakBulletType-1" href="#FlakBulletType">FlakBulletType</a></li>
-        <li><a name="toc-MissileBulletType-1" href="#MissileBulletType">MissileBulletType</a></li>
-        <li><a name="toc-BombBulletType-1" href="#BombBulletType">BombBulletType</a></li>
+        <li><a name="toc-ArtilleryBulletType-1" href="#ArtilleryBulletType">5.1.1.1 ArtilleryBulletType</a></li>
+        <li><a name="toc-FlakBulletType-1" href="#FlakBulletType">5.1.1.2 FlakBulletType</a></li>
+        <li><a name="toc-MissileBulletType-1" href="#MissileBulletType">5.1.1.3 MissileBulletType</a></li>
+        <li><a name="toc-BombBulletType-1" href="#BombBulletType">5.1.1.4 BombBulletType</a></li>
       </ul></li>
       <li><a name="toc-HealBulletType-1" href="#HealBulletType">5.1.2 HealBulletType</a></li>
       <li><a name="toc-LiquidBulletType-1" href="#LiquidBulletType">5.1.3 LiquidBulletType</a></li>
@@ -569,7 +574,14 @@ body
   <li><a name="toc-Objective-1" href="#Objective">6 Objective</a></li>
   <li><a name="toc-Other-1" href="#Other">7 Other</a>
   <ul class="no-bullet">
-    <li><a name="toc-Mindustry-Source-Structure-1" href="#Mindustry-Source-Structure">7.1 Mindustry Source Structure</a></li>
+    <li><a name="toc-Change-Log-1" href="#Change-Log">7.1 Change Log</a>
+    <ul class="no-bullet">
+      <li><a name="toc-v100-1" href="#v100">7.1.1 v100</a>
+      <ul class="no-bullet">
+        <li><a name="toc-968f3ace3-1" href="#g_t968f3ace3">7.1.1.1 968f3ace3</a></li>
+      </ul></li>
+    </ul></li>
+    <li><a name="toc-Mindustry-Source-Structure-1" href="#Mindustry-Source-Structure">7.2 Mindustry Source Structure</a></li>
   </ul></li>
 </ul>
 </div>
@@ -614,6 +626,8 @@ Overview
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Types">Types</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">what you need to know about type
 </td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Tech-Tree">Tech Tree</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">putting blocks into the tech tree
+</td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Sprites">Sprites</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">image files and how to name them
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Sound">Sound</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">sound files and where to put them
@@ -622,9 +636,9 @@ Overview
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Bundles">Bundles</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">translations and renaming
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Schematic">Schematic</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Hjson">Hjson</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">content parser syntax
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Mindustry-JSON">Mindustry JSON</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Schematic">Schematic</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#FAQ">FAQ</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">simple questions and awnsers
 </td></tr>
@@ -638,7 +652,7 @@ World
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Consume">Consume</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">a resource to consume
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#BlockStorage">BlockStorage</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">base of storage
+<tr><td align="left" valign="top">&bull; <a href="#BlockStorage">BlockStorage</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">base of itemw and liquid storage
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Environment">Environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">environmental blocks
 </td></tr>
@@ -676,13 +690,13 @@ World
 
 Environment
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Floor">Floor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Floor">Floor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">environmental floors
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#OverlayFloor">OverlayFloor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#OverlayFloor">OverlayFloor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">type of floor that is overlaid on top of Floor
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#DoubleOverlayFloor">DoubleOverlayFloor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#DoubleOverlayFloor">DoubleOverlayFloor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">type of floor that is overlaid on top of OverlayFloor
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#OreBlock">OreBlock</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#OreBlock">OreBlock</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">overlayfloor for a specific item type
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Rock">Rock</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -701,7 +715,7 @@ Crafting
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#GenericSmelter">GenericSmelter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Separator">Separator</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Separator">Separator</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">turn a liquid into many solids
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
@@ -751,11 +765,13 @@ Defense
 
 Turrets
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Turret">Turret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Turret">Turret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">base fields for all turrets
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#CooledTurret">CooledTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#ItemTurret">ItemTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#ItemTurret">ItemTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">use item as ammo
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#LiquidTurret">LiquidTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">use liquid as ammo
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#DoubleTurret">DoubleTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -768,8 +784,6 @@ Turrets
 <tr><td align="left" valign="top">&bull; <a href="#ChargeTurret">ChargeTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#LaserTurret">LaserTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
-</td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#LiquidTurret">LiquidTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
@@ -805,6 +819,10 @@ Liquid Blocks
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Conduit">Conduit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#ArmoredConduit">ArmoredConduit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#LiquidOverflowGate">LiquidOverflowGate</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#LiquidRouter">LiquidRouter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#LiquidTank">LiquidTank</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
@@ -829,6 +847,10 @@ Power
 <tr><td align="left" valign="top">&bull; <a href="#Battery">Battery</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#PowerGenerator">PowerGenerator</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">base of power generators.
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#PowerDiode">PowerDiode</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#LightBlock">LightBlock</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
 
@@ -880,11 +902,11 @@ Type
 
 </pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Item">Item</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#ItemStack">ItemStack</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#ItemStack">ItemStack</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">amount of item types
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Liquid">Liquid</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#LiquidStack">LiquidStack</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#LiquidStack">LiquidStack</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">amount of liquid types
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Weapon">Weapon</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -937,9 +959,18 @@ BulletType
 
 Other
 
-</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Mindustry-Source-Structure">Mindustry Source Structure</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#Change-Log">Change Log</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">log of changes
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Mindustry-Source-Structure">Mindustry Source Structure</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
+Change Log
+
+</pre></th></tr><tr><td align="left" valign="top">&bull; <a href="#v100">v100</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+
 
 </pre></th></tr></table>
 
@@ -967,17 +998,19 @@ Next: <a href="#World" accesskey="n" rel="next">World</a>, Previous: <a href="#T
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Types" accesskey="4">Types</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">what you need to know about type
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Sprites" accesskey="5">Sprites</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">image files and how to name them
+<tr><td align="left" valign="top">&bull; <a href="#Tech-Tree" accesskey="5">Tech Tree</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">putting blocks into the tech tree
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Sound" accesskey="6">Sound</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">sound files and where to put them
+<tr><td align="left" valign="top">&bull; <a href="#Sprites" accesskey="6">Sprites</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">image files and how to name them
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Dependencies" accesskey="7">Dependencies</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">mods extending mods
+<tr><td align="left" valign="top">&bull; <a href="#Sound" accesskey="7">Sound</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">sound files and where to put them
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Bundles" accesskey="8">Bundles</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">translations and renaming
+<tr><td align="left" valign="top">&bull; <a href="#Dependencies" accesskey="8">Dependencies</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">mods extending mods
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Schematic" accesskey="9">Schematic</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Bundles" accesskey="9">Bundles</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">translations and renaming
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Mindustry-JSON">Mindustry JSON</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Hjson">Hjson</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">content parser syntax
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Schematic">Schematic</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#FAQ">FAQ</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">simple questions and awnsers
 </td></tr>
@@ -1011,6 +1044,12 @@ Next: <a href="#modjson" accesskey="n" rel="next"><code>modjson</code></a>, Up: 
 <li> Linux: &lsquo;<samp>~/.local/share/Mindustry/mods/</samp>&rsquo;
 </li><li> Steam: &lsquo;<samp>steam/steamapps/common/Mindustry/mods/</samp>&rsquo;
 </li><li> Windows: &lsquo;<samp>%appdata%/Mindustry/mods/</samp>&rsquo;
+</li></ul>
+
+<p><strong>Note;</strong> your filenames should be lowercased and hyphen separated:
+</p><ul>
+<li> correct: <code>my-custom-block.json</code>
+</li><li> incorrect: <code>My Custom Block.json</code>
 </li></ul>
 
 <hr>
@@ -1086,7 +1125,7 @@ Next: <a href="#Types" accesskey="n" rel="next">Types</a>, Previous: <a href="#m
 <a name="Types"></a>
 <div class="header">
 <p>
-Next: <a href="#Sprites" accesskey="n" rel="next">Sprites</a>, Previous: <a href="#Content" accesskey="p" rel="prev">Content</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#Tech-Tree" accesskey="n" rel="next">Tech Tree</a>, Previous: <a href="#Content" accesskey="p" rel="prev">Content</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="Types-1"></a>
 <h3 class="section">1.4 Types</h3>
@@ -1114,13 +1153,34 @@ Next: <a href="#Sprites" accesskey="n" rel="next">Sprites</a>, Previous: <a href
 </pre></div>
 
 <hr>
+<a name="Tech-Tree"></a>
+<div class="header">
+<p>
+Next: <a href="#Sprites" accesskey="n" rel="next">Sprites</a>, Previous: <a href="#Types" accesskey="p" rel="prev">Types</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Tech-Tree-1"></a>
+<h3 class="section">1.5 Tech Tree</h3>
+
+<p>Much like <code>type</code> there exist another magical field known as <code>research</code> which can go at the root of any block object to put it in the techtree.
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;research&quot;: &quot;duo&quot;
+}
+</pre></div>
+
+<p>This would put your block after <code>duo</code> in the techtree, and to put it after your own mods block you would write your <code>&lt;block-name&gt;</code>, a mod name prefix is only required if you&rsquo;re using the content from another mod.
+</p>
+<p>Research cost will be <code>30 + requirements * 6</code>, where <code>requirements</code> is the build cost of your block. <em>(in otherwords you can&rsquo;t set <code>requirements</code> and <code>research cost</code> individually)</em>
+</p>
+<hr>
 <a name="Sprites"></a>
 <div class="header">
 <p>
-Next: <a href="#Sound" accesskey="n" rel="next">Sound</a>, Previous: <a href="#Types" accesskey="p" rel="prev">Types</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#Sound" accesskey="n" rel="next">Sound</a>, Previous: <a href="#Tech-Tree" accesskey="p" rel="prev">Tech Tree</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="Sprites-1"></a>
-<h3 class="section">1.5 Sprites</h3>
+<h3 class="section">1.6 Sprites</h3>
 
 <p>All you need to make sprites, is an image editor that supports transparency <em>(aka: not paint).</em> Block sprites should be <code>32 * size</code>, so a <code>2x2</code> block would require a <code>64x64</code> image. Images must be <code>.png</code> files with 32 bit depth.
 </p>
@@ -1144,7 +1204,7 @@ Next: <a href="#Sound" accesskey="n" rel="next">Sound</a>, Previous: <a href="#T
 Next: <a href="#Dependencies" accesskey="n" rel="next">Dependencies</a>, Previous: <a href="#Sprites" accesskey="p" rel="prev">Sprites</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="Sound-1"></a>
-<h3 class="section">1.6 Sound</h3>
+<h3 class="section">1.7 Sound</h3>
 
 <p>Custom sounds can be added through the modding system by dropping them in the <code>sounds/</code> subdirectory. It doesn&rsquo;t matter where you put them. Two formats are needed:
 </p>
@@ -1208,7 +1268,7 @@ Next: <a href="#Dependencies" accesskey="n" rel="next">Dependencies</a>, Previou
 Next: <a href="#Bundles" accesskey="n" rel="next">Bundles</a>, Previous: <a href="#Sound" accesskey="p" rel="prev">Sound</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="Dependencies-1"></a>
-<h3 class="section">1.7 Dependencies</h3>
+<h3 class="section">1.8 Dependencies</h3>
 
 <p>You can add dependencies to your mod by simple adding other mods name in your <code>mod.json</code>:
 </p>
@@ -1235,10 +1295,10 @@ Next: <a href="#Bundles" accesskey="n" rel="next">Bundles</a>, Previous: <a href
 <a name="Bundles"></a>
 <div class="header">
 <p>
-Next: <a href="#Schematic" accesskey="n" rel="next">Schematic</a>, Previous: <a href="#Dependencies" accesskey="p" rel="prev">Dependencies</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#Hjson" accesskey="n" rel="next">Hjson</a>, Previous: <a href="#Dependencies" accesskey="p" rel="prev">Dependencies</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="Bundles-1"></a>
-<h3 class="section">1.8 Bundles</h3>
+<h3 class="section">1.9 Bundles</h3>
 
 <p>An optional addition to your mod is called bundles. The main use of bundles are give translations of your content, but there&rsquo;s no reason you couldn&rsquo;t use them in English. These are plaintext files which go in the <code>bundles/</code> subdirectory, and they should be named something like <code>bundle_ru.properties</code> (for Russian).
 </p>
@@ -1306,52 +1366,70 @@ block.example-mod-silver-wall.description = Стена из серебра.
 </li></ul>
 
 <hr>
+<a name="Hjson"></a>
+<div class="header">
+<p>
+Next: <a href="#Schematic" accesskey="n" rel="next">Schematic</a>, Previous: <a href="#Bundles" accesskey="p" rel="prev">Bundles</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Hjson-1"></a>
+<h3 class="section">1.10 Hjson</h3>
+
+<p><strong>[new v99]</strong> <em>currently partially implimented, where only <code>content/</code> uses Hjson.</em>
+</p>
+<p>As of now, Mindustry doesn&rsquo;t actually use Json, <em>(but any valid JSON should work)</em> it uses a variant of Json called <a href="https://hjson.org/">Hjson</a>.
+</p>
+<div class="example">
+<pre class="example">{
+    # single line comment
+
+    // single line comment
+
+    /* multiline
+       comment */
+
+    key1: single line string
+
+    key2: '''
+          multiline
+          string
+          '''
+
+    key3: [ value 1
+            value 2
+            value 3 ]
+}
+</pre></div>
+
+<hr>
 <a name="Schematic"></a>
 <div class="header">
 <p>
-Next: <a href="#Mindustry-JSON" accesskey="n" rel="next">Mindustry JSON</a>, Previous: <a href="#Bundles" accesskey="p" rel="prev">Bundles</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#FAQ" accesskey="n" rel="next">FAQ</a>, Previous: <a href="#Hjson" accesskey="p" rel="prev">Hjson</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="Schematic-1"></a>
-<h3 class="section">1.9 Schematic</h3>
+<h3 class="section">1.11 Schematic</h3>
 
 <p>Fields that require the type <code>Schematic</code> can either take a built-in loadout <em>(see the <a href="#Zone">Zone</a> section)</em> a base64 string, or the stem name of a <code>.msch</code> file in the <code>schematics/</code> subdirectory.
 </p>
 <p><em>As of now, the only purpose of schematics is to give a zone a loadout.</em>
 </p>
 <hr>
-<a name="Mindustry-JSON"></a>
-<div class="header">
-<p>
-Next: <a href="#FAQ" accesskey="n" rel="next">FAQ</a>, Previous: <a href="#Schematic" accesskey="p" rel="prev">Schematic</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
-</div>
-<a name="Mindustry-JSON-1"></a>
-<h3 class="section">1.10 Mindustry JSON</h3>
-
-<p>Mindustry doesn&rsquo;t actually use JSON, but most valid JSON should work, and as of now here are the specific expected differences:
-</p><ul>
-<li> <code>//</code> double pounds may be used for single line comments;
-</li><li> <code>//</code> double pounds can&rsquo;t be used in strings;
-</li><li> <code>&quot;</code> quotes <code>&quot;</code> aren&rsquo;t required for strings;
-</li><li> <code>,</code> commas aren&rsquo;t required for arrays <code>[]</code> or objects <code>{}</code>;
-</li><li> <code>[ value, ]</code> commas can trail within.
-</li></ul>
-
-<hr>
 <a name="FAQ"></a>
 <div class="header">
 <p>
-Previous: <a href="#Mindustry-JSON" accesskey="p" rel="prev">Mindustry JSON</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Previous: <a href="#Schematic" accesskey="p" rel="prev">Schematic</a>, Up: <a href="#Overview" accesskey="u" rel="up">Overview</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="FAQ-1"></a>
-<h3 class="section">1.11 FAQ</h3>
+<h3 class="section">1.12 FAQ</h3>
 
 <ul>
 <li> <code>time</code> in game is calculated through <code>ticks</code>;
 </li><li> <code>ticks</code> <em>sometimes called <code>frames</code>,</em> are assumed to be 60/1 second;
 </li><li> <code>range</code> or most forms of distance is 1/10 of a tile;
 </li><li> to calculate range out of <code>lifetime</code> and <code>speed</code> you can do <code>lifetime * speed = range</code>;
-</li><li> <a name="org1e77fd3"></a><em>Abstract</em>: all you need to know about abstract types, is this is a Java specific term, which means you cannot instantiate/initialize this specific type by itself. If you do so you&rsquo;ll probably get an <em>&quot;initialization exception&quot;</em> of some kind.
-</li><li> research cost is <code>30 + requirements * 6</code>
+</li><li> <a name="org2e63ec1"></a>what is <code>abstract</code>? all you need to know about abstract types, is this is a Java specific term, which means you cannot instantiate/initialize this specific type by itself. If you do so you&rsquo;ll probably get an <em>&quot;initialization exception&quot;</em> of some kind;
+</li><li> what is a <code>NullPointerException</code>? This is an error message that indicates a field is null and shouldn&rsquo;t be null, meaning one of the required fields may be missing;
+</li><li> <a name="org9dc3930"></a>what is <code>bleeding-edge</code>? This is the developer version of Mindustry, specifically it&rsquo;s refering to the Github master branch. Changes on bleeding-edge usually make it into Mindustry in the next release.
 </li></ul>
 
 <hr>
@@ -1370,7 +1448,7 @@ Next: <a href="#Type" accesskey="n" rel="next">Type</a>, Previous: <a href="#Ove
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Consume" accesskey="3">Consume</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">a resource to consume
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#BlockStorage" accesskey="4">BlockStorage</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">base of storage
+<tr><td align="left" valign="top">&bull; <a href="#BlockStorage" accesskey="4">BlockStorage</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">base of itemw and liquid storage
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Environment" accesskey="5">Environment</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">environmental blocks
 </td></tr>
@@ -1412,10 +1490,12 @@ Next: <a href="#Type" accesskey="n" rel="next">Type</a>, Previous: <a href="#Ove
 <p>
 Next: <a href="#Consumers" accesskey="n" rel="next">Consumers</a>, Up: <a href="#World" accesskey="u" rel="up">World</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="Block-1"></a>
-<h3 class="section">2.1 Block</h3>
+<a name="NEW-Block"></a>
+<h3 class="section">2.1 <strong>NEW</strong> Block</h3>
 
 <p>Extends <a href="#BlockStorage">BlockStorage</a>
+</p>
+<p>Block is the base type of all blocks in the game. All blocks have at least one sprite, which is picked relative to the blocks name.
 </p>
 <p>Fields for all objects that are blocks.
 </p>
@@ -1442,6 +1522,7 @@ Next: <a href="#Consumers" accesskey="n" rel="next">Consumers</a>, Up: <a href="
 <tr><td>priority</td><td>TargetPriority</td><td>base</td><td>Targeting priority of this block, as seen by enemies.</td></tr>
 <tr><td>configurable</td><td>boolean</td><td></td><td>Whether the block can be tapped and selected to configure.</td></tr>
 <tr><td>consumesTap</td><td>boolean</td><td></td><td>Whether this block consumes touchDown events when tapped.</td></tr>
+<tr><td>drawLiquidLight</td><td>boolean</td><td>true</td><td><strong>[new v99 (268)]</strong> Whether to draw the glow of the liquid for this block, if it has one.</td></tr>
 <tr><td>posConfig</td><td>boolean</td><td></td><td>Whether the config is positional and needs to be shifted.</td></tr>
 <tr><td>targetable</td><td>boolean</td><td>true</td><td>Whether units target this block.</td></tr>
 <tr><td>canOverdrive</td><td>boolean</td><td>true</td><td>Whether the overdrive core has any effect on this block.</td></tr>
@@ -1453,7 +1534,7 @@ Next: <a href="#Consumers" accesskey="n" rel="next">Consumers</a>, Up: <a href="
 <tr><td>activeSoundVolume</td><td>float</td><td>0.5</td><td>Active sound base volume.</td></tr>
 <tr><td>idleSound</td><td><a href="#Sound">Sound</a></td><td>none</td><td>The sound that this block makes while idle. Uses one sound loop for all blocks.</td></tr>
 <tr><td>idleSoundVolume</td><td>float</td><td>0.5</td><td>Idle sound base volume.</td></tr>
-<tr><td>requirements</td><td><a href="#ItemStack">ItemStack</a></td><td></td><td>Cost of constructing and researching this block.</td></tr>
+<tr><td>requirements</td><td>[ <a href="#ItemStack">ItemStack</a> ]</td><td></td><td>Cost of constructing and researching this block.</td></tr>
 <tr><td>category</td><td><a href="#Category">Category</a></td><td>distribution</td><td>Category in place menu.</td></tr>
 <tr><td>buildCost</td><td>float</td><td></td><td>Cost of building this block; do not modify directly!</td></tr>
 <tr><td>buildVisibility</td><td><a href="#BuildVisibility">BuildVisibility</a></td><td>hidden</td><td>Whether this block is visible and can currently be built.</td></tr>
@@ -1463,6 +1544,11 @@ Next: <a href="#Consumers" accesskey="n" rel="next">Consumers</a>, Up: <a href="
 <tr><td>layer</td><td><a href="#Layer">Layer</a></td><td>null</td><td>Layer to draw extra stuff on.</td></tr>
 <tr><td>layer2</td><td><a href="#Layer">Layer</a></td><td>null</td><td>Extra layer to draw extra stuff on.</td></tr>
 </table>
+
+<p>Sprites:
+</p><ul>
+<li> <code>&lt;name&gt;</code> the main sprite for the block.
+</li></ul>
 
 <hr>
 <a name="Consumers"></a>
@@ -1478,9 +1564,9 @@ Next: <a href="#Consume" accesskey="n" rel="next">Consume</a>, Previous: <a href
 <table>
 <thead><tr><th>field</th><th>type</th><th>notes</th></tr></thead>
 <tr><td>item</td><td>String</td><td>shorthand for <code>items</code></td></tr>
-<tr><td>items</td><td><a href="#orgb427fed">ConsumeItems</a></td><td>consume a number of different items</td></tr>
-<tr><td>liquid</td><td><a href="#org48947b9">ConsumeLiquid</a></td><td>consume a single liquid</td></tr>
-<tr><td>power</td><td>float or <a href="#org26e582e">ConsumePower</a></td><td>consume or buffer power</td></tr>
+<tr><td>items</td><td><a href="#orgd357c2a">ConsumeItems</a></td><td>consume a number of different items</td></tr>
+<tr><td>liquid</td><td><a href="#orgaae28f6">ConsumeLiquid</a></td><td>consume a single liquid</td></tr>
+<tr><td>power</td><td>float or <a href="#orge1ec765">ConsumePower</a></td><td>consume or buffer power</td></tr>
 <tr><td>powerBuffered</td><td>float</td><td>amount of power buffered</td></tr>
 </table>
 
@@ -1489,7 +1575,7 @@ Next: <a href="#Consume" accesskey="n" rel="next">Consume</a>, Previous: <a href
 <li> you shouldn&rsquo;t have <code>power</code> and <code>powerBuffered</code>.
 </li></ul>
 
-<p>For example with <a href="#orgb427fed">ConsumeItems</a> and <a href="#org48947b9">ConsumeLiquid</a>:
+<p>For example with <a href="#orgd357c2a">ConsumeItems</a> and <a href="#orgaae28f6">ConsumeLiquid</a>:
 </p><div class="example">
 <pre class="example">{
     &quot;items&quot;: {
@@ -1516,7 +1602,7 @@ Next: <a href="#BlockStorage" accesskey="n" rel="next">BlockStorage</a>, Previou
 <a name="Consume-1"></a>
 <h3 class="section">2.3 Consume</h3>
 
-<p><a href="#org1e77fd3">Abstract</a> type which defines a type of resource that a block can consume.
+<p><a href="#org2e63ec1">Abstract</a> type which defines a type of resource that a block can consume.
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
@@ -1526,14 +1612,14 @@ Next: <a href="#BlockStorage" accesskey="n" rel="next">BlockStorage</a>, Previou
 </table>
 
 <ul>
-<li> <a name="orgb427fed"></a><code>ConsumeItems</code>, consume an itemstack.
+<li> <a name="orgd357c2a"></a><code>ConsumeItems</code>, consume an itemstack.
 
 <table>
 <thead><tr><th>field</th><th>type</th></tr></thead>
-<tr><td>items</td><td><a href="#ItemStack">ItemStack</a></td></tr>
+<tr><td>items</td><td>[ <a href="#ItemStack">ItemStack</a> ]</td></tr>
 </table>
 
-</li><li> <a name="org48947b9"></a><code>ConsumeLiquid</code>, consume a liquid.
+</li><li> <a name="orgaae28f6"></a><code>ConsumeLiquid</code>, consume a liquid.
 
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
@@ -1542,7 +1628,7 @@ Next: <a href="#BlockStorage" accesskey="n" rel="next">BlockStorage</a>, Previou
 <tr><td>timePeriod</td><td>float</td><td>60</td><td>how much time is taken to use this liquid, example: a normal ConsumeLiquid with 10/s and a 10 second timePeriod would display as <em>100 seconds</em>, but without a time override it would display as <em>10 liquid/second</em>. This is used for generic crafters.</td></tr>
 </table>
 
-</li><li> <a name="org26e582e"></a><code>ConsumePower</code>, consume or buffer power.
+</li><li> <a name="orge1ec765"></a><code>ConsumePower</code>, consume or buffer power.
 
 <table>
 <thead><tr><th>field</th><th>type</th><th>notes</th></tr></thead>
@@ -1561,7 +1647,9 @@ Next: <a href="#Environment" accesskey="n" rel="next">Environment</a>, Previous:
 <a name="BlockStorage-1"></a>
 <h3 class="section">2.4 BlockStorage</h3>
 
-<p><a href="#org1e77fd3">Abstract</a> type that extends <a href="#Content">Content</a> &ndash; This is for blocks that can store a buffer of items.
+<p><a href="#org2e63ec1">Abstract</a> type that extends <a href="#Content">Content</a>
+</p>
+<p>Type for blocks which may store a buffer of items or liquid.
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th></tr></thead>
@@ -1570,10 +1658,11 @@ Next: <a href="#Environment" accesskey="n" rel="next">Environment</a>, Previous:
 <tr><td>hasPower</td><td>boolean</td><td></td></tr>
 <tr><td>outputsLiquid</td><td>boolean</td><td>false</td></tr>
 <tr><td>consumesPower</td><td>boolean</td><td>true</td></tr>
-<tr><td>outputsPower</td><td>bolean</td><td>false</td></tr>
+<tr><td>outputsPower</td><td>boolean</td><td>false</td></tr>
 <tr><td>itemCapacity</td><td>int</td><td>10</td></tr>
 <tr><td>liquidCapacity</td><td>float</td><td>10</td></tr>
 <tr><td>item</td><td>float</td><td>10</td></tr>
+<tr><td>liquidPressure</td><td>float</td><td>1</td></tr>
 <tr><td>consumes</td><td><a href="#Consumers">Consumers</a></td><td></td></tr>
 </table>
 
@@ -1589,13 +1678,13 @@ Next: <a href="#Crafting" accesskey="n" rel="next">Crafting</a>, Previous: <a hr
 <p>Environmental blocks are blocks that must be placed from the editor, and they&rsquo;re the ones that will generally dictate how the game can or will be played. These blocks wont appear on a map unless you&rsquo;ve built a map to support them.
 </p>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#Floor" accesskey="1">Floor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Floor" accesskey="1">Floor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">environmental floors
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#OverlayFloor" accesskey="2">OverlayFloor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#OverlayFloor" accesskey="2">OverlayFloor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">type of floor that is overlaid on top of Floor
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#DoubleOverlayFloor" accesskey="3">DoubleOverlayFloor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#DoubleOverlayFloor" accesskey="3">DoubleOverlayFloor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">type of floor that is overlaid on top of OverlayFloor
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#OreBlock" accesskey="4">OreBlock</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#OreBlock" accesskey="4">OreBlock</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">overlayfloor for a specific item type
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Rock" accesskey="5">Rock</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -1616,10 +1705,12 @@ Next: <a href="#OverlayFloor" accesskey="n" rel="next">OverlayFloor</a>, Up: <a 
 <a name="Floor-1"></a>
 <h4 class="subsection">2.5.1 Floor</h4>
 
-<p>Extends <a href="#Block">Block</a> &ndash; Environmental floors. Requires a sprite, so to be visible in the map editor.
+<p>Extends <a href="#Block">Block</a>
+</p>
+<p>Type used for floors themselves or extended to make ores and other things.
 </p>
 <table>
-<thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
+<thead><tr><th>envir</th><th>type</th><th>default</th><th>notes</th></tr></thead>
 <tr><td>variants</td><td>int</td><td>3</td><td>number of different variant regions to use.</td></tr>
 <tr><td>edge</td><td>String</td><td>stone</td><td>edge fallback, used mainly for ores.</td></tr>
 <tr><td>speedMultiplier</td><td>float</td><td>1</td><td>multiplies unit velocity by this when walked on.</td></tr>
@@ -1639,9 +1730,15 @@ Next: <a href="#OverlayFloor" accesskey="n" rel="next">OverlayFloor</a>, Up: <a 
 <tr><td>attributes</td><td><a href="#Attributes">Attributes</a></td><td></td><td>array of affinities to certain things.</td></tr>
 </table>
 
-<p>Sprite lookup names:
+<p>Notes:
 </p><ul>
-<li> <code>&lt;name&gt;&lt;1..&gt;</code>
+<li> this type requires a sprite to be visible from the map editor.
+</li></ul>
+
+<p>Sprites:
+</p><ul>
+<li> <code>&lt;name&gt;&lt;1..&gt;</code> for variant sprites of the floor;
+</li><li> <code>&lt;name&gt;-edge</code> optional edge sprite.
 </li></ul>
 
 <hr>
@@ -1653,7 +1750,7 @@ Next: <a href="#DoubleOverlayFloor" accesskey="n" rel="next">DoubleOverlayFloor<
 <a name="OverlayFloor-1"></a>
 <h4 class="subsection">2.5.2 OverlayFloor</h4>
 
-<p>Extends <a href="#Floor">Floor</a> &ndash; A type of floor that is overlaid on top of other floors.
+<p>Extends <a href="#Floor">Floor</a>
 </p>
 <p>For example:
 </p><ul>
@@ -1685,7 +1782,7 @@ Next: <a href="#Rock" accesskey="n" rel="next">Rock</a>, Previous: <a href="#Dou
 <a name="OreBlock-1"></a>
 <h4 class="subsection">2.5.4 OreBlock</h4>
 
-<p>Extends <a href="#OverlayFloor">OverlayFloor</a> &ndash; An overlay ore for a specific item type.
+<p>Extends <a href="#OverlayFloor">OverlayFloor</a>
 </p>
 <table>
 <thead><tr><th>field</th><th>default</th></tr></thead>
@@ -1735,7 +1832,7 @@ Next: <a href="#StaticTree" accesskey="n" rel="next">StaticTree</a>, Previous: <
 <tr><td>variants</td><td>2</td></tr>
 </table>
 
-<p>Extra Sprites:
+<p>Sprites:
 </p><ul>
 <li> <code>&lt;name&gt;-large.png</code> which is a 2x2 variant of the block.
 </li></ul>
@@ -1792,7 +1889,7 @@ Next: <a href="#Sandbox" accesskey="n" rel="next">Sandbox</a>, Previous: <a href
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#GenericSmelter" accesskey="2">GenericSmelter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Separator" accesskey="3">Separator</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Separator" accesskey="3">Separator</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">turn a liquid into many solids
 </td></tr>
 </table>
 
@@ -1837,7 +1934,9 @@ Next: <a href="#Separator" accesskey="n" rel="next">Separator</a>, Previous: <a 
 <a name="GenericSmelter-1"></a>
 <h4 class="subsection">2.6.2 GenericSmelter</h4>
 
-<p>Extends <a href="#GenericCrafter">GenericCrafter</a> &ndash; A GenericCrafter with a new glowing region drawn on top.
+<p>Extends <a href="#GenericCrafter">GenericCrafter</a> 
+</p>
+<p>A GenericCrafter with a new glowing region drawn on top.
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th></tr></thead>
@@ -1846,7 +1945,7 @@ Next: <a href="#Separator" accesskey="n" rel="next">Separator</a>, Previous: <a 
 
 <p>Sprite suffix:
 </p><ul>
-<li> <code>-top</code>
+<li> <code>&lt;name&gt;-top</code>
 </li></ul>
 
 <hr>
@@ -1860,11 +1959,11 @@ Previous: <a href="#GenericSmelter" accesskey="p" rel="prev">GenericSmelter</a>,
 
 <p>Extends <a href="#Block">Block</a>
 </p>
-<p>Separator will take liquid as an input and produce items from it&rsquo;s stack randomly relative to their amount.
+<p>Separator takes liquid as an input, and will produce items from it&rsquo;s stack randomly, using the amount of items in the stack as probability. Separator can&rsquo;t accept items as input, as it will output all the items you put in it, regardless of what you put in <code>results</code>.
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
-<tr><td>results</td><td><a href="#ItemStack">ItemStack</a></td><td></td><td><strong>[required]</strong></td></tr>
+<tr><td>results</td><td>[ <a href="#ItemStack">ItemStack</a> ]</td><td></td><td><strong>[required]</strong></td></tr>
 <tr><td>craftTime</td><td>float</td><td></td><td></td></tr>
 <tr><td>spinnerRadius</td><td>float</td><td>2.5</td><td></td></tr>
 <tr><td>spinnerLength</td><td>float</td><td>1</td><td></td></tr>
@@ -1885,7 +1984,7 @@ Previous: <a href="#GenericSmelter" accesskey="p" rel="prev">GenericSmelter</a>,
 
 <p>Sprite suffixes:
 </p><ul>
-<li> <code>-liquid</code>
+<li> <code>&lt;name&gt;-liquid</code>
 </li></ul>
 
 <hr>
@@ -2271,10 +2370,10 @@ Next: <a href="#ShockMine" accesskey="n" rel="next">ShockMine</a>, Previous: <a 
 <tr><td>canOverdrive</td><td>false</td></tr>
 <tr><td>hasLiquids</td><td>true</td></tr>
 <tr><td>hasItems</td><td>true</td></tr>
-<tr><td>consumes</td><td><a href="#org61cec13">cold-liquid</a></td></tr>
+<tr><td>consumes</td><td><a href="#org9ffd972">cold-liquid</a></td></tr>
 </table>
 
-<a name="org61cec13"></a><p><a href="#org61cec13">cold-liquid</a>:
+<a name="org9ffd972"></a><p><a href="#org9ffd972">cold-liquid</a>:
 </p><ul>
 <li> temperature less then 0.5
 </li><li> flammability less then 0.1
@@ -2330,25 +2429,25 @@ Next: <a href="#Distribution" accesskey="n" rel="next">Distribution</a>, Previou
 <p>This section is for turret types. All turrets shoot <a href="#BulletType">BulletType</a>, and this means <a href="#LiquidTurret">LiquidTurret</a> can shoot <a href="#MissileBulletType">MissileBulletType</a> and <a href="#ItemTurret">ItemTurret</a> can shoot <a href="#LiquidBulletType">LiquidBulletType</a>.
 </p>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#Turret" accesskey="1">Turret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Turret" accesskey="1">Turret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">base fields for all turrets
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#CooledTurret" accesskey="2">CooledTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#ItemTurret" accesskey="3">ItemTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#ItemTurret" accesskey="3">ItemTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">use item as ammo
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#DoubleTurret" accesskey="4">DoubleTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#LiquidTurret" accesskey="4">LiquidTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">use liquid as ammo
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#ArtilleryTurret" accesskey="5">ArtilleryTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#DoubleTurret" accesskey="5">DoubleTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#BurstTurret" accesskey="6">BurstTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#ArtilleryTurret" accesskey="6">ArtilleryTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#PowerTurret" accesskey="7">PowerTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#BurstTurret" accesskey="7">BurstTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#ChargeTurret" accesskey="8">ChargeTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#PowerTurret" accesskey="8">PowerTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#LaserTurret" accesskey="9">LaserTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#ChargeTurret" accesskey="9">ChargeTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#LiquidTurret">LiquidTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#LaserTurret">LaserTurret</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -2361,31 +2460,33 @@ Next: <a href="#CooledTurret" accesskey="n" rel="next">CooledTurret</a>, Up: <a 
 <a name="Turret-1"></a>
 <h4 class="subsection">2.10.1 Turret</h4>
 
-<p><a href="#org1e77fd3">Abstract</a> type which extends <a href="#Block">Block</a> &ndash; All turrets extend from <a href="#Turret">Turret</a>, which holds all the common fields.
+<p><a href="#org2e63ec1">Abstract</a> type which extends <a href="#Block">Block</a>
+</p>
+<p>The purpose of a turret type is to be a <code>Block</code> that shoots bullets. <code>Turret</code> is the base type for all turrets, it&rsquo;s <em>abstract</em> meaning it shouldn&rsquo;t be used directly, but everything which extends it will get it&rsquo;s fields.
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
-<tr><td>heatColor</td><td><a href="#Color">Color</a></td><td>turretHeat</td><td></td></tr>
-<tr><td>shootEffect</td><td><a href="#Effect">Effect</a></td><td>none</td><td></td></tr>
-<tr><td>smokeEffect</td><td><a href="#Effect">Effect</a></td><td>none</td><td></td></tr>
-<tr><td>ammoUseEffect</td><td><a href="#Effect">Effect</a></td><td>none</td><td></td></tr>
-<tr><td>shootSound</td><td><a href="#Sound">Sound</a></td><td>shoot</td><td></td></tr>
-<tr><td>ammoPerShot</td><td>int</td><td>1</td><td></td></tr>
-<tr><td>ammoEjectBack</td><td>float</td><td>1</td><td></td></tr>
-<tr><td>range</td><td>float</td><td>50</td><td></td></tr>
-<tr><td>reload</td><td>float</td><td>10</td><td></td></tr>
-<tr><td>inaccuracy</td><td>float</td><td>0</td><td></td></tr>
-<tr><td>shots</td><td>int</td><td>1</td><td></td></tr>
-<tr><td>spread</td><td>float</td><td>4</td><td></td></tr>
-<tr><td>recoil</td><td>float</td><td>1</td><td></td></tr>
-<tr><td>restitution</td><td>float</td><td>0.02</td><td></td></tr>
-<tr><td>cooldown</td><td>float</td><td>0.02</td><td></td></tr>
-<tr><td>rotatespeed</td><td>float</td><td>5</td><td>in degrees per tick</td></tr>
-<tr><td>shootCone</td><td>float</td><td>8</td><td></td></tr>
-<tr><td>shootShake</td><td>float</td><td>0</td><td></td></tr>
-<tr><td>xRand</td><td>float</td><td>0</td><td></td></tr>
-<tr><td>targetAir</td><td>boolean</td><td>true</td><td></td></tr>
-<tr><td>targetGround</td><td>boolean</td><td>true</td><td></td></tr>
+<tr><td>heatColor</td><td><a href="#Color">Color</a></td><td>turretHeat</td><td>The color of the <code>-heat</code> sprite.</td></tr>
+<tr><td>shootEffect</td><td><a href="#Effect">Effect</a></td><td>none</td><td>An effect fired on tile in the direction the turret is aiming when it shoots.</td></tr>
+<tr><td>smokeEffect</td><td><a href="#Effect">Effect</a></td><td>none</td><td>An effect fired on tile in the direction the turret is aiming when it shoots.</td></tr>
+<tr><td>ammoUseEffect</td><td><a href="#Effect">Effect</a></td><td>none</td><td>An effect fired on the tile, when ammo is consumed.</td></tr>
+<tr><td>shootSound</td><td><a href="#Sound">Sound</a></td><td>shoot</td><td>A sound created from the tile when a bullet is fired.</td></tr>
+<tr><td>ammoPerShot</td><td>int</td><td>1</td><td>The amount of ammo used per shot.</td></tr>
+<tr><td>ammoEjectBack</td><td>float</td><td>1</td><td>The eject angle of shells in radians.</td></tr>
+<tr><td>range</td><td>float</td><td>50</td><td>The range at which the turret can target enemies.</td></tr>
+<tr><td>reload</td><td>float</td><td>10</td><td>The amount of ticks it takes to reload.</td></tr>
+<tr><td>inaccuracy</td><td>float</td><td>0</td><td>The degrees of inaccuracy.</td></tr>
+<tr><td>shots</td><td>int</td><td>1</td><td>The numbers of bullets fired at once.</td></tr>
+<tr><td>spread</td><td>float</td><td>4</td><td>The angular spread of multiple bullets when shot.</td></tr>
+<tr><td>recoil</td><td>float</td><td>1</td><td>The recoil of the turret when fired.</td></tr>
+<tr><td>restitution</td><td>float</td><td>0.02</td><td>The restitution from recoil after shooting. <em>(time taken to recenter)</em></td></tr>
+<tr><td>cooldown</td><td>float</td><td>0.02</td><td>The amount of time it takes for the <code>-heat</code> sprite to become transparent.</td></tr>
+<tr><td>rotatespeed</td><td>float</td><td>5</td><td>The degrees per tick at which the turret can rotate.</td></tr>
+<tr><td>shootCone</td><td>float</td><td>8</td><td>The angle used to determine whether the turret should be shooting.</td></tr>
+<tr><td>shootShake</td><td>float</td><td>0</td><td>The amount of camera shake.</td></tr>
+<tr><td>xRand</td><td>float</td><td>0</td><td>The random <code>x</code> axis multiplier, to make bullets appear to come out of multiple places. Used in Swarmer for example.</td></tr>
+<tr><td>targetAir</td><td>boolean</td><td>true</td><td>Whether this target can target air units.</td></tr>
+<tr><td>targetGround</td><td>boolean</td><td>true</td><td>Whether this turret can target ground units or blocks.</td></tr>
 </table>
 
 <p>Defaults:
@@ -2433,32 +2534,42 @@ Next: <a href="#ItemTurret" accesskey="n" rel="next">ItemTurret</a>, Previous: <
 <a name="ItemTurret"></a>
 <div class="header">
 <p>
-Next: <a href="#DoubleTurret" accesskey="n" rel="next">DoubleTurret</a>, Previous: <a href="#CooledTurret" accesskey="p" rel="prev">CooledTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#LiquidTurret" accesskey="n" rel="next">LiquidTurret</a>, Previous: <a href="#CooledTurret" accesskey="p" rel="prev">CooledTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="ItemTurret-1"></a>
 <h4 class="subsection">2.10.3 ItemTurret</h4>
 
-<p>Extends <a href="#CooledTurret">CooledTurret</a> &ndash; Turrets that uses items as ammo. The <code>ammo</code> field is simple an object of items names, paired with an <a href="#BulletType">BulletType</a>.
+<p>Extends <a href="#CooledTurret">CooledTurret</a>
+</p>
+<p>This type is a turret that uses items as ammo. The key to the <code>ammo</code> field should be the name of an <a href="#Item">Item</a>, while the value may be any <a href="#Built_002din-Bullets">Built-in Bullets</a> or a <a href="#BulletType">BulletType</a> itself.
 </p>
 <div class="example">
 <pre class="example">{
-    &quot;ammo&quot;: {
-        &quot;copper&quot;: &quot;standardCopper&quot;,
-        &quot;metaglass&quot;: {
-            &quot;type&quot;: &quot;MissileBulletType&quot;,
-            &quot;damage&quot;: 2
+    type: ItemTurret
+    ammo: {
+        copper: standardCopper
+
+        metaglass: {
+            type: MissileBulletType
+            damage: 2
+        }
+
+        surge-alloy: {
+            type: LiquidBulletType
+            damage: 3
         }
     }
 }
 </pre></div>
 
-<p>Here we&rsquo;re using <code>copper</code> to shoot <code>standardCopper</code> (built-in bullet) and <code>metalglass</code> to shoot a custom bullet type.
+<p>Here we&rsquo;re using <code>copper</code> to shoot <code>standardCopper</code> (built-in bullet) and <code>metalglass</code> to shoot a custom bullet of type &lsquo;MissileBulletType&lsquo;.
 </p>
 <table>
-<thead><tr><th>field</th><th>type</th><th>default</th></tr></thead>
-<tr><td>maxAmmo</td><td>int</td><td>30</td></tr>
-<tr><td>ammo</td><td>{ <a href="#Item">Item</a>: <a href="#BulletType">BulletType</a> }</td><td></td></tr>
+<thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
+<tr><td>maxAmmo</td><td>int</td><td>30</td><td></td></tr>
+<tr><td>ammo</td><td>{ String: <a href="#BulletType">BulletType</a> }</td><td></td><td>String is the name of an <a href="#Item">Item</a>, which will be used to select the type of bullet which will be shot.</td></tr>
 </table>
+
 
 <p>Defaults:
 </p>
@@ -2468,15 +2579,63 @@ Next: <a href="#DoubleTurret" accesskey="n" rel="next">DoubleTurret</a>, Previou
 </table>
 
 <hr>
+<a name="LiquidTurret"></a>
+<div class="header">
+<p>
+Next: <a href="#DoubleTurret" accesskey="n" rel="next">DoubleTurret</a>, Previous: <a href="#ItemTurret" accesskey="p" rel="prev">ItemTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="LiquidTurret-1"></a>
+<h4 class="subsection">2.10.4 LiquidTurret</h4>
+
+<p>Extends <a href="#Turret">Turret</a>
+</p>
+<p>This type is just a turret that uses liquid as ammo. The key to <code>ammo</code> must be the name of a <a href="#Liquid">Liquid</a>, while the value may either be the name of any <a href="#Built_002din-Bullets">Built-in Bullets</a> or a <a href="#BulletType">BulletType</a> itself.
+</p>
+<p>For example you could do something like this:
+</p>
+<div class="example">
+<pre class="example">{
+    type: LiquidTurret
+    ammo: {
+        water: {
+            type: MissileBulletType
+            damage: 9000
+        }
+
+        slag: {
+            type: LiquidBulletType
+            damage: 0
+        }
+    }
+}
+
+</pre></div>
+
+
+<table>
+<thead><tr><th>fields</th><th>type</th><th>notes</th></tr></thead>
+<tr><td>ammo</td><td>{ String: <a href="#BulletType">BulletType</a> }</td><td>object with <a href="#Liquid">Liquid</a> names to bullet types.</td></tr>
+</table>
+
+<p>Defaults:
+</p><table>
+<thead><tr><th>fields</th><th>default</th></tr></thead>
+<tr><td>hasLiquids</td><td>true</td></tr>
+<tr><td>activeSound</td><td>spray</td></tr>
+</table>
+
+<hr>
 <a name="DoubleTurret"></a>
 <div class="header">
 <p>
-Next: <a href="#ArtilleryTurret" accesskey="n" rel="next">ArtilleryTurret</a>, Previous: <a href="#ItemTurret" accesskey="p" rel="prev">ItemTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#ArtilleryTurret" accesskey="n" rel="next">ArtilleryTurret</a>, Previous: <a href="#LiquidTurret" accesskey="p" rel="prev">LiquidTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="DoubleTurret-1"></a>
-<h4 class="subsection">2.10.4 DoubleTurret</h4>
+<h4 class="subsection">2.10.5 DoubleTurret</h4>
 
-<p>Extends <a href="#ItemTurret">ItemTurret</a> &ndash; Turret that shoots from two side by side barrels.
+<p>Extends <a href="#ItemTurret">ItemTurret</a>
+</p>
+<p>ItemTurret that shoots from two side-by-side barrels.
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th></tr></thead>
@@ -2496,7 +2655,7 @@ Next: <a href="#ArtilleryTurret" accesskey="n" rel="next">ArtilleryTurret</a>, P
 Next: <a href="#BurstTurret" accesskey="n" rel="next">BurstTurret</a>, Previous: <a href="#DoubleTurret" accesskey="p" rel="prev">DoubleTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="ArtilleryTurret-1"></a>
-<h4 class="subsection">2.10.5 ArtilleryTurret</h4>
+<h4 class="subsection">2.10.6 ArtilleryTurret</h4>
 
 <p>Extends <a href="#ItemTurret">ItemTurret</a> &ndash; Artillery turrets have special shooting calculations done to hit targets.
 </p>
@@ -2512,7 +2671,7 @@ Next: <a href="#BurstTurret" accesskey="n" rel="next">BurstTurret</a>, Previous:
 Next: <a href="#PowerTurret" accesskey="n" rel="next">PowerTurret</a>, Previous: <a href="#ArtilleryTurret" accesskey="p" rel="prev">ArtilleryTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="BurstTurret-1"></a>
-<h4 class="subsection">2.10.6 BurstTurret</h4>
+<h4 class="subsection">2.10.7 BurstTurret</h4>
 
 <p>Extends <a href="#ItemTurret">ItemTurret</a> &ndash; Turrets capable of bursts of specially spaced bullets, separated by long reload times.
 </p>
@@ -2528,14 +2687,14 @@ Next: <a href="#PowerTurret" accesskey="n" rel="next">PowerTurret</a>, Previous:
 Next: <a href="#ChargeTurret" accesskey="n" rel="next">ChargeTurret</a>, Previous: <a href="#BurstTurret" accesskey="p" rel="prev">BurstTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="PowerTurret-1"></a>
-<h4 class="subsection">2.10.7 PowerTurret</h4>
+<h4 class="subsection">2.10.8 PowerTurret</h4>
 
 <p>Extends <a href="#CooledTurret">CooledTurret</a> &ndash; Turret which uses power has ammo to shoot.
 </p>
 <table>
-<thead><tr><th>field</th><th>type</th><th>default</th></tr></thead>
-<tr><td>shootType</td><td><a href="#BulletType">BulletType</a></td><td></td></tr>
-<tr><td>powerUse</td><td>float</td><td>1</td></tr>
+<thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
+<tr><td>shootType</td><td><a href="#BulletType">BulletType</a></td><td></td><td><strong>[required]</strong></td></tr>
+<tr><td>powerUse</td><td>float</td><td>1</td><td></td></tr>
 </table>
 
 <p>Defaults:
@@ -2552,7 +2711,7 @@ Next: <a href="#ChargeTurret" accesskey="n" rel="next">ChargeTurret</a>, Previou
 Next: <a href="#LaserTurret" accesskey="n" rel="next">LaserTurret</a>, Previous: <a href="#PowerTurret" accesskey="p" rel="prev">PowerTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="ChargeTurret-1"></a>
-<h4 class="subsection">2.10.8 ChargeTurret</h4>
+<h4 class="subsection">2.10.9 ChargeTurret</h4>
 
 <p>Extends <a href="#PowerTurret">PowerTurret</a>
 </p>
@@ -2569,10 +2728,10 @@ Next: <a href="#LaserTurret" accesskey="n" rel="next">LaserTurret</a>, Previous:
 <a name="LaserTurret"></a>
 <div class="header">
 <p>
-Next: <a href="#LiquidTurret" accesskey="n" rel="next">LiquidTurret</a>, Previous: <a href="#ChargeTurret" accesskey="p" rel="prev">ChargeTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Previous: <a href="#ChargeTurret" accesskey="p" rel="prev">ChargeTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="LaserTurret-1"></a>
-<h4 class="subsection">2.10.9 LaserTurret</h4>
+<h4 class="subsection">2.10.10 LaserTurret</h4>
 
 <p>Extends <a href="#PowerTurret">PowerTurret</a>
 </p>
@@ -2594,29 +2753,6 @@ Next: <a href="#LiquidTurret" accesskey="n" rel="next">LiquidTurret</a>, Previou
 <li> liquid temperature greater or equal to <code>0.5</code>
 </li><li> liquid flammability greater then <code>0.1</code>
 </li></ul>
-
-<hr>
-<a name="LiquidTurret"></a>
-<div class="header">
-<p>
-Previous: <a href="#LaserTurret" accesskey="p" rel="prev">LaserTurret</a>, Up: <a href="#Turrets" accesskey="u" rel="up">Turrets</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
-</div>
-<a name="LiquidTurret-1"></a>
-<h4 class="subsection">2.10.10 LiquidTurret</h4>
-
-<p>Extends <a href="#Turret">Turret</a>
-</p>
-<table>
-<thead><tr><th>fields</th><th>type</th><th>notes</th></tr></thead>
-<tr><td>ammo</td><td>{ String: <a href="#BulletType">BulletType</a> }</td><td>object with <a href="#Liquid">Liquid</a> names to bullet types.</td></tr>
-</table>
-
-<p>Defaults:
-</p><table>
-<thead><tr><th>fields</th><th>default</th></tr></thead>
-<tr><td>hasLiquids</td><td>true</td></tr>
-<tr><td>activeSound</td><td>spray</td></tr>
-</table>
 
 <hr>
 <a name="Distribution"></a>
@@ -2922,15 +3058,19 @@ Next: <a href="#Power" accesskey="n" rel="next">Power</a>, Previous: <a href="#D
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Conduit" accesskey="3">Conduit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#LiquidRouter" accesskey="4">LiquidRouter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#ArmoredConduit" accesskey="4">ArmoredConduit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#LiquidTank" accesskey="5">LiquidTank</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#LiquidOverflowGate" accesskey="5">LiquidOverflowGate</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#LiquidJunction" accesskey="6">LiquidJunction</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#LiquidRouter" accesskey="6">LiquidRouter</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#LiquidBridge" accesskey="7">LiquidBridge</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#LiquidTank" accesskey="7">LiquidTank</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#LiquidExtendingBridge" accesskey="8">LiquidExtendingBridge</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#LiquidJunction" accesskey="8">LiquidJunction</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#LiquidBridge" accesskey="9">LiquidBridge</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#LiquidExtendingBridge">LiquidExtendingBridge</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -2990,13 +3130,18 @@ Next: <a href="#Conduit" accesskey="n" rel="next">Conduit</a>, Previous: <a href
 <a name="Conduit"></a>
 <div class="header">
 <p>
-Next: <a href="#LiquidRouter" accesskey="n" rel="next">LiquidRouter</a>, Previous: <a href="#Pump" accesskey="p" rel="prev">Pump</a>, Up: <a href="#Liquid-Blocks" accesskey="u" rel="up">Liquid Blocks</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#ArmoredConduit" accesskey="n" rel="next">ArmoredConduit</a>, Previous: <a href="#Pump" accesskey="p" rel="prev">Pump</a>, Up: <a href="#Liquid-Blocks" accesskey="u" rel="up">Liquid Blocks</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="Conduit-1"></a>
-<h4 class="subsection">2.12.3 Conduit</h4>
+<a name="NEW-Conduit"></a>
+<h4 class="subsection">2.12.3 <strong>NEW</strong> Conduit</h4>
 
 <p>Extends <a href="#LiquidBlock">LiquidBlock</a>
 </p>
+<table>
+<thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
+<tr><td>leakResistance</td><td></td><td></td><td><strong>[new v99 (268)]</strong></td></tr>
+</table>
+
 <p>Defaults:
 </p>
 <table>
@@ -3006,19 +3151,63 @@ Next: <a href="#LiquidRouter" accesskey="n" rel="next">LiquidRouter</a>, Previou
 <tr><td>floating</td><td>true</td></tr>
 </table>
 
-<p>Sprite lookup name <em>(where <code>i</code> can be anything from 0-6)</em>:
+<p>Sprites:
 </p><ul>
-<li> <code>&lt;name&gt;-top-&lt;i&gt;</code>
+<li> <code>&lt;name&gt;-top-&lt;0..6&gt;</code>
+</li></ul>
+
+<hr>
+<a name="ArmoredConduit"></a>
+<div class="header">
+<p>
+Next: <a href="#LiquidOverflowGate" accesskey="n" rel="next">LiquidOverflowGate</a>, Previous: <a href="#Conduit" accesskey="p" rel="prev">Conduit</a>, Up: <a href="#Liquid-Blocks" accesskey="u" rel="up">Liquid Blocks</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="NEW-ArmoredConduit"></a>
+<h4 class="subsection">2.12.4 <strong>NEW</strong> ArmoredConduit</h4>
+
+<p><strong>[new type v99 (268)]</strong> &ndash; Extends <a href="#Conduit">Conduit</a>
+</p>
+<p>Defaults:
+</p><table>
+<thead><tr><th>field</th><th>default</th></tr></thead>
+<tr><td>leakResistance</td><td>10</td></tr>
+</table>
+
+<p>Sprites:
+</p><ul>
+<li> <code>&lt;name&gt;-cap</code>
+</li></ul>
+
+<hr>
+<a name="LiquidOverflowGate"></a>
+<div class="header">
+<p>
+Next: <a href="#LiquidRouter" accesskey="n" rel="next">LiquidRouter</a>, Previous: <a href="#ArmoredConduit" accesskey="p" rel="prev">ArmoredConduit</a>, Up: <a href="#Liquid-Blocks" accesskey="u" rel="up">Liquid Blocks</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="NEW-LiquidOverflowGate"></a>
+<h4 class="subsection">2.12.5 <strong>NEW</strong> LiquidOverflowGate</h4>
+
+<p><strong>[new type v99 (268)]</strong> &ndash; Extends <a href="#LiquidBlock">LiquidBlock</a>
+</p>
+<p>Defaults:
+</p><table>
+<thead><tr><th>field</th><th>default</th></tr></thead>
+<tr><td>rotate</td><td>true</td></tr>
+</table>
+
+<p>Sprites:
+</p><ul>
+<li> <code>&lt;name&gt;-top</code>
 </li></ul>
 
 <hr>
 <a name="LiquidRouter"></a>
 <div class="header">
 <p>
-Next: <a href="#LiquidTank" accesskey="n" rel="next">LiquidTank</a>, Previous: <a href="#Conduit" accesskey="p" rel="prev">Conduit</a>, Up: <a href="#Liquid-Blocks" accesskey="u" rel="up">Liquid Blocks</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#LiquidTank" accesskey="n" rel="next">LiquidTank</a>, Previous: <a href="#LiquidOverflowGate" accesskey="p" rel="prev">LiquidOverflowGate</a>, Up: <a href="#Liquid-Blocks" accesskey="u" rel="up">Liquid Blocks</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="LiquidRouter-1"></a>
-<h4 class="subsection">2.12.4 LiquidRouter</h4>
+<h4 class="subsection">2.12.6 LiquidRouter</h4>
 
 <p>Extends <a href="#LiquidBlock">LiquidBlock</a>
 </p>
@@ -3029,7 +3218,7 @@ Next: <a href="#LiquidTank" accesskey="n" rel="next">LiquidTank</a>, Previous: <
 Next: <a href="#LiquidJunction" accesskey="n" rel="next">LiquidJunction</a>, Previous: <a href="#LiquidRouter" accesskey="p" rel="prev">LiquidRouter</a>, Up: <a href="#Liquid-Blocks" accesskey="u" rel="up">Liquid Blocks</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="LiquidTank-1"></a>
-<h4 class="subsection">2.12.5 LiquidTank</h4>
+<h4 class="subsection">2.12.7 LiquidTank</h4>
 
 <p>Extends <a href="#LiquidRouter">LiquidRouter</a>
 </p>
@@ -3040,7 +3229,7 @@ Next: <a href="#LiquidJunction" accesskey="n" rel="next">LiquidJunction</a>, Pre
 Next: <a href="#LiquidBridge" accesskey="n" rel="next">LiquidBridge</a>, Previous: <a href="#LiquidTank" accesskey="p" rel="prev">LiquidTank</a>, Up: <a href="#Liquid-Blocks" accesskey="u" rel="up">Liquid Blocks</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="LiquidJunction-1"></a>
-<h4 class="subsection">2.12.6 LiquidJunction</h4>
+<h4 class="subsection">2.12.8 LiquidJunction</h4>
 
 <p>Extends <a href="#LiquidBlock">LiquidBlock</a>
 </p>
@@ -3051,7 +3240,7 @@ Next: <a href="#LiquidBridge" accesskey="n" rel="next">LiquidBridge</a>, Previou
 Next: <a href="#LiquidExtendingBridge" accesskey="n" rel="next">LiquidExtendingBridge</a>, Previous: <a href="#LiquidJunction" accesskey="p" rel="prev">LiquidJunction</a>, Up: <a href="#Liquid-Blocks" accesskey="u" rel="up">Liquid Blocks</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="LiquidBridge-1"></a>
-<h4 class="subsection">2.12.7 LiquidBridge</h4>
+<h4 class="subsection">2.12.9 LiquidBridge</h4>
 
 <p>Extends <a href="#LiquidBridge">LiquidBridge</a>
 </p>
@@ -3070,7 +3259,7 @@ Next: <a href="#LiquidExtendingBridge" accesskey="n" rel="next">LiquidExtendingB
 Previous: <a href="#LiquidBridge" accesskey="p" rel="prev">LiquidBridge</a>, Up: <a href="#Liquid-Blocks" accesskey="u" rel="up">Liquid Blocks</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="LiquidExtendingBridge-1"></a>
-<h4 class="subsection">2.12.8 LiquidExtendingBridge</h4>
+<h4 class="subsection">2.12.10 LiquidExtendingBridge</h4>
 
 <p>Extends <a href="#ExtendingItemBridge">ExtendingItemBridge</a>
 </p>
@@ -3102,6 +3291,10 @@ Next: <a href="#Production" accesskey="n" rel="next">Production</a>, Previous: <
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#PowerGenerator" accesskey="5">PowerGenerator</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">base of power generators.
 </td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#PowerDiode" accesskey="6">PowerDiode</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#LightBlock" accesskey="7">LightBlock</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
 </table>
 
 <hr>
@@ -3113,7 +3306,7 @@ Next: <a href="#PowerNode" accesskey="n" rel="next">PowerNode</a>, Up: <a href="
 <a name="PowerBlock-1"></a>
 <h4 class="subsection">2.13.1 PowerBlock</h4>
 
-<p><a href="#org1e77fd3">Abstract</a> type which extends <a href="#Block">Block</a>
+<p><a href="#org2e63ec1">Abstract</a> type which extends <a href="#Block">Block</a>
 </p>
 <p>Defaults:
 </p>
@@ -3194,7 +3387,7 @@ Next: <a href="#PowerGenerator" accesskey="n" rel="next">PowerGenerator</a>, Pre
 <a name="PowerGenerator"></a>
 <div class="header">
 <p>
-Previous: <a href="#Battery" accesskey="p" rel="prev">Battery</a>, Up: <a href="#Power" accesskey="u" rel="up">Power</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Next: <a href="#PowerDiode" accesskey="n" rel="next">PowerDiode</a>, Previous: <a href="#Battery" accesskey="p" rel="prev">Battery</a>, Up: <a href="#Power" accesskey="u" rel="up">Power</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="PowerGenerator-1"></a>
 <h4 class="subsection">2.13.5 PowerGenerator</h4>
@@ -3240,7 +3433,7 @@ Previous: <a href="#Battery" accesskey="p" rel="prev">Battery</a>, Up: <a href="
 Next: <a href="#ItemLiquidGenerator" accesskey="n" rel="next">ItemLiquidGenerator</a>, Up: <a href="#PowerGenerator" accesskey="u" rel="up">PowerGenerator</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="ThermalGenerator-1"></a>
-<h4 class="unnumberedsubsubsec">ThermalGenerator</h4>
+<h4 class="subsubsection">2.13.5.1 ThermalGenerator</h4>
 
 <p>Extends <a href="#PowerGenerator">PowerGenerator</a> &ndash; Generates power with the heat <a href="#Attributes">attribute</a> of a tile. Power production is <code>powerProduction * heat</code>, and <code>heat</code> must be greater then <code>0.01</code>.
 </p>
@@ -3256,10 +3449,19 @@ Next: <a href="#ItemLiquidGenerator" accesskey="n" rel="next">ItemLiquidGenerato
 Next: <a href="#SingleTypeGenerator" accesskey="n" rel="next">SingleTypeGenerator</a>, Previous: <a href="#ThermalGenerator" accesskey="p" rel="prev">ThermalGenerator</a>, Up: <a href="#PowerGenerator" accesskey="u" rel="up">PowerGenerator</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="ItemLiquidGenerator-1"></a>
-<h4 class="unnumberedsubsubsec">ItemLiquidGenerator</h4>
+<h4 class="subsubsection">2.13.5.2 ItemLiquidGenerator</h4>
 
-<p>Extends <a href="#PowerGenerator">PowerGenerator</a> &ndash; Base power generation block which can use items, liquids or both as input sources for power production. Liquids will take priority over items.
+<p>Extends <a href="#PowerGenerator">PowerGenerator</a> &ndash; Base of power generation blocks.
 </p>
+<p>Notes:
+</p><ul>
+<li> item efficiency is <strong>always</strong> 0.0
+</li><li> liquid efficiency is <strong>always</strong> 0.0
+</li></ul>
+
+<p><em>(this type doesn&rsquo;t produce power)</em>
+</p>
+
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
 <tr><td>minItemEfficiency</td><td>float</td><td>0.2</td><td></td></tr>
@@ -3273,11 +3475,6 @@ Next: <a href="#SingleTypeGenerator" accesskey="n" rel="next">SingleTypeGenerato
 <tr><td>defaults</td><td>boolean</td><td>false</td><td></td></tr>
 </table>
 
-<p>Notes:
-</p><ul>
-<li> item efficiency is always 0.0
-</li><li> liquid efficiency is always 0.0
-</li></ul>
 
 <p>Extra sprites:
 </p><ul>
@@ -3292,7 +3489,7 @@ Next: <a href="#SingleTypeGenerator" accesskey="n" rel="next">SingleTypeGenerato
 Next: <a href="#BurnerGenerator" accesskey="n" rel="next">BurnerGenerator</a>, Previous: <a href="#ItemLiquidGenerator" accesskey="p" rel="prev">ItemLiquidGenerator</a>, Up: <a href="#PowerGenerator" accesskey="u" rel="up">PowerGenerator</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="SingleTypeGenerator-1"></a>
-<h4 class="unnumberedsubsubsec">SingleTypeGenerator</h4>
+<h4 class="subsubsection">2.13.5.3 SingleTypeGenerator</h4>
 
 <p>Extends <a href="#ItemLiquidGenerator">ItemLiquidGenerator</a> &ndash; Generates power from an item.
 </p>
@@ -3303,7 +3500,7 @@ Next: <a href="#BurnerGenerator" accesskey="n" rel="next">BurnerGenerator</a>, P
 Next: <a href="#DecayGenerator" accesskey="n" rel="next">DecayGenerator</a>, Previous: <a href="#SingleTypeGenerator" accesskey="p" rel="prev">SingleTypeGenerator</a>, Up: <a href="#PowerGenerator" accesskey="u" rel="up">PowerGenerator</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="BurnerGenerator-1"></a>
-<h4 class="unnumberedsubsubsec">BurnerGenerator</h4>
+<h4 class="subsubsection">2.13.5.4 BurnerGenerator</h4>
 
 <p>Extends <a href="#ItemLiquidGenerator">ItemLiquidGenerator</a> &ndash; Generates power from item flamability.
 </p>
@@ -3314,7 +3511,7 @@ Next: <a href="#DecayGenerator" accesskey="n" rel="next">DecayGenerator</a>, Pre
 Next: <a href="#SolarGenerator" accesskey="n" rel="next">SolarGenerator</a>, Previous: <a href="#BurnerGenerator" accesskey="p" rel="prev">BurnerGenerator</a>, Up: <a href="#PowerGenerator" accesskey="u" rel="up">PowerGenerator</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="DecayGenerator-1"></a>
-<h4 class="unnumberedsubsubsec">DecayGenerator</h4>
+<h4 class="subsubsection">2.13.5.5 DecayGenerator</h4>
 
 <p>Extends <a href="#ItemLiquidGenerator">ItemLiquidGenerator</a> &ndash; Generates power from item radioactivity.
 </p>
@@ -3332,7 +3529,7 @@ Next: <a href="#SolarGenerator" accesskey="n" rel="next">SolarGenerator</a>, Pre
 Next: <a href="#NuclearReactor" accesskey="n" rel="next">NuclearReactor</a>, Previous: <a href="#DecayGenerator" accesskey="p" rel="prev">DecayGenerator</a>, Up: <a href="#PowerGenerator" accesskey="u" rel="up">PowerGenerator</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="SolarGenerator-1"></a>
-<h4 class="unnumberedsubsubsec">SolarGenerator</h4>
+<h4 class="subsubsection">2.13.5.6 SolarGenerator</h4>
 
 <p>Extends <a href="#PowerGenerator">PowerGenerator</a> &ndash; A generator that always produces 100% efficiency power.
 </p>
@@ -3347,13 +3544,14 @@ Next: <a href="#NuclearReactor" accesskey="n" rel="next">NuclearReactor</a>, Pre
 <p>
 Next: <a href="#ImpactReactor" accesskey="n" rel="next">ImpactReactor</a>, Previous: <a href="#SolarGenerator" accesskey="p" rel="prev">SolarGenerator</a>, Up: <a href="#PowerGenerator" accesskey="u" rel="up">PowerGenerator</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="NuclearReactor-1"></a>
-<h4 class="unnumberedsubsubsec">NuclearReactor</h4>
+<a name="NEW-NuclearReactor"></a>
+<h4 class="subsubsection">2.13.5.7 <strong>NEW</strong> NuclearReactor</h4>
 
 <p>Extends <a href="#PowerGenerator">PowerGenerator</a> &ndash; Generates power relative to how many items are in storage, and explodes if it runs out of coolant.
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
+<tr><td>lightColor</td><td><a href="#Color">Color</a></td><td>7f19ea</td><td><strong>[new v99 (268)]</strong></td></tr>
 <tr><td>coolColor</td><td><a href="#Color">Color</a></td><td>ffffff00</td><td></td></tr>
 <tr><td>hotColor</td><td><a href="#Color">Color</a></td><td>ff9575a3</td><td></td></tr>
 <tr><td>itemDuration</td><td>float</td><td>120</td><td>time to consume 1 fuel</td></tr>
@@ -3388,7 +3586,7 @@ Next: <a href="#ImpactReactor" accesskey="n" rel="next">ImpactReactor</a>, Previ
 Previous: <a href="#NuclearReactor" accesskey="p" rel="prev">NuclearReactor</a>, Up: <a href="#PowerGenerator" accesskey="u" rel="up">PowerGenerator</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="ImpactReactor-1"></a>
-<h4 class="unnumberedsubsubsec">ImpactReactor</h4>
+<h4 class="subsubsection">2.13.5.8 ImpactReactor</h4>
 
 <p>Extends <a href="#PowerGenerator">PowerGenerator</a> &ndash; Generator that uses power and has a startup time.
 </p>
@@ -3418,6 +3616,61 @@ Previous: <a href="#NuclearReactor" accesskey="p" rel="prev">NuclearReactor</a>,
 </p><ul>
 <li> <code>&lt;name&gt;-bottom</code> bottom region
 </li><li> <code>&lt;name&gt;-plasma-&lt;i&gt;</code> plasma regions, where <code>i</code> is <code>0</code> to <code>plasmas - 1</code>.
+</li></ul>
+
+<hr>
+<a name="PowerDiode"></a>
+<div class="header">
+<p>
+Next: <a href="#LightBlock" accesskey="n" rel="next">LightBlock</a>, Previous: <a href="#PowerGenerator" accesskey="p" rel="prev">PowerGenerator</a>, Up: <a href="#Power" accesskey="u" rel="up">Power</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="PowerDiode-1"></a>
+<h4 class="subsection">2.13.6 PowerDiode</h4>
+
+<p>Extends <a href="#Block">Block</a>
+</p>
+<p>Defaults:
+</p><table>
+<thead><tr><th>field</th><th>default</th></tr></thead>
+<tr><td>rotate</td><td>true</td></tr>
+<tr><td>update</td><td>true</td></tr>
+<tr><td>solid</td><td>true</td></tr>
+<tr><td>insulated</td><td>true</td></tr>
+</table>
+
+<p>Sprites:
+</p><ul>
+<li> <code>&lt;name&gt;-arrow</code>
+</li></ul>
+
+<hr>
+<a name="LightBlock"></a>
+<div class="header">
+<p>
+Previous: <a href="#PowerDiode" accesskey="p" rel="prev">PowerDiode</a>, Up: <a href="#Power" accesskey="u" rel="up">Power</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="NEW-LightBlock"></a>
+<h4 class="subsection">2.13.7 <strong>NEW</strong> LightBlock</h4>
+
+<p><strong>[new type v99 (268)]</strong> &ndash; Extends <a href="#Block">Block</a>
+</p>
+<table>
+<thead><tr><th>field</th><th>type</th><th>default</th></tr></thead>
+<tr><td>brightness</td><td>float</td><td>0.9</td></tr>
+<tr><td>radius</td><td>float</td><td>200</td></tr>
+</table>
+
+<p>Defaults:
+</p><table>
+<thead><tr><th>field</th><th>default</th></tr></thead>
+<tr><td>hasPower</td><td>true</td></tr>
+<tr><td>update</td><td>true</td></tr>
+<tr><td>configurable</td><td>true</td></tr>
+</table>
+
+<p>Sprites:
+</p><ul>
+<li> <code>&lt;name&gt;-top</code>
 </li></ul>
 
 <hr>
@@ -3780,7 +4033,7 @@ Next: <a href="#CoreBlock" accesskey="n" rel="next">CoreBlock</a>, Up: <a href="
 <a name="StorageBlock-1"></a>
 <h4 class="subsection">2.16.1 StorageBlock</h4>
 
-<p><a href="#org1e77fd3">Abstract</a> type which extends <a href="#Block">Block</a>
+<p><a href="#org2e63ec1">Abstract</a> type which extends <a href="#Block">Block</a>
 </p>
 <p>Defaults:
 </p><table>
@@ -3959,8 +4212,8 @@ Next: <a href="#BuildVisibility" accesskey="n" rel="next">BuildVisibility</a>, P
 <p>
 Next: <a href="#BlockGroup" accesskey="n" rel="next">BlockGroup</a>, Previous: <a href="#Attribute" accesskey="p" rel="prev">Attribute</a>, Up: <a href="#World" accesskey="u" rel="up">World</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="BuildVisibility-1"></a>
-<h3 class="section">2.19 BuildVisibility</h3>
+<a name="NEW-BuildVisibility"></a>
+<h3 class="section">2.19 <strong>NEW</strong> BuildVisibility</h3>
 
 <p>Options for build visibility include:
 </p><ul>
@@ -3969,6 +4222,7 @@ Next: <a href="#BlockGroup" accesskey="n" rel="next">BlockGroup</a>, Previous: <
 </li><li> <code>debugOnly</code>
 </li><li> <code>sandboxOnly</code>
 </li><li> <code>campaignOnly</code>
+</li><li> <code>lightingOnly</code> <strong>[new v99 (268)]</strong>
 </li></ul>
 
 <hr>
@@ -4003,11 +4257,11 @@ Next: <a href="#Graphics" accesskey="n" rel="next">Graphics</a>, Previous: <a hr
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="#Item" accesskey="1">Item</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#ItemStack" accesskey="2">ItemStack</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#ItemStack" accesskey="2">ItemStack</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">amount of item types
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Liquid" accesskey="3">Liquid</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#LiquidStack" accesskey="4">LiquidStack</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#LiquidStack" accesskey="4">LiquidStack</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">amount of liquid types
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#Weapon" accesskey="5">Weapon</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -4036,15 +4290,21 @@ Next: <a href="#ItemStack" accesskey="n" rel="next">ItemStack</a>, Up: <a href="
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
-<tr><td>color</td><td><a href="#Color">Color</a></td><td></td><td>hex string of color</td></tr>
-<tr><td>type</td><td><a href="#Item">ItemType</a></td><td></td><td>resource or material; used for tabs and core acceptance</td></tr>
-<tr><td>explosiveness</td><td>float</td><td><code>0</code></td><td>how explosive this item is.</td></tr>
-<tr><td>flammability</td><td>float</td><td><code>0</code></td><td>flammability above 0.3 makes this eleigible for item burners.</td></tr>
+<tr><td>color</td><td><a href="#Color">Color</a></td><td></td><td><strong>[required]</strong> hex string of color</td></tr>
+<tr><td>type</td><td><a href="#orge1a8879">ItemTypes</a></td><td></td><td>used for tabs and core acceptance</td></tr>
+<tr><td>explosiveness</td><td>float</td><td>0</td><td>how explosive this item is.</td></tr>
+<tr><td>flammability</td><td>float</td><td>0</td><td>flammability above 0.3 makes this eleigible for item burners.</td></tr>
 <tr><td>radioactivity</td><td>float</td><td></td><td>how radioactive this item is. 0=none, 1=chernobyl ground zero</td></tr>
-<tr><td>hardness</td><td>int</td><td><code>0</code></td><td>drill hardness of the item</td></tr>
-<tr><td>cost</td><td>float</td><td><code>1</code></td><td>used for calculating place times; 1 cost = 1 tick added to build time</td></tr>
-<tr><td>alwaysUnlocked</td><td>boolean</td><td><code>false</code></td><td>If true, item is always unlocked.</td></tr>
+<tr><td>hardness</td><td>int</td><td>0</td><td>drill hardness of the item</td></tr>
+<tr><td>cost</td><td>float</td><td>1</td><td>used for calculating place times; 1 cost = 1 tick added to build time</td></tr>
+<tr><td>alwaysUnlocked</td><td>boolean</td><td>false</td><td>If true, item is always unlocked.</td></tr>
 </table>
+
+<a name="orge1a8879"></a><p><strong>ItemTypes:</strong>
+</p><ul>
+<li> <code>resource</code> can go in the core;
+</li><li> <code>material</code> can&rsquo;t go in the core.
+</li></ul>
 
 <hr>
 <a name="ItemStack"></a>
@@ -4055,15 +4315,19 @@ Next: <a href="#Liquid" accesskey="n" rel="next">Liquid</a>, Previous: <a href="
 <a name="ItemStack-1"></a>
 <h3 class="section">3.2 ItemStack</h3>
 
-<p>This type is used to tell blocks to calculate their output/input rates. An item stack is simply an array of objects with the following fields:
+<p>This type is used when you need to describe an amount of items to the game for what ever reason.
+</p>
+<p><strong>[new <a href="#g_t968f3ace3">968f3ace3</a>]:</strong> An <code>ItemStack</code> can be a string with the following format <code>&quot;item/amount&quot;</code>.
+</p>
+<p>An <code>ItemStack</code> can be an object with the following fields:
 </p>
 <table>
-<thead><tr><th>field</th><th>type</th><th>default</th></tr></thead>
-<tr><td>amount</td><td>int</td><td>1</td></tr>
-<tr><td>item</td><td><a href="#Item">Item</a></td><td></td></tr>
+<thead><tr><th>field</th><th>type</th><th>notes</th></tr></thead>
+<tr><td>item</td><td>string</td><td>The name of an <a href="#Item">Item</a>.</td></tr>
+<tr><td>amount</td><td>int</td><td>The amount of said item.</td></tr>
 </table>
 
-<p>For example:
+<p>Often you&rsquo;ll see <code>[ ItemStack ]</code>, which stands for an array of <code>ItemStack</code>, for example:
 </p>
 <div class="example">
 <pre class="example">[
@@ -4078,15 +4342,18 @@ Next: <a href="#Liquid" accesskey="n" rel="next">Liquid</a>, Previous: <a href="
 <p>
 Next: <a href="#LiquidStack" accesskey="n" rel="next">LiquidStack</a>, Previous: <a href="#ItemStack" accesskey="p" rel="prev">ItemStack</a>, Up: <a href="#Type" accesskey="u" rel="up">Type</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
-<a name="Liquid-1"></a>
-<h3 class="section">3.3 Liquid</h3>
+<a name="NEW-Liquid"></a>
+<h3 class="section">3.3 <strong>NEW</strong> Liquid</h3>
 
-<p>Extends <a href="#Content">Content</a> &ndash; Object that defines the properties of a liquid.
+<p>Extends <a href="#Content">Content</a>
+</p>
+<p>Type which defines the properties of a liquid. Like <a href="#Item">Item</a> this will go into it&rsquo;s own subdirectory <code>content/liquids/liquid-name.json</code>, and from it&rsquo;s stem name you can reuse it from your other mod content.
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
 <tr><td>color</td><td><a href="#Color">Color</a></td><td></td><td><strong>[required]</strong> color of liquid</td></tr>
 <tr><td>barColor</td><td><a href="#Color">Color</a></td><td></td><td><em>[optional]</em> color used in bars.</td></tr>
+<tr><td>lightColor</td><td><a href="#Color">Color</a></td><td></td><td><strong>[new v99 (268)]</strong> Color used to draw lights. Note that the alpha channel is used to dictate brightness.</td></tr>
 <tr><td>flammability</td><td>float</td><td></td><td>0 to 1; 0 is completely inflammable, above that may catch fire when exposed to heat.</td></tr>
 <tr><td>temperature</td><td>float</td><td>0.5</td><td>0.5 is &rsquo;room&rsquo; temperature, 0 is very cold, 1 is molten hot</td></tr>
 <tr><td>heatCapacity</td><td>float</td><td>0.5</td><td>used in cooling; water is 0.4</td></tr>
@@ -4094,6 +4361,11 @@ Next: <a href="#LiquidStack" accesskey="n" rel="next">LiquidStack</a>, Previous:
 <tr><td>explosiveness</td><td>float</td><td></td><td>explosiveness when heated; 0 is nothing, 1 is nuke</td></tr>
 <tr><td>effect</td><td><a href="#StatusEffect">StatusEffect</a></td><td>none</td><td>the associated status effect.</td></tr>
 </table>
+
+<p>Sprites:
+</p><ul>
+<li> <code>&lt;name&gt;</code>, the sprite used when displaying the liquid from a menu.
+</li></ul>
 
 <hr>
 <a name="LiquidStack"></a>
@@ -4104,20 +4376,24 @@ Next: <a href="#Weapon" accesskey="n" rel="next">Weapon</a>, Previous: <a href="
 <a name="LiquidStack-1"></a>
 <h3 class="section">3.4 LiquidStack</h3>
 
-<p>This type is used by blocks, to consume a liquid, just like <a href="#ItemStack">ItemStack</a> except that it can only contain 1 liquid.
+<p>This type is used when you need to describe an amount of liquid to the game for what ever reason.
+</p>
+<p><strong>[new <a href="#g_t968f3ace3">968f3ace3</a>]:</strong> A <code>LiquidStack</code> can be a string with the following format <code>&quot;liquid/amount&quot;</code>.
+</p>
+<p>A <code>LiquidStack</code> can be an object with the following fields:
 </p>
 <table>
-<thead><tr><th>field</th><th>type</th></tr></thead>
-<tr><td>liquid</td><td><a href="#Liquid">Liquid</a></td></tr>
-<tr><td>amount</td><td>float</td></tr>
+<thead><tr><th>field</th><th>type</th><th>notes</th></tr></thead>
+<tr><td>liquid</td><td>string</td><td>The name of a <a href="#Liquid">Liquid</a>.</td></tr>
+<tr><td>amount</td><td>float</td><td>The amount of said liquid.</td></tr>
 </table>
 
 <p>For example:
 </p>
 <div class="example">
 <pre class="example">{
-   &quot;liquid&quot;: &quot;water&quot;,
-   &quot;amount&quot;: 0.5
+    &quot;liquid&quot;: &quot;water&quot;,
+    &quot;amount&quot;: 0.5
 }
 </pre></div>
 
@@ -4134,7 +4410,7 @@ Next: <a href="#UnitType" accesskey="n" rel="next">UnitType</a>, Previous: <a hr
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
-<tr><td>name</td><td>string</td><td></td><td></td></tr>
+<tr><td>name</td><td>String</td><td></td><td>used to fetch the sprite of the weapon</td></tr>
 <tr><td>nimPlayerDist</td><td>float</td><td>20</td><td>minimum cursor distance from player, fixes &rsquo;cross-eyed&rsquo; shooting.</td></tr>
 <tr><td>sequenceNum</td><td>int</td><td>0</td><td></td></tr>
 <tr><td>bullet</td><td><a href="#BulletType">BulletType</a></td><td></td><td>bullet shot</td></tr>
@@ -4154,6 +4430,11 @@ Next: <a href="#UnitType" accesskey="n" rel="next">UnitType</a>, Previous: <a hr
 <tr><td>ignoreRotation</td><td>boolean</td><td>false</td><td>whether shooter rotation is ignored when shooting.</td></tr>
 <tr><td>shootSound</td><td><a href="#Sound">Sound</a></td><td>pew</td><td></td></tr>
 </table>
+
+<p>Sprite:
+</p><ul>
+<li> <code>&lt;name&gt;</code> or <code>&lt;name&gt;-equip</code>
+</li></ul>
 
 <hr>
 <a name="UnitType"></a>
@@ -4193,6 +4474,13 @@ Next: <a href="#Mech" accesskey="n" rel="next">Mech</a>, Previous: <a href="#Wea
 <tr><td>engineOffset</td><td>float</td><td></td></tr>
 <tr><td>engineSize</td><td>float</td><td></td></tr>
 </table>
+
+<p>Sprites:
+</p><ul>
+<li> <code>&lt;name&gt;</code>
+</li><li> <code>&lt;name&gt;-leg</code>
+</li><li> <code>&lt;name&gt;-base</code>
+</li></ul>
 
 <hr>
 <a name="Mech"></a>
@@ -4274,9 +4562,9 @@ Next: <a href="#StatusEffect" accesskey="n" rel="next">StatusEffect</a>, Previou
 </p>
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
-<tr><td>baseLaunchCost</td><td><a href="#ItemStack">ItemStack</a></td><td></td><td></td></tr>
-<tr><td>launchCost</td><td><a href="#ItemStack">ItemStack</a></td><td></td><td></td></tr>
-<tr><td>startingItems</td><td><a href="#ItemStack">ItemStack</a></td><td></td><td>Items you start with on the map.</td></tr>
+<tr><td>baseLaunchCost</td><td>[ <a href="#ItemStack">ItemStack</a> ]</td><td></td><td></td></tr>
+<tr><td>launchCost</td><td>[ <a href="#ItemStack">ItemStack</a> ]</td><td></td><td></td></tr>
+<tr><td>startingItems</td><td>[ <a href="#ItemStack">ItemStack</a> ]</td><td></td><td>Items you start with on the map.</td></tr>
 <tr><td>conditionWave</td><td>int</td><td>MAX<em>_VALUE</em></td><td></td></tr>
 <tr><td>alwaysUnlocked</td><td>boolean</td><td>false</td><td>Whether this map is always unlocked</td></tr>
 <tr><td>launchPeriod</td><td>int</td><td>10</td><td>Rate of waves at which the core may be launched.</td></tr>
@@ -4284,7 +4572,7 @@ Next: <a href="#StatusEffect" accesskey="n" rel="next">StatusEffect</a>, Previou
 <tr><td>resources</td><td>[ String ]</td><td></td><td>Array of <a href="#Item">item</a> names.</td></tr>
 <tr><td>requirements</td><td>[ <a href="#Objective">Objective</a> ]</td><td></td><td>An array of requirements to unlock configuration.</td></tr>
 <tr><td>configureObjective</td><td><a href="#Objective">Objective</a></td><td>ZoneWave 15</td><td></td></tr>
-<tr><td>defaultStartingItems</td><td><a href="#ItemStack">ItemStack</a></td><td></td><td></td></tr>
+<tr><td>defaultStartingItems</td><td>[ <a href="#ItemStack">ItemStack</a> ]</td><td></td><td></td></tr>
 </table>
 
 <p>Sprites:
@@ -4525,8 +4813,49 @@ Next: <a href="#BaseUnit" accesskey="n" rel="next">BaseUnit</a>, Up: <a href="#E
 <a name="BulletType-1"></a>
 <h3 class="section">5.1 BulletType</h3>
 
-<p><a href="#org1e77fd3">Abstract</a> type which extends <a href="#Content">Content</a> &ndash; BulletType can either be an object or a string, where a string would be reusing a built-in one, and an object would be making a custom one. There are two major categories of bullet types: <a href="#BasicBulletType">BasicBulletType</a> and other special bullets.
+<p><a href="#org2e63ec1">Abstract</a> type which extends <a href="#Content">Content</a>
 </p>
+<p>BulletType can either be an object <code>{}</code> or a <code>&quot;string&quot;</code>, where a string would be reusing <a href="#Built_002din-Bullets">Built-in Bullets</a> and an object would be making a custom one.
+</p>
+<p>There are two major categories of bullet types:
+</p><ul>
+<li> <a href="#BasicBulletType">BasicBulletType</a> and,
+</li><li> other special bullets.
+</li></ul>
+
+<p>Here&rsquo;s an example of a custom bullet:
+</p>
+<div class="example">
+<pre class="example">{
+    &quot;type&quot;: &quot;MissileBulletType&quot;,
+    &quot;lifetime&quot;: 1000,
+    &quot;speed&quot;: 2,
+    &quot;splashDamageRadius&quot;: 2,
+    &quot;splashDamage&quot;: 9,
+    &quot;frontColor&quot;: &quot;ffff00&quot;,
+    &quot;backColor&quot;: &quot;00ffff&quot;,
+    &quot;homingPower&quot;: 1,
+    &quot;homingRange&quot;: 20,
+    &quot;fragBullets&quot;: 3,
+    &quot;fragBullet&quot;: {
+        &quot;type&quot;: &quot;LiquidBulletType&quot;
+        &quot;liquid&quot;: &quot;oil&quot;,
+        &quot;lifetime&quot;: 2,
+        &quot;speed&quot;: 1,
+        &quot;fragBullets&quot;: 2,
+        &quot;fragBullet&quot;: {
+            &quot;type&quot;: &quot;LiquidBulletType&quot;
+            &quot;liquid&quot;: &quot;slag&quot;,
+            &quot;lifetime&quot;: 1,
+            &quot;speed&quot;: 2,
+            &quot;damage&quot;: 1,
+        }
+    }
+}
+</pre></div>
+
+<img src="img/green-cyan-oil-slag-missiles.png" alt="img/green-cyan-oil-slag-missiles">
+
 <table>
 <thead><tr><th>field</th><th>type</th><th>default</th><th>notes</th></tr></thead>
 <tr><td>lifetime</td><td>float</td><td></td><td>amount of ticks it will lasts</td></tr>
@@ -4598,12 +4927,8 @@ Next: <a href="#HealBulletType" accesskey="n" rel="next">HealBulletType</a>, Up:
 </p>
 <div class="example">
 <pre class="example">{
-    &quot;ammo&quot;: {
-        &quot;copper&quot;: {
-            &quot;type&quot;: &quot;BasicBulletType&quot;,
-            &quot;bulletSprite&quot;: &quot;test-mod-router&quot;
-        }
-    }
+    &quot;type&quot;: &quot;BasicBulletType&quot;,
+    &quot;bulletSprite&quot;: &quot;test-mod-router&quot;
 }
 </pre></div>
 
@@ -4653,7 +4978,7 @@ Next: <a href="#HealBulletType" accesskey="n" rel="next">HealBulletType</a>, Up:
 Next: <a href="#FlakBulletType" accesskey="n" rel="next">FlakBulletType</a>, Up: <a href="#BasicBulletType" accesskey="u" rel="up">BasicBulletType</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="ArtilleryBulletType-1"></a>
-<h4 class="unnumberedsubsubsec">ArtilleryBulletType</h4>
+<h4 class="subsubsection">5.1.1.1 ArtilleryBulletType</h4>
 
 <p>Extends <a href="#BasicBulletType">BasicBulletType</a>
 </p>
@@ -4683,7 +5008,7 @@ Next: <a href="#FlakBulletType" accesskey="n" rel="next">FlakBulletType</a>, Up:
 Next: <a href="#MissileBulletType" accesskey="n" rel="next">MissileBulletType</a>, Previous: <a href="#ArtilleryBulletType" accesskey="p" rel="prev">ArtilleryBulletType</a>, Up: <a href="#BasicBulletType" accesskey="u" rel="up">BasicBulletType</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="FlakBulletType-1"></a>
-<h4 class="unnumberedsubsubsec">FlakBulletType</h4>
+<h4 class="subsubsection">5.1.1.2 FlakBulletType</h4>
 
 <p>Extends <a href="#BasicBulletType">BasicBulletType</a>
 </p>
@@ -4710,7 +5035,7 @@ Next: <a href="#MissileBulletType" accesskey="n" rel="next">MissileBulletType</a
 Next: <a href="#BombBulletType" accesskey="n" rel="next">BombBulletType</a>, Previous: <a href="#FlakBulletType" accesskey="p" rel="prev">FlakBulletType</a>, Up: <a href="#BasicBulletType" accesskey="u" rel="up">BasicBulletType</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="MissileBulletType-1"></a>
-<h4 class="unnumberedsubsubsec">MissileBulletType</h4>
+<h4 class="subsubsection">5.1.1.3 MissileBulletType</h4>
 
 <p>Extends <a href="#BasicBulletType">BasicBulletType</a>
 </p>
@@ -4734,7 +5059,7 @@ Next: <a href="#BombBulletType" accesskey="n" rel="next">BombBulletType</a>, Pre
 Previous: <a href="#MissileBulletType" accesskey="p" rel="prev">MissileBulletType</a>, Up: <a href="#BasicBulletType" accesskey="u" rel="up">BasicBulletType</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="BombBulletType-1"></a>
-<h4 class="unnumberedsubsubsec">BombBulletType</h4>
+<h4 class="subsubsection">5.1.1.4 BombBulletType</h4>
 
 <p>Extends <a href="#BasicBulletType">BasicBulletType</a>
 </p>
@@ -4991,18 +5316,66 @@ Previous: <a href="#Objective" accesskey="p" rel="prev">Objective</a>, Up: <a hr
 <h2 class="chapter">7 Other</h2>
 
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#Mindustry-Source-Structure" accesskey="1">Mindustry Source Structure</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Change-Log" accesskey="1">Change Log</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">log of changes
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Mindustry-Source-Structure" accesskey="2">Mindustry Source Structure</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
+
+<hr>
+<a name="Change-Log"></a>
+<div class="header">
+<p>
+Next: <a href="#Mindustry-Source-Structure" accesskey="n" rel="next">Mindustry Source Structure</a>, Up: <a href="#Other" accesskey="u" rel="up">Other</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="Change-Log-1"></a>
+<h3 class="section">7.1 Change Log</h3>
+
+<p>This is a log of changes done on the Mindustry Master branch. Each section is separated by tags, for example <a href="#v100">v100</a> and then subsectioned into commit hash, for example <a href="#g_t968f3ace3">968f3ace3</a>.
+</p>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#v100" accesskey="1">v100</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+<a name="v100"></a>
+<div class="header">
+<p>
+Up: <a href="#Change-Log" accesskey="u" rel="up">Change Log</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="v100-1"></a>
+<h4 class="subsection">7.1.1 v100</h4>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="#g_t968f3ace3" accesskey="1">968f3ace3</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">better mod parsing
+</td></tr>
+</table>
+
+<hr>
+<a name="g_t968f3ace3"></a>
+<div class="header">
+<p>
+Up: <a href="#v100" accesskey="u" rel="up">v100</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+</div>
+<a name="g_t968f3ace3-1"></a>
+<h4 class="subsubsection">7.1.1.1 968f3ace3</h4>
+
+<ul>
+<li> <code>&quot;liquid/amount&quot;</code> can now be used as a string to do the same thing as <code>{ &quot;liquid&quot;: &quot;xxxx&quot;, &quot;amount&quot;: xx }</code> where a field type is <a href="#LiquidStack">LiquidStack</a>;
+</li><li> <code>&quot;item/amount&quot;</code> can now be used as a string to do the same thing as <code>{ &quot;item&quot;: &quot;xxxx&quot;, &quot;amount&quot;: xx }</code> where a field type is <a href="#ItemStack">ItemStack</a>;
+</li><li> <code>mod.json</code> now supports hjson;
+</li><li> <code>mod.js</code> can be used instead of <code>mod.json</code>.
+</li></ul>
 
 <hr>
 <a name="Mindustry-Source-Structure"></a>
 <div class="header">
 <p>
-Up: <a href="#Other" accesskey="u" rel="up">Other</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
+Previous: <a href="#Change-Log" accesskey="p" rel="prev">Change Log</a>, Up: <a href="#Other" accesskey="u" rel="up">Other</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>]</p>
 </div>
 <a name="Mindustry-Source-Structure-1"></a>
-<h3 class="section">7.1 Mindustry Source Structure</h3>
+<h3 class="section">7.2 Mindustry Source Structure</h3>
 
 <div class="example">
 <pre class="example">core/src/io/anuke/mindustry/
