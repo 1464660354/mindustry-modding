@@ -4,6 +4,16 @@ import pyperclip
 from pathlib import Path
 import msch as msch_
 from msch import Schematic, Schematics
+from jinja2 import Template
+from textwrap import dedent
+import yaml
+from typing import List, Dict
+from dataclasses import dataclass
+from github import Github
+from datetime import datetime
+import humanize
+
+WEBSITE = "https://simonwoodburyforget.github.io/mindustry-modding/"
 
 @click.group()
 def cli():
@@ -28,14 +38,33 @@ def defaults():
     click.echo(o)
 
 @cli.command()
-@click.argument("path")
-def contents(path):
-    """ Makes content table out of org file. """
-    path = Path(path)
-    with open(path, "r") as f:
+@click.option("-i", "--input", help="The input org file.")
+@click.option("-t", "--template", help="The template org file.")
+@click.option("-o", "--output", help="The rendered org file.")
+def contents(input, template, output):
+    """ Generate content table README. """
+    template = Template(
+        dedent('''
+        * Overview
+        
+        Checkout the website here: {{ website }}
+        
+        Content Table:
+        
+        {{ content_table }}
+
+        '''))
+
+    with open(input, "r") as f:
         i = f.read()
-    o = parser.build_content_tables(i)
-    click.echo(o)
+        o = parser.build_content_tables(i)
+        r = template.render(content_table=o,
+                            website=WEBSITE)
+
+    # TODO: load template from file
+
+    with open(output, "w") as f:
+        print(r, file=f)
 
 @cli.command()
 @click.argument("msch-text")
@@ -51,5 +80,44 @@ def msch(msch_text, old, new):
                           for s in schems.tiles ])
     click.echo(msch_.dump(schems, True))
 
+@cli.command()
+@click.option("-i", "--input", default='index.org', help="path to template index.org file")
+@click.option("-o", "--output", default='index.tmp.org', help="path to output index.org file")
+@click.option("-l", "--logs", default='helper/change-log.yaml' ,help="path to commit logs yaml file")
+def build_index(input, output, logs):
+    '''Build index out of index.org template.'''
+    
+    @dataclass
+    class Log:
+        hash: str
+        notes: List[str]
+        date: datetime
+        message: str
+
+        def date_fmt(self):
+            return humanize.naturalday(self.date)
+
+    with open(Path.home() / ".github-token") as f:
+        token = f.read()
+    g = Github(token)
+    repo = g.get_repo("Anuken/Mindustry")
+    def from_commit(x):
+        sha, notes = x
+        commit = repo.get_commit(sha=sha)
+        return Log(sha,
+                   notes,
+                   commit.commit.author.date,
+                   commit.commit.message)
+    with open(logs) as f:
+        logs = yaml.safe_load(f.read())
+    logs = [ from_commit(x) for x in logs.items() ]
+    logs = reversed(sorted(logs, key=lambda x: x.date))
+
+    with open(input) as f:
+        template = Template(f.read())
+    with open(output, 'w') as f:
+        print(template.render(change_log=logs), file=f)
+
+    
 if __name__ == '__main__':
     cli()
