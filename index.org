@@ -12,7 +12,7 @@
 
 #+TODO: TODO UNTESTED | NEW DONE
 
-#+TEXINFO_HEADER: Modding documentation for Mindustry v100 (59)
+#+TEXINFO_HEADER: Modding documentation for Mindustry v100 (81)
 
 Submit pull requests, issues or suggestions on Github: https://github.com/SimonWoodburyForget/mindustry-modding
 
@@ -38,46 +38,88 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 
    #+BEGIN_SRC fundamental
    project
-   ├── schematics
-   ├── bundles
-   ├── content
-   │   ├── blocks
-   │   └── items
    ├── mod.json
+   ├── content
+   │   ├── items
+   │   ├── blocks
+   │   ├── mechs
+   │   ├── liquids
+   │   ├── units
+   │   └── zones
+   ├── bundles
    ├── sounds
+   ├── schematics
+   ├── sprites-override
    └── sprites
    #+END_SRC
+
+   /(only the =mod.json= file is required)/
 
    Every platform has a different user application data directory, and this is where your mods should be placed:
    * Linux: =~/.local/share/Mindustry/mods/=
    * Steam: =steam/steamapps/common/Mindustry/mods/=
    * Windows: =%appdata%/Mindustry/mods/=
+   * Apple: =~/Library/Application Support/Mindustry/mods/=
 
    *Note;* your filenames should be lowercased and hyphen separated:
    * correct: ~my-custom-block.json~
    * incorrect: ~My Custom Block.json~
+
+** Hjson
+   :PROPERTIES:
+   :DESCRIPTION: content parser syntax
+   :END:
+
+   *[new v99]* /partially in v99, but otherwise should work in v100/
+
+   Mindustry uses [[https://hjson.org/][Hjson]], which is a superset of the very popular serialization language known as Json. This means that any valid Json will work, but you get extra useful stuff:
+
+   #+BEGIN_SRC yaml
+   # single line comment
+   
+   // single line comment
+   
+   /* multiline
+   comment */
+   
+   key1: single line string
+   
+   key2: '''
+         multiline
+         string
+         '''
+
+   key3: [ value 1
+           value 2
+           value 3 ]
+
+   key4: { key1: string
+           key2: 0 }
+   #+END_SRC
+
+   *[new [[#2d4270406]]]* Files may have either a =.json= or =.hjson= extension.
 
 ** ~mod.json~
    :PROPERTIES:
    :DESCRIPTION: the project configuration file.
    :END:
 
-   At the root of your project directory, you must have a ~mod.json~ which defines the basic metadata for your project.
+   At the root of your project directory, you must have a ~mod.json~ which defines the basic metadata for your project. 
 
-   #+BEGIN_SRC json
-   {
-       "name": "Mod Name",
-       "author": "Yourself",
-       "description": "This is a useless description.",
-       "version": "1.0",
-       "dependencies": [ ]
-   }
+   #+BEGIN_SRC yaml
+   name: Mod Name
+   author: Yourself
+   description: This is a useless description.
+   version: "1.0"
+   minGameVersion: "100.3"
+   dependencies: [ ]
    #+END_SRC
 
    Notes:
-   * ~name~ will be used to reference to your mod, so name it carefully, and avoid giving it the same name as another mod.
-   * ~description~ of the mod will be rendered in the ingame mod manager, so keep it short and to the point.
-   * ~dependencies~ is optional; if you want to know more about that, go to the [[Dependencies][dependencies]] section.
+   * ~name~ will be used to reference to your mod, so name it carefully, and avoid giving it the same name as another mod;
+   * ~description~ of the mod will be rendered in the ingame mod manager, so keep it short and to the point;
+   * ~dependencies~ is optional, if you want to know more about that, go to the [[Dependencies][dependencies]] section;
+   * *[new [[#2c61fcdfa]]]* ~minGameVersion~ is the minimum build version of the game.
 
 ** Content
    :PROPERTIES:
@@ -176,6 +218,8 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites
 
    Another thing to know about sprites is that they're passed through /anti-aliasing filters/ and what that means is that they may look a little different in game. -- The turrets specifically have a special black border filter added to them, so you must account for that while making your sprites, and leave a border of transparent space around them, for example: [[https://raw.githubusercontent.com/Anuken/Mindustry/master/core/assets-raw/sprites/blocks/turrets/ripple.png][Ripple]]
+
+   *[new [[#a5fbc0756]]]* to override ingame content sprites, you can simply put them in ~sprites-override/~.
 
 ** Sound
    :PROPERTIES:
@@ -313,42 +357,11 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * Portuguese  ~bundle_pt.properties~
    * Russian ~bundle_ru.properties~
    * Danish ~bundle_sv.properties~
-   * Turkish ? ~bundle_tk.properties~
-   * Turkish ? ~bundle_tr.properties~
+   * Turkman ~bundle_tk.properties~
+   * Turkish ~bundle_tr.properties~
    * Ukrainian ~bundle_uk_UA.properties~
    * Chinese CN ~bundle_zh_CN.properties~
    * Chinese TW ~bundle_zh_TW.properties~
-
-** Hjson
-   :PROPERTIES:
-   :DESCRIPTION: content parser syntax
-   :END:
-
-   *[new v99]* /currently partially implimented, where only ~content/~ uses Hjson./
-
-   As of now, Mindustry doesn't actually use Json, /(but any valid JSON should work)/ it uses a variant of Json called [[https://hjson.org/][Hjson]].
-
-   #+BEGIN_SRC fundamental
-   {
-       # single line comment
-
-       // single line comment
-
-       /* multiline
-          comment */
-
-       key1: single line string
-
-       key2: '''
-             multiline
-             string
-             '''
-
-       key3: [ value 1
-               value 2
-               value 3 ]
-   }
-   #+END_SRC
 
 ** Schematic
 
@@ -382,7 +395,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
     :DESCRIPTION: {{ log.message }}
     :CUSTOM_ID: {{ log.hash }}
     :END:
-    [ [[https://github.com/Anuken/Mindustry/commit/{{ log.hash }}][commit]] ={{ log.hash }}= {{ log.date_fmt() }} ]   {{ log.message }}
+    [ [[https://github.com/Anuken/Mindustry/commit/{{ log.hash }}][commit]] ={{ log.hash }}= {{ log.date_fmt() }} ]   ={{ log.message }}=
 
     {% for note in log.notes %}
        * {{ note }};
@@ -394,7 +407,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
   :DESCRIPTION: the universe and everything in it.
   :END:
 
-** NEW Block
+** Block
    :PROPERTIES:
    :DESCRIPTION: base type of types that go on tiles
    :end:
@@ -429,7 +442,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    | priority            | TargetPriority  |         base | Targeting priority of this block, as seen by enemies. |
    | configurable        | boolean         |              | Whether the block can be tapped and selected to configure. |
    | consumesTap         | boolean         |              | Whether this block consumes touchDown events when tapped. |
-   | drawLiquidLight     | boolean         |         true | *[new v99 (268)]* Whether to draw the glow of the liquid for this block, if it has one. |
+   | drawLiquidLight     | boolean         |         true | Whether to draw the glow of the liquid for this block, if it has one. |
    | posConfig           | boolean         |              | Whether the config is positional and needs to be shifted. |
    | targetable          | boolean         |         true | Whether units target this block. |
    | canOverdrive        | boolean         |         true | Whether the overdrive core has any effect on this block. |
@@ -687,15 +700,15 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 *** GenericCrafter
     Extends [[Block][Block]]
 
-    | field              | type        | default |
-    |--------------------+-------------+---------|
-    |                    |             |     <r> |
-    | outputItem         | [[ItemStack][ItemStack]]   |         |
-    | outputLiquid       | [[LiquidStack][LiquidStack]] |         |
-    | craftTime          | float       |      80 |
-    | craftEffect        | [[Effect][Effect]]      |    none |
-    | updateEffect       | [[Effect][Effect]]      |    none |
-    | updateEffectChance | float       |    0.04 |
+    | field              | type        | default | notes            |
+    |--------------------+-------------+---------+------------------|
+    |                    |             |     <r> |                  |
+    | outputItem         | [[ItemStack][ItemStack]]   |         | one item stack   |
+    | outputLiquid       | [[LiquidStack][LiquidStack]] |         | one liquid stack |
+    | craftTime          | float       |      80 |                  |
+    | craftEffect        | [[Effect][Effect]]      |    none |                  |
+    | updateEffect       | [[Effect][Effect]]      |    none |                  |
+    | updateEffectChance | float       |    0.04 |                  |
 
     Defaults:
     | field           | default |
@@ -2055,15 +2068,16 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    * ~spores~
    * ~water~
    * ~oil~
-** NEW BuildVisibility
+** BuildVisibility
 
-   Options for build visibility include:
-   * ~hidden~
-   * ~shown~
-   * ~debugOnly~
-   * ~sandboxOnly~
-   * ~campaignOnly~
-   * ~lightingOnly~ *[new v99 (268)]*
+   A flag used by the game to change a few special-case things. It may be one of the following strings:
+
+   * =hidden=
+   * =shown=
+   * =debugOnly=
+   * =sandboxOnly=
+   * =campaignOnly=
+   * =lightingOnly=
 
 ** BlockGroup
 
@@ -2085,21 +2099,21 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
 
    Extends [[Content][Content]] -- It's the object that can ride conveyors, sorters and be stored in containers, and is commonly used in crafters.
 
-   | field          | type      | default | notes      |
-   |----------------+-----------+---------+------------|
-   |                |           |         | <10>       |
-   | color          | [[Color][Color]]     |         | *[required]* hex string of color  |
-   | type           | [[ItemType][ItemTypes]] |         | used for tabs and core acceptance |
-   | explosiveness  | float     |       0 | how explosive this item is. |
-   | flammability   | float     |       0 | flammability above 0.3 makes this eleigible for item burners. |
-   | radioactivity  | float     |         | how radioactive this item is. 0=none, 1=chernobyl ground zero |
-   | hardness       | int       |       0 | drill hardness of the item |
-   | cost           | float     |       1 | used for calculating place times; 1 cost = 1 tick added to build time |
-   | alwaysUnlocked | boolean   |   false | If true, item is always unlocked. |
+   | field          | type      |  default | notes      |
+   |----------------+-----------+----------+------------|
+   |                |           |          | <10>       |
+   | color          | [[Color][Color]]     |    black | hex string of color |
+   | type           | [[ItemType][ItemTypes]] | resource | used for tabs and core acceptance |
+   | explosiveness  | float     |        0 | how explosive this item is. |
+   | flammability   | float     |        0 | flammability above 0.3 makes this eleigible for item burners. |
+   | radioactivity  | float     |          | how radioactive this item is. 0=none, 1=chernobyl ground zero |
+   | hardness       | int       |        0 | drill hardness of the item |
+   | cost           | float     |        1 | used for calculating place times; 1 cost = 1 tick added to build time |
+   | alwaysUnlocked | boolean   |    false | If true, item is always unlocked. |
 
    <<ItemType>> *ItemTypes:*
-   * ~resource~ can go in the core;
-   * ~material~ can't go in the core.
+   * ~resource~ can't go in the core;
+   * ~material~ can go in the core.
 
 ** ItemStack
    :PROPERTIES:
@@ -2126,8 +2140,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    ]
    #+END_SRC
 
-
-** NEW Liquid
+** Liquid
 
    Extends [[Content]]
 
@@ -2138,7 +2151,7 @@ Submit pull requests, issues or suggestions on Github: https://github.com/SimonW
    |               |              |     <r> | <10>       |
    | color         | [[Color][Color]]        |         | *[required]* color of liquid |
    | barColor      | [[Color]]        |         | /[optional]/ color used in bars. |
-   | lightColor    | [[Color]]        |         | *[new v99 (268)]* Color used to draw lights. Note that the alpha channel is used to dictate brightness. |
+   | lightColor    | [[Color]]        |         | Color used to draw lights. Note that the alpha channel is used to dictate brightness. |
    | flammability  | float        |         | 0 to 1; 0 is completely inflammable, above that may catch fire when exposed to heat. |
    | temperature   | float        |     0.5 | 0.5 is 'room' temperature, 0 is very cold, 1 is molten hot |
    | heatCapacity  | float        |     0.5 | used in cooling; water is 0.4 |
