@@ -1,0 +1,516 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+
+/* ================================================================ */
+/* Typography */
+
+/* Headings */
+h1,h2,h3,h4,h5,h6,legend
+{
+    font-family:"Roboto Slab","ff-tisa-web-pro","Georgia",Arial,sans-serif;
+    font-weight:700;
+    margin-top:0;
+}
+
+h1
+{
+    font-size:175%;
+}
+
+.subtitle
+{
+    font-size:90%; /* of h1 */
+    font-weight:lighter;
+    font-style:italic;
+}
+
+h2
+{
+    font-size:150%;
+}
+
+h3
+{
+    font-size:125%;
+}
+
+h4
+{
+    font-size:115%;
+}
+
+h5
+{
+    font-size:110%;
+}
+
+h6
+{
+    font-size:100%;
+}
+
+h4,h5,h6
+{
+    color:#2980B9;
+    font-weight:300;
+}
+
+/* Body */
+html
+{
+    -ms-text-size-adjust:100%;
+    -webkit-text-size-adjust:100%;
+    font-size:100%;
+    height:100%;
+}
+
+body
+{
+    background:#edf0f2;
+    color:#404040;
+    font-family:"Lato","proxima-nova","Helvetica Neue",Arial,sans-serif;
+    font-weight:normal;
+    margin:0;
+    overflow-x:hidden;
+    /* min-height:100%; */
+    /* overflow-x:hidden; */
+}
+
+#content
+{
+    background:#fcfcfc;
+    height:100%;
+    /* position:absolute; */
+    /* position:relative; */
+    position:fixed;
+    overflow-x:hidden;
+    /* left: 240px; */
+    margin-left:1em;
+    margin-right:auto;
+    /* transform: translateX(240px); */
+    /* margin:auto; */
+    left:240px;
+    
+    padding:1em;
+    /* min-width:25em; */
+    /* min-width:40% */
+    /* width:800px; */
+    width: 90%;
+    min-width: 20em;
+    max-width: 45em;
+
+    /* max-width: 40em; */
+    /* margin: 1em; */
+    /* margin: 1em; */
+    /* max-width: 800px; */
+    /* min-width: 25em; */
+    /* min-height:100%; */
+
+}
+
+p
+{
+    font-size:16px;
+    line-height:24px;
+    margin:0px 0px 24px 0px;
+}
+
+/* Bold */
+b,strong
+{
+    font-weight:bold
+}
+
+/* Blockquotes */
+blockquote
+{
+    background-color: #F0F0F0;
+    border-left:5px solid #CCCCCC;
+    font-style:italic;
+    line-height:24px;
+    margin:0px 0px 24px 0px;
+    /* margin-left:24px; */
+    padding: 6px 20px;
+}
+
+/* Lists */
+ul,ol,dl
+{
+    line-height:24px;
+    list-style-image:none;
+    /* list-style:none; */
+    margin:0px 0px 24px 0px;
+    padding:0;
+    margin-left: 2px;
+}
+
+li
+{
+    margin-left: 24px;
+}
+
+dd
+{
+    margin:0;
+}
+
+
+/* Linking */
+
+:target
+{
+   background-color: #ffa;
+}
+
+/* Table of Contents */
+
+div#table-of-contents
+{
+    background: #212424;
+    position: fixed;
+    /* position:absolute; */
+    /* position:relative; */
+    width: 240px;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+    bottom: -20px;
+    /* padding-top: 12px; */
+    /* padding-left: 4px; */
+    padding-top: 0px;
+    padding-left: 0px;
+    scrollbar-color: #595959 #a0a0a0;
+    scrollbar-width: thin;
+    z-index: 1;
+}
+
+div#text-table-of-contents
+{
+    margin-bottom: 120px;
+}
+
+#table-of-contents code
+{
+    color: #212121;
+}
+
+#table-of-contents h2
+{
+    background: #2980B9;
+    padding-top: 40px;
+    padding-left: 6px;
+    color: #f0f0f0;
+}
+
+#table-of-contents a
+{
+    text-decoration: none;
+    color: #f0f0f0;
+}
+
+/* #table-of-contents a:visited */
+/* { */
+/*     color: #f0f0a0; */
+/* } */
+
+#table-of-contents ul
+{
+    list-style-type: none;
+    margin: 4px;
+}
+
+#table-of-contents ul > li
+{
+    margin-left:6px;
+}
+
+/* Postamble */
+
+#postamble
+{
+    position: fixed;
+    bottom: 0;
+    width: 240px;
+    height: 80px;
+    background: #2980B9;
+    color: #f0f0f0;
+    z-index: 2;
+}
+
+
+/* ================================================================ */
+/* Code */
+
+/* Generic Block */
+pre
+{
+    scrollbar-color: #afafaf #f0f0f0;
+    scrollbar-width: thin;
+}
+
+/* Inline */
+code
+{
+    background:#fff;
+    border:solid 1px #e1e4e5;
+    /* color:#000;  for clickable code */
+    font-family:Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace;
+    font-size:75%;
+    overflow-x:auto;
+    padding:0 5px;
+    white-space:nowrap;
+}
+
+/* Basic Block */
+.codeblock-example
+{
+    border:1px solid #e1e4e5;
+    border-bottom:none;
+    padding:24px;
+    padding-top:48px;
+    font-weight:500;
+    background:#fff;
+    position:relative;
+}
+
+.codeblock-example:after
+{
+    content:"Example";
+    position:absolute;
+    top:0px;
+    left:0px;
+    background:#9B59B6;
+    color:#fff;
+    padding:6px 12px;
+}
+
+.codeblock-example.prettyprint-example-only
+{
+    border:1px solid #e1e4e5;
+    margin-bottom:24px;
+}
+
+.codeblock,pre.src,#content .literal-block
+{
+    border:1px solid #e1e4e5;
+    padding:12px;
+    overflow-x:auto;
+    background:#fff;
+    margin:1px 0 24px 0;
+}
+
+pre.src
+{
+    /* color:#404040; */
+    display:block;
+    font-family:Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace;
+    font-size:12px;
+    line-height:1.5;
+    margin:1px 0px 24px 0px;
+    overflow:auto;
+    padding:12px;
+    white-space:pre;
+}
+
+/* Sample output */
+.example
+{
+    background:#f3f6f6;
+    border:1px solid #e1e4e5;
+    color:#404040;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom:24px;
+    padding:12px;
+}
+
+/* ================================================================ */
+/* Tables */
+
+table
+{
+    border-collapse:collapse;
+    border-spacing:0;
+    empty-cells:show;
+    margin-bottom:24px;
+    border-bottom:1px solid #e1e4e5;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+}
+
+td
+{
+    vertical-align:top
+}
+
+table td,table th
+{
+    font-size:80%;
+    margin:0;
+    overflow:visible;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    background-color:white;
+    border-bottom:1px solid #e1e4e5; 
+}
+
+table thead th
+{
+    font-weight:bold;
+    border-top:3px solid #e1e4e5;
+    border-bottom:1px solid #e1e4e5;
+}
+
+
+/* ================================================================ */
+/* Reactive */
+
+#table-of-contents.unshow
+{width:0;}
+#postamble.unshow
+{
+    width:0;
+    display:none;
+}
+#content.unshow
+{
+    left:0;
+}
+
+/* /\* {margin:auto;} *\/ */
+/* {margin-left:auto;} */
+
+button, button a
+{
+    background:0;
+    border:0;
+    margin:auto;
+    padding:auto;
+    width:100%;
+    font-size:30px;
+    color: #f0f0f0;
+}
+
+div#toggle
+{
+    display:flex;
+    z-index:3;
+    background: #2980B9;
+    border: 0;
+    /* border-bottom: 2px solid #f0f0f0; */
+    top:0;
+    left:0;
+    width:234px;
+    position:fixed;
+    font-size: 1.4em;
+}
+
+div#toggle.unshow
+{
+    flex-flow:column;
+    opacity: 0.5;
+    width: 40px;
+    height:90px;
+}
+
+:focus,
+{
+    background: #f55;
+    color: #;
+    outline:0;
+}
+
+/* #table-of-contents.show */
+/* {display: none;} */
+/* #postamble.show */
+/* {display: none;} */
+/* #content.show */
+/* {margin-left:240px;} */
+
+
+
+/* ================================================================ */
+/* Hidden */
+
+p.validation
+{
+    display:none;
+}
+
+
+/* :target */
+/* { */
+/*     flo */
+/* } */
+
+
+/* ================================================================ */
+/* Themes */
+
+/* Dark */
+/* ==== */
+
+/* body, */
+/* #table-of-contents code */
+/* { */
+/*     background:#202020; */
+/*     color:#edf0f2; */
+/* } */
+
+
+/* #content */
+/* { */
+/*     background: #202020; */
+/*     scrollbar-color: #a0a0a0 #595959; */
+/* } */
+
+/* code, pre, pre.src, */
+/* table, */
+/* td, td.org-left, td.org-right, */
+/* th, th.org-right, th.org-left, */
+/* div#table-of-contents */
+/* { */
+/*     background: #202020; */
+/* } */
+
+/* pre */
+/* { */
+/*     box-shadow: 3px 3px #eee; */
+/* } */
+
+/* a */
+/* { */
+/*     color: #ffa; */
+/* } */
+
+/* :target */
+/* { */
+/*     color: #202020; */
+/*     background: #ffa; */
+/* } */
+
+/* :target > code */
+/* { */
+/*     color: #ffa; */
+/* } */
+
+
+/* div.outline-2 */
+/* { */
+/*     border-top: 2px solid #f0f0f0; */
+/* } */
+
+/* div.outline-3 */
+/* { */
+/*     border-top: 2px solid #909090; */
+/* } */
+
+/* div.outline-4 */
+/* { */
+/*     border-top: 2px solid #303030; */
+/* } */
+
+/* div.outline-5 */
+/* { */
+/*     border-top: 2px solid #303030; */
+/* } */
