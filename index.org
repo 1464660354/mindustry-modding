@@ -1,5 +1,5 @@
 #+TITLE: Mindustry Modding Guide
-#+SUBTITLE: Modding documentation for Mindustry v100 (81)
+#+SUBTITLE: Modding documentation for Mindustry v100 (144)
 :PREAMBLE:
 
 #+AUTHOR: Simon Woodbury-Forget
@@ -13,8 +13,6 @@
 
 #+TODO: TODO UNTESTED | NEW DONE
 #+EXCLUDE_TAGS: TODO
-#+OPTIONS: broken-links:t
-
 
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="styles/main/css/htmlize.css"/>
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="styles/main/css/main.css"/>
@@ -33,7 +31,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 * Overview
   :PROPERTIES:
   :DESCRIPTION: the things you may not know.
-  :CUSTOM_ID: Overview
   :END:
 
   Mindustry mods are simply directories of assests. You reuse existing types and can use different values to initialize them, and you can even overwrite initialization of vanilla content.
@@ -45,7 +42,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Directory Structure
    :PROPERTIES:
    :DESCRIPTION: how things should look.
-   :CUSTOM_ID: Directory-Structure
    :END:
 
    Your project directory should look something like this:
@@ -60,9 +56,11 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    │   ├── liquids
    │   ├── units
    │   └── zones
+   ├── maps
    ├── bundles
    ├── sounds
    ├── schematics
+   ├── scripts
    ├── sprites-override
    └── sprites
    #+END_SRC
@@ -82,10 +80,7 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Hjson
    :PROPERTIES:
    :DESCRIPTION: content parser syntax
-   :CUSTOM_ID: Hjson
    :END:
-
-   *[new v99]* /partially in v99, but otherwise should work in v100/
 
    Mindustry uses [[https://hjson.org/][Hjson]], which is a superset of the very popular serialization language known as Json. This means that any valid Json will work, but you get extra useful stuff:
 
@@ -118,7 +113,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** ~mod.json~
    :PROPERTIES:
    :DESCRIPTION: the project configuration file.
-   :CUSTOM_ID: ~mod-json~
    :END:
 
    At the root of your project directory, you must have a ~mod.json~ which defines the basic metadata for your project. 
@@ -141,7 +135,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Content
    :PROPERTIES:
    :DESCRIPTION: content configuration directory
-   :CUSTOM_ID: Content
    :END:
 
    *[new [[#2d4270406]]]* /file extension ~.hjson~ now supported/
@@ -176,7 +169,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Types
    :PROPERTIES:
    :DESCRIPTION: what you need to know about type
-   :CUSTOM_ID: Types
    :END:
 
    Types have numerous fields, but the important one is ~type~; this is a special field used by the content parser, that changes which type your object is. /A ~Router~ type can't be a ~Turret~ type/, as they're just completely different.
@@ -202,7 +194,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Tech Tree
    :PROPERTIES:
    :DESCRIPTION: putting blocks into the tech tree
-   :CUSTOM_ID: Tech-Tree
    :END:
 
    Much like ~type~ there exist another magical field known as ~research~ which can go at the root of any block object to put it in the techtree.
@@ -218,7 +209,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Sprites
    :PROPERTIES:
    :DESCRIPTION: image files and how to name them
-   :CUSTOM_ID: Sprites
    :END:
 
    All you need to make sprites, is an image editor that supports transparency /(aka: not paint)./ Block sprites should be ~32 * size~, so a ~2x2~ block would require a ~64x64~ image. Images must be ~.png~ files with 32 bit depth.
@@ -239,7 +229,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Sound
    :PROPERTIES:
    :DESCRIPTION: sound files and where to put them
-   :CUSTOM_ID: Sound
    :END:
 
   Custom sounds can be added through the modding system by dropping them in the ~sounds/~ subdirectory. It doesn't matter where you put them. Two formats are needed:
@@ -296,7 +285,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Dependencies
    :PROPERTIES:
    :DESCRIPTION: mods extending mods
-   :CUSTOM_ID: Dependencies
    :END:
 
    You can add dependencies to your mod by simple adding other mods name in your ~mod.json~:
@@ -319,7 +307,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Bundles
    :PROPERTIES:
    :DESCRIPTION: translations and renaming
-   :CUSTOM_ID: Bundles
    :END:
 
    An optional addition to your mod is called bundles. The main use of bundles are give translations of your content, but there's no reason you couldn't use them in English. These are plaintext files which go in the ~bundles/~ subdirectory, and they should be named something like ~bundle_ru.properties~ (for Russian).
@@ -381,17 +368,126 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** Schematic
    :PROPERTIES:
-   :CUSTOM_ID: Schematic
    :END:
 
    Fields that require the type ~Schematic~ can either take a built-in loadout /(see the [[Zone][Zone]] section)/ a base64 string, or the stem name of a ~.msch~ file in the ~schematics/~ subdirectory.
 
    /As of now, the only purpose of schematics is to give a zone a loadout./
 
+** NEW Scripts
+   :PROPERTIES:
+   :END:
+
+   *[new [[#268f3cc3c]]]*
+
+   Scripting in Mindustry is done with the [[https://github.com/mozilla/rhino][Rhino JavaScript]] runtime. Scripts may be added to your mod by putting them in ~scripts/~. Using the built-in ~extendContent~ function, you can extend existing Java types from JS, using /allowed classes/ which are injected into your namespace.
+
+   For example:
+
+   * ~scripts/silo.js~
+     
+     #+BEGIN_SRC js
+       // create a simple shockwave effect
+       const siloLaunchEffect = newEffect(20, e => {
+
+           // color goes from white to light gray
+           Draw.color(Color.white, Color.lightGray, e.fin());
+
+           // line thickness goes from 3 to 0
+           Lines.stroke(e.fout() * 3);
+
+           // draw a circle whose radius goes from 0 to 100
+           Lines.circle(e.x, e.y, e.fin() * 100); 
+       });
+
+       // create the block type
+       const silo = extendContent(Block, "scatter-silo", {
+
+           // override the method to build configuration
+           buildConfiguration(tile, table) {
+               table.addImageButton(
+                   Icon.arrowUpSmall, 
+                   Styles.clearTransi,
+
+                   // configure the tile to signal that it has been 
+                   // pressed (this sync on client to server)
+                   run(() => tile.configure(0))
+               ).size(50);
+           },
+
+           // override configure event
+           configured(tile, value) {
+
+               // make sure this silo has the items it needs to fire
+               if (tile.entity.cons.valid()) {
+
+                   // make this effect occur at the tile location
+                   Effects.effect(siloLaunchEffect, tile);
+
+                   // create 10 bullets at this tile's location with
+                   // random rotation and velocity/lifetime
+                   for (var i = 0; i < 10; i++) {
+                       Calls.createBullet(
+                           Bullets.flakExplosive, 
+                           tile.getTeam(), 
+                           tile.drawx(), 
+                           tile.drawy(), 
+                           Mathf.random(360), 
+                           Mathf.random(0.5, 1.0), 
+                           Mathf.random(0.2, 1.0)
+                       );
+                   }
+
+                   // triggering consumption makes it use up the 
+                   // items it requires
+                   tile.entity.cons.trigger();
+               }
+           }
+       });
+     #+END_SRC
+
+   * ~content/blocks/scatter-silo.hjson~
+
+     #+BEGIN_SRC yaml
+       localizedName: "Scatter Silo" 
+       description: "A player-activatable block that scatters bullets everywhere upon use."
+
+       category: turret
+       size: 2
+
+       update: true
+       solid: true
+       hasItems: true
+       configurable: true
+
+       requirements: [ "graphite/75"
+                       "titanium/30" ]
+
+       consumes: { items: { items: [ "scrap/10" ] } }
+     #+END_SRC
+
+*** extendContent
+
+    Function to extend content which takes three arguments.
+
+    1) ~classType~ the type of class you want to extend;
+    2) ~name~ the name of your type;
+    3) ~params~ the object which will be used to extend the type.
+    
+*** newEffect
+
+    Function which takes two arguments. 
+
+    1) ~lifetime~
+    2) ~renderer~
+
+*** print
+    
+    Function which prints text to stdout with the name of your mod.
+
 ** FAQ
     :PROPERTIES:
     :DESCRIPTION: simple questions and awnsers
-    :CUSTOM_ID: FAQ
     :END:
 
     * ~time~ in game is calculated through ~ticks~;
@@ -403,36 +499,96 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
     * <<bleeding-edge>> what is ~bleeding-edge~? This is the developer version of Mindustry, specifically it's refering to the Github master branch. Changes on bleeding-edge usually make it into Mindustry in the next release.
 
 ** Change Log
-   :PROPERTIES:
-   :DESCRIPTION: log of changes   
-   :CUSTOM_ID: Change-Log
-   :END:
+
    This is a log of changes done on the Mindustry Master branch that affected the modding API. The sections are ordered by date commited, and provide a description of what was changed, with a link to the diff on Github.
 
-{% for log in change_log %}
-*** {{ log.hash }}
+*** Dec 09
     :PROPERTIES:
     :UNNUMBERED: t
-    :DESCRIPTION: {{ log.message }}
-    :CUSTOM_ID: {{ log.hash }}
+    :CUSTOM_ID: 74dc31b10a82763d4f1ff29d32ae430ee87b9def
     :END:
-    [ [[https://github.com/Anuken/Mindustry/commit/{{ log.hash }}][commit]] ={{ log.hash }}= {{ log.date_fmt() }} ]   ={{ log.message }}=
+    
+    [ [[https://github.com/Anuken/Mindustry/commit/74dc31b10a82763d4f1ff29d32ae430ee87b9def][commit]]  Removed unnecessary unit types ]
 
-    {% for note in log.notes %}
-       * {{ note }};
-    {% endfor %}
-{% endfor %}
+    * changed unit types names:
+      * ~Draug~ \to ~MinerDrone~;
+      * ~Spirit~ \to ~RepairDrone~;
+      * ~Phantom~ \to ~BuilderDrone~;
+      * [ ~Dagger~ ~Crawler~ ~Titan~ ~Fortress~ ~Eruptor~ ] \to ~GroundUnit~;
+      * [ ~Wraith~ ~Ghoul~ ] \to ~FlyingUnit~;
+      * ~Revenant~ \to ~HoverUnit~;
 
+
+
+*** Dec 08
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :CUSTOM_ID: 268f3cc3c
+    :END:
+    [ [[https://github.com/Anuken/Mindustry/commit/268f3cc3c][commit]] Merge branches 'master' and 'rhino-js-suffering' ]
+    
+    * ~scripts/~ sub-directory and Rhino JS runtime was added;
+    
+*** Dec 04
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :DESCRIPTION: Added experimental server block syncing
+    :CUSTOM_ID: a087df077
+    :END:
+    [ [[https://github.com/Anuken/Mindustry/commit/a087df077][commit]] Added experimental server block syncing ]
+
+    * ~sync~ field for ~Block~ type was added;
+
+*** Nov 26
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :DESCRIPTION: Texture overrides / Potential mod texture binding optimizations
+    :CUSTOM_ID: a5fbc0756
+    :END:
+    [ [[https://github.com/Anuken/Mindustry/commit/a5fbc0756][commit]] Texture overrides / Potential mod texture binding optimizations ]
+
+    * ~sprites-override/~ subdirectory can now be used to override existing ingame sprites;
+
+*** Nov 22
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :DESCRIPTION: Switched to hjson extension
+    :CUSTOM_ID: 2d4270406
+    :END:
+    [ [[https://github.com/Anuken/Mindustry/commit/2d4270406][commit]] Switched to hjson extension ]
+    
+    * ~.hjson~ can now be used as a file extension;
+
+*** Nov 22
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :DESCRIPTION: Added optional mod minimum game version
+    :CUSTOM_ID: 2c61fcdfa
+    :END:
+    [ [[https://github.com/Anuken/Mindustry/commit/2c61fcdfa][commit]] Added optional mod minimum game version ]
+
+    * ~minGameVersion~ can now be used within ~mod.json~;
+
+*** Nov 20
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :DESCRIPTION: Better mod parsing
+    :CUSTOM_ID: 968f3ace3
+    :END:
+    [ [[https://github.com/Anuken/Mindustry/commit/968f3ace3][commit]] Better mod parsing ]
+    
+    * ~liquid/amount~ can now be used as a string for ~LiquidStack~;
+    * ~item/amount~ can now be used as a string for ~ItemStack~;
+    * ~mod.json~ now supports hjson;
+   
 * World
   :PROPERTIES:
   :DESCRIPTION: the universe and everything in it.
-  :CUSTOM_ID: World
   :END:
 
 ** Block
    :PROPERTIES:
    :DESCRIPTION: base type of types that go on tiles
-   :CUSTOM_ID: Block
    :end:
 
    Extends [[BlockStorage][BlockStorage]]
@@ -459,6 +615,7 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    | size                | int             |            1 | multiblock size |
    | expanded            | boolean         |        false | Whether to draw this block in the expanded draw range. |
    | timers              | int             |            0 | Max of timers used. |
+   | cacheLayer          | [[CacheLayer][CacheLayer]]      |       normal | Cache layer. Only used for 'cached' rendering. |
    | fillesTile          | true            |              | Special flag; if false, [[Floor][floor]] will be drawn under this block even if it is cached. |
    | alwaysReplace       | boolean         |        false | whether this block can be replaced in all cases |
    | group               | [[BlockGroup][BlockGroup]]      |         none | Unless ~canReplace~ is overriden, blocks in the same group can replace each other. |
@@ -467,7 +624,7 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    | consumesTap         | boolean         |              | Whether this block consumes touchDown events when tapped. |
    | drawLiquidLight     | boolean         |         true | Whether to draw the glow of the liquid for this block, if it has one. |
    | posConfig           | boolean         |              | Whether the config is positional and needs to be shifted. |
-   | sync                | boolean         |              | *[new [[a087df077][Dec 4]]]* Whether to periodically sync this block across the network. |
+   | sync                | boolean         |              | *[new [[#a087df077]]]* Whether to periodically sync this block across the network. |
    | targetable          | boolean         |         true | Whether units target this block. |
    | canOverdrive        | boolean         |         true | Whether the overdrive core has any effect on this block. |
    | outlineColor        | [[Color][Color]]           |       404049 | Outlined icon color. |
@@ -494,7 +651,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Consumers
    :PROPERTIES:
    :DESCRIPTION: base type to consume liquid, items and power
-   :CUSTOM_ID: Consumers
    :END:
 
    This type is commonly used in block type with it's field ~consumes~, it's a type that allows your block to consume something, and how this field works is up to the specific type extension you're using.
@@ -529,7 +685,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Consume
    :PROPERTIES:
    :DESCRIPTION: a resource to consume
-   :CUSTOM_ID: Consume
    :END:
 
    [[Abstract][Abstract]] type which defines a type of resource that a block can consume.
@@ -541,34 +696,51 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    | booster  | boolean |         | consumer will be displayed as a boost input. |
    | update   | boolean | true    |            |
 
-   * <<ConsumeItems>> ~ConsumeItems~, consume an itemstack.
+*** ConsumeItems 
+    :PROPERTIES:
+    :END:
 
-     | field | type          |
-     |-------+---------------|
-     | items | [ [[ItemStack][ItemStack]] ] |
+    Extends [[Consume][Consume]]
 
-   * <<ConsumeLiquid>> ~ConsumeLiquid~, consume a liquid.
+    Type to consume ItemStacks.
 
-     | field      | type   | default | notes      |
-     |------------+--------+---------+------------|
-     |            |        |         | <10>       |
-     | liquid     | String |         | the name of [[Liquid][liquid]] type consumed |
-     | amount     | float  |         | amount used per frame |
-     | timePeriod | float  |      60 | how much time is taken to use this liquid, example: a normal ConsumeLiquid with 10/s and a 10 second timePeriod would display as /100 seconds/, but without a time override it would display as /10 liquid/second/. This is used for generic crafters. |
+    | field | type          |
+    |-------+---------------|
+    | items | [ [[ItemStack][ItemStack]] ] |
 
-   * <<ConsumePower>> ~ConsumePower~, consume or buffer power.
+*** ConsumeLiquid
+    :PROPERTIES:
+    :END:
 
-     | field    | type    | notes      |
-     |----------+---------+------------|
-     |          |         | <10>       |
-     | usage    | float   | The maximum amount of power which can be processed per tick. This might influence efficiency or load a buffer |
-     | capacity | float   | The maximum power capacity in power units. |
-     | buffered | boolean | True if the module can store power. |
+    Extends [[Consume][Consume]]
+
+    Type to consume a LiquidStack.
+
+    | field      | type   | default | notes      |
+    |------------+--------+---------+------------|
+    |            |        |         | <10>       |
+    | liquid     | String |         | the name of [[Liquid][liquid]] type consumed |
+    | amount     | float  |         | amount used per frame |
+    | timePeriod | float  |      60 | how much time is taken to use this liquid, example: a normal ConsumeLiquid with 10/s and a 10 second timePeriod would display as /100 seconds/, but without a time override it would display as /10 liquid/second/. This is used for generic crafters. |
+
+*** ConsumePower
+    :PROPERTIES:
+    :END:
+
+    Extends [[Consume][Consume]]
+
+    Type to consume or buffer power.
+
+    | field    | type    | notes      |
+    |----------+---------+------------|
+    |          |         | <10>       |
+    | usage    | float   | The maximum amount of power which can be processed per tick. This might influence efficiency or load a buffer |
+    | capacity | float   | The maximum power capacity in power units. |
+    | buffered | boolean | True if the module can store power. |
 
 ** BlockStorage
    :PROPERTIES:
    :DESCRIPTION: base of itemw and liquid storage
-   :CUSTOM_ID: BlockStorage
    :END:
 
    [[Abstract][Abstract]] type that extends [[Content][Content]]
@@ -593,7 +765,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Environment
    :PROPERTIES:
    :DESCRIPTION: environmental blocks
-   :CUSTOM_ID: Environment
    :END:
 
    Environmental blocks are blocks that must be placed from the editor, and they're the ones that will generally dictate how the game can or will be played. These blocks wont appear on a map unless you've built a map to support them.
@@ -601,7 +772,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** Floor
     :PROPERTIES:
     :DESCRIPTION: environmental floors
-    :CUSTOM_ID: Floor
     :END:
 
     Extends [[Block][Block]]
@@ -639,7 +809,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** OverlayFloor
     :PROPERTIES:
     :DESCRIPTION: type of floor that is overlaid on top of Floor
-    :CUSTOM_ID: OverlayFloor
     :END:
 
     Extends [[Floor][Floor]]
@@ -650,7 +819,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** DoubleOverlayFloor
     :PROPERTIES:
     :DESCRIPTION: type of floor that is overlaid on top of OverlayFloor
-    :CUSTOM_ID: DoubleOverlayFloor
     :END:
 
     Extends [[OverlayFloor][OverlayFloor]]
@@ -661,7 +829,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** OreBlock
     :PROPERTIES:
     :DESCRIPTION: overlayfloor for a specific item type
-    :CUSTOM_ID: OreBlock
     :END:
 
     Extends [[OverlayFloor][OverlayFloor]]
@@ -673,7 +840,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** Rock
     :PROPERTIES:
-    :CUSTOM_ID: Rock
     :END:
 
     Extends [[Block][Block]]
@@ -691,7 +857,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** StaticWall
     :PROPERTIES:
-    :CUSTOM_ID: StaticWall
     :END:
 
     Extends [[Rock][Rock]]
@@ -710,7 +875,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** StaticTree
     :PROPERTIES:
-    :CUSTOM_ID: StaticTree
     :END:
 
     Extends [[StaticWall][StaticWall]]
@@ -723,7 +887,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** TreeBlock
     :PROPERTIES:
-    :CUSTOM_ID: TreeBlock
     :END:
 
     Extends [[Block][Block]]
@@ -737,11 +900,9 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Crafting
    :PROPERTIES:
    :DESCRIPTION: blocks that take consume and output
-   :CUSTOM_ID: Crafting
    :END:
 *** GenericCrafter
     :PROPERTIES:
-    :CUSTOM_ID: GenericCrafter
     :END:
     Extends [[Block][Block]]
 
@@ -769,7 +930,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** GenericSmelter
     :PROPERTIES:
-    :CUSTOM_ID: GenericSmelter
     :END:
     Extends [[GenericCrafter][GenericCrafter]] 
 
@@ -786,7 +946,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** Separator
     :PROPERTIES:
     :DESCRIPTION: turn a liquid into many solids
-    :CUSTOM_ID: Separator
     :END:
     Extends [[Block][Block]]
 
@@ -818,11 +977,9 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Sandbox
    :PROPERTIES:
    :DESCRIPTION: the magical stuff
-   :CUSTOM_ID: Sandbox
    :END:
 *** PowerVoid
     :PROPERTIES:
-    :CUSTOM_ID: PowerVoid
     :END:
     Extends [[PowerBlock][PowerBlock]]
 
@@ -835,7 +992,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** PowerSource
     :PROPERTIES:
-    :CUSTOM_ID: PowerSource
     :END:
     Extends [[PowerNode][PowerNode]]
 
@@ -850,7 +1006,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** ItemSource
     :PROPERTIES:
-    :CUSTOM_ID: ItemSource
     :END:
     Extends [[Block][Block]]
 
@@ -867,7 +1022,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** ItemVoid
     :PROPERTIES:
-    :CUSTOM_ID: ItemVoid
     :END:
     Extends [[Block][Block]]
 
@@ -881,7 +1035,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** LiquidSource
     :PROPERTIES:
-    :CUSTOM_ID: LiquidSource
     :END:
     Extends [[Block][Block]]
 
@@ -899,11 +1052,9 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** Logic
    :PROPERTIES:
-   :CUSTOM_ID: Logic
    :END:
 *** MessageBlock
     :PROPERTIES:
-    :CUSTOM_ID: MessageBlock
     :END:
     Extends [[Block][Block]]
 
@@ -924,12 +1075,10 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Defense
    :PROPERTIES:
    :DESCRIPTION: blocks to protect your things
-   :CUSTOM_ID: Defense
    :END:
 
 *** Wall
     :PROPERTIES:
-    :CUSTOM_ID: StaticWall
     :END:
     Extends [[Block][Block]]
 
@@ -950,7 +1099,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** DeflectorWall
     :PROPERTIES:
-    :CUSTOM_ID: DeflectorWall
     :END:
     Extends [[Wall][Wall]] -- Wall that deflects low damage bullets.
 
@@ -962,7 +1110,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** SurgeWall
     :PROPERTIES:
-    :CUSTOM_ID: SurgeWall
     :END:
     Extends [[Wall][Wall]] -- Wall that creates lightning when shot.
 
@@ -975,7 +1122,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** Door
     :PROPERTIES:
-    :CUSTOM_ID: Door
     :END:
     Extends [[Wall][Wall]]
 
@@ -998,7 +1144,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** MendProjector
     :PROPERTIES:
-    :CUSTOM_ID: MendProjector
     :END:
     Extends [[Block][Block]]
 
@@ -1019,7 +1164,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** OverdriveProjector
     :PROPERTIES:
-    :CUSTOM_ID: OverdriveProjector
     :END:
     Extends [[Block][Block]]
 
@@ -1050,7 +1194,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** ForceProjector
     :PROPERTIES:
-    :CUSTOM_ID: ForceProjector
     :END:
 
     Extends [[Block][Block]]
@@ -1089,7 +1232,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** ShockMine
     :PROPERTIES:
-    :CUSTOM_ID: ShockMine
     :END:
     Extends [[Block][Block]]
 
@@ -1113,7 +1255,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Turrets
    :PROPERTIES:
    :DESCRIPTION: blocks for shooting things
-   :CUSTOM_ID: Turrets
    :END:
 
    This section is for turret types. All turrets shoot [[BulletType][BulletType]], and this means [[LiquidTurret]] can shoot [[MissileBulletType][MissileBulletType]] and [[ItemTurret][ItemTurret]] can shoot [[LiquidBulletType][LiquidBulletType]].
@@ -1121,7 +1262,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** Turret
     :PROPERTIES:
     :DESCRIPTION: base fields for all turrets
-    :CUSTOM_ID: Turrets
     :END:
 
     [[Abstract][Abstract]] type which extends [[Block][Block]]
@@ -1170,7 +1310,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** CooledTurret
     :PROPERTIES:
-    :CUSTOM_ID: CooledTurret
     :END:
 
     Extends [[Turret][Turret]] -- This is a base type that turrets which use [[Liquid][Liquid]] to cool themselves extend from.
@@ -1188,7 +1327,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** ItemTurret
     :PROPERTIES:
     :DESCRIPTION: use item as ammo
-    :CUSTOM_ID: ItemTurret
     :END:
 
     Extends [[CooledTurret][CooledTurret]]
@@ -1230,7 +1368,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** LiquidTurret
     :PROPERTIES:
     :DESCRIPTION: use liquid as ammo
-    :CUSTOM_ID: LiquidTurret
     :END:
 
     Extends [[Turret]]
@@ -1267,7 +1404,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** DoubleTurret
     :PROPERTIES:
-    :CUSTOM_ID: DoubleTurret
     :END:
     Extends [[ItemTurret][ItemTurret]]
 
@@ -1284,7 +1420,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** ArtilleryTurret
     :PROPERTIES:
-    :CUSTOM_ID: ArtilleryTurret
     :END:
     Extends [[ItemTurret][ItemTurret]] -- Artillery turrets have special shooting calculations done to hit targets.
 
@@ -1294,7 +1429,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** BurstTurret
     :PROPERTIES:
-    :CUSTOM_ID: BurstTurret
     :END:
     Extends [[ItemTurret][ItemTurret]] -- Turrets capable of bursts of specially spaced bullets, separated by long reload times.
 
@@ -1303,7 +1437,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
     | burstSpacing | float |       5 |
 *** PowerTurret
     :PROPERTIES:
-    :CUSTOM_ID: PowerTurret
     :END:
     Extends [[CooledTurret][CooledTurret]] -- Turret which uses power has ammo to shoot.
 
@@ -1320,7 +1453,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** ChargeTurret
     :PROPERTIES:
-    :CUSTOM_ID: ChargeTurret
     :END:
 
     Extends [[PowerTurret]]
@@ -1335,7 +1467,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** LaserTurret
     :PROPERTIES:
-    :CUSTOM_ID: LaserTurret
     :END:
     Extends [[PowerTurret][PowerTurret]]
 
@@ -1357,11 +1488,9 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Distribution
    :PROPERTIES:
    :DESCRIPTION: blocks to move items around
-   :CUSTOM_ID: Distribution
    :END:
 *** Conveyor
     :PROPERTIES:
-    :CUSTOM_ID: Conveyor
     :END:
     Extends [[Block][Block]]
 
@@ -1389,13 +1518,11 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** ArmoredConveyor
     :PROPERTIES:
-    :CUSTOM_ID: ArmoredConveyor
     :END:
     Extends [[Conveyor][Conveyor]]  -A type of conveyor don't accept item coming from side
 
 *** Junction
     :PROPERTIES:
-    :CUSTOM_ID: Junction
     :END:
     Extends [[Block][Block]]
 
@@ -1416,7 +1543,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** ItemBridge
     :PROPERTIES:
-    :CUSTOM_ID: ItemBridge
     :END:
     Extends [[Block][Block]]
 
@@ -1447,7 +1573,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** ExtendingItemBridge
     :PROPERTIES:
-    :CUSTOM_ID: ExtendingItemBridge
     :END:
     Extends [[ItemBridge][ItemBridge]]
 
@@ -1458,7 +1583,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** BufferedItemBridge
     :PROPERTIES:
-    :CUSTOM_ID: BufferedItemBridge
     :END:
     Extends [[ExtendingItemBridge][ExtendingItemBridge]]
 
@@ -1475,7 +1599,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** Sorter
     :PROPERTIES:
-    :CUSTOM_ID: Sorter
     :END:
 
     Extends [[Block][Block]]
@@ -1497,7 +1620,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** OverflowGate
     :PROPERTIES:
-    :CUSTOM_ID: OverflowGate
     :END:
     Extends [[Block][Block]]
 
@@ -1517,7 +1639,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** MassDriver
     :PROPERTIES:
-    :CUSTOM_ID: MassDriver
     :END:
     Extends [[Block][Block]] -- Uses ~driverBolt~ to transfer items.
 
@@ -1554,11 +1675,9 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Liquid Blocks
    :PROPERTIES:
    :DESCRIPTION: blocks to do things with liquid
-   :CUSTOM_ID: Liquid-Blocks
    :END:
 *** LiquidBlock
     :PROPERTIES:
-    :CUSTOM_ID: LiquidBlock
     :END:
     Extends [[Block][Block]] -- For blocks that can carry liquids. Apart from the better defaults, it also fetches extra sprites.
 
@@ -1579,7 +1698,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** Pump
     :PROPERTIES:
-    :CUSTOM_ID: Pump
     :END:
     Extends [[LiquidBlock][LiquidBlock]]
 
@@ -1595,13 +1713,12 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** Conduit
     :PROPERTIES:
-    :CUSTOM_ID: Conduit
     :END:
     Extends [[LiquidBlock][LiquidBlock]]
 
-    | field          | type | default | notes             |
-    |----------------+------+---------+-------------------|
-    | leakResistance |      |         | *[new v99 (268)]* |
+    | field          | type  |
+    |----------------+-------|
+    | leakResistance | float |
 
     Defaults:
 
@@ -1616,7 +1733,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** ArmoredConduit
     :PROPERTIES:
-    :CUSTOM_ID: ArmoredConduit
     :END:
     *[new type v99 (268)]* -- Extends [[Conduit][Conduit]]
 
@@ -1630,7 +1746,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** LiquidOverflowGate
     :PROPERTIES:
-    :CUSTOM_ID: LiquidOverflowGate
     :END:
     *[new type v99 (268)]* -- Extends [[LiquidBlock][LiquidBlock]]
 
@@ -1644,25 +1759,21 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** LiquidRouter
     :PROPERTIES:
-    :CUSTOM_ID: LiquidRouter
     :END:
     Extends [[LiquidBlock][LiquidBlock]]
 
 *** LiquidTank
     :PROPERTIES:
-    :CUSTOM_ID: LiquidTank
     :END:
     Extends [[LiquidRouter][LiquidRouter]]
 
 *** LiquidJunction
     :PROPERTIES:
-    :CUSTOM_ID: LiquidJunction
     :END:
     Extends [[LiquidBlock][LiquidBlock]]
 
 *** LiquidBridge
     :PROPERTIES:
-    :CUSTOM_ID: LiquidBridge
     :END:
     Extends [[LiquidBridge][LiquidBridge]]
 
@@ -1675,7 +1786,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** LiquidExtendingBridge
     :PROPERTIES:
-    :CUSTOM_ID: LiquidExtendingBridge
     :END:
     Extends [[ExtendingItemBridge][ExtendingItemBridge]]
 
@@ -1688,11 +1798,9 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Power
    :PROPERTIES:
    :DESCRIPTION: blocks to do things with power
-   :CUSTOM_ID: PowerTurret
    :END:
 *** PowerBlock
     :PROPERTIES:
-    :CUSTOM_ID: PowerBlock
     :END:
     [[Abstract][Abstract]] type which extends [[Block][Block]]
 
@@ -1707,7 +1815,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** PowerNode
     :PROPERTIES:
-    :CUSTOM_ID: PowerNode
     :END:
     Extends [[PowerBlock][PowerBlock]]
 
@@ -1728,7 +1835,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** PowerDistributor
     :PROPERTIES:
-    :CUSTOM_ID: PowerDistributor
     :END:
     Extends [[PowerBlock][PowerBlock]]
 
@@ -1740,7 +1846,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** Battery
     :PROPERTIES:
-    :CUSTOM_ID: Battery
     :END:
     Extends [[PowerDistributor][PowerDistributor]] -- Just a change of defaults for batteries.
 
@@ -1754,7 +1859,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** PowerGenerator
     :PROPERTIES:
     :DESCRIPTION: base of power generators.
-    :CUSTOM_ID: PowerGenerator
     :END:
 
     Extends [[PowerDistributor][PowerDistributor]]
@@ -1774,7 +1878,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 **** ThermalGenerator
      :PROPERTIES:
-     :CUSTOM_ID: ThermalGenerator
      :END:
      Extends [[PowerGenerator][PowerGenerator]] -- Generates power with the heat [[Attributes][attribute]] of a tile. Power production is ~powerProduction * heat~, and ~heat~ must be greater then ~0.01~.
 
@@ -1785,7 +1888,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 **** ItemLiquidGenerator
      :PROPERTIES:
-     :CUSTOM_ID: ItemLiquidGenerator
      :END:
      Extends [[PowerGenerator][PowerGenerator]] -- Base of power generation blocks.
 
@@ -1816,17 +1918,14 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 **** SingleTypeGenerator
      :PROPERTIES:
-     :CUSTOM_ID: SingleTypeGenerator
      :END:
      Extends [[ItemLiquidGenerator][ItemLiquidGenerator]] -- Generates power from an item.
 **** BurnerGenerator
      :PROPERTIES:
-     :CUSTOM_ID: BurnerGenerator
      :END:
      Extends [[ItemLiquidGenerator][ItemLiquidGenerator]] -- Generates power from item flamability.
 **** DecayGenerator
      :PROPERTIES:
-     :CUSTOM_ID: DecayGenerator
      :END:
      Extends [[ItemLiquidGenerator][ItemLiquidGenerator]] -- Generates power from item radioactivity.
 
@@ -1838,16 +1937,14 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 **** SolarGenerator
      :PROPERTIES:
-     :CUSTOM_ID: SolarGenerator
      :END:
      Extends [[PowerGenerator][PowerGenerator]] -- A generator that always produces 100% efficiency power.
 
      Notes:
      * Lower targetting priority then other generators.
 
-**** NEW NuclearReactor
+**** NuclearReactor
      :PROPERTIES:
-     :CUSTOM_ID: NuclearReactor
      :END:
      Extends [[PowerGenerator][PowerGenerator]] -- Generates power relative to how many items are in storage, and explodes if it runs out of coolant.
 
@@ -1880,7 +1977,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 **** ImpactReactor
      :PROPERTIES:
-     :CUSTOM_ID: ImpactReactor
      :END:
      Extends [[PowerGenerator][PowerGenerator]] -- Generator that uses power and has a startup time.
 
@@ -1910,7 +2006,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
      * ~<name>-plasma-<i>~ plasma regions, where ~i~ is ~0~ to ~plasmas - 1~.
 *** PowerDiode
     :PROPERTIES:
-    :CUSTOM_ID: PowerDiode
     :END:
     Extends [[Block][Block]]
 
@@ -1924,9 +2019,8 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
     Sprites:
     - ~<name>-arrow~
-*** NEW LightBlock
+*** LightBlock
     :PROPERTIES:
-    :CUSTOM_ID: LightBlock
     :END:
     *[new type v99 (268)]* -- Extends [[Block][Block]]
 
@@ -1948,11 +2042,9 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Production
    :PROPERTIES:
    :DESCRIPTION: blocks to extract materials from the environment
-   :CUSTOM_ID: Production
    :END:
 *** Drill
     :PROPERTIES:
-    :CUSTOM_ID: Drill
     :END:
     Extends [[Block][Block]] -- Types which can be placed on ore blocks to extract the [[OreBlock][OreBlock]]'s item.
 
@@ -1991,7 +2083,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** SolidPump
     :PROPERTIES:
-    :CUSTOM_ID: SolidPump
     :END:
     Extends [[Pump][Pump]] -- Pump that makes liquid from solids and takes in power. Only works on solid floor blocks.
 
@@ -2013,7 +2104,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** Cultivator
     :PROPERTIES:
-    :CUSTOM_ID: Cultivator
     :END:
     Extends [[GenericCrafter][GenericCrafter]]
 
@@ -2032,7 +2122,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** Fracker
     :PROPERTIES:
-    :CUSTOM_ID: Fracker
     :END:
     Extends [[SolidPump][SolidPump]]
 
@@ -2051,7 +2140,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
     * ~<name>-top~
 *** Incinerator
     :PROPERTIES:
-    :CUSTOM_ID: Incinerator
     :END:
     Extends [[Block][Block]]
 
@@ -2073,12 +2161,10 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Unit Blocks
    :PROPERTIES:
    :DESCRIPTION: blocks to do things with units
-   :CUSTOM_ID: Unit Blocks
    :END:
 *** RepairPoint
     :PROPERTIES:
     :DESCRIPTION: block which can repair units
-    :CUSTOM_ID: RepairPoint
     :END:
     Extends [[Block][Block]] -- Block which can repair units within range, with a laser.
 
@@ -2104,7 +2190,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** UnitFactory
     :PROPERTIES:
     :DESCRIPTION: block which can produce units
-    :CUSTOM_ID: UnitFactory
     :END:
 
     Extends [[Block][block]] -- A block can produce units
@@ -2132,7 +2217,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** CommandCenter
     :PROPERTIES:
     :DESCRIPTION: block which can command units
-    :CUSTOM_ID: CommandCenter
     :END:
     Extends [[Block][Block]] -- A block which can issue commands to your unit.
 
@@ -2154,7 +2238,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** MechPad
     :PROPERTIES:
     :DESCRIPTION:
-    :CUSTOM_ID: MechPad
     :END:
 
     Extends [[Block][Block]] -- A block which will spawn a player in a mech.
@@ -2177,12 +2260,10 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Storage
    :PROPERTIES:
    :DESCRIPTION: block who's main purpose is storing items
-   :CUSTOM_ID: BlockStorage
    :END:
 *** StorageBlock
     :PROPERTIES:
     :DESCRIPTION: base of all storage blocks
-    :CUSTOM_ID: StorageBlock
     :END:
 
     [[Abstract][Abstract]] type which extends [[Block][Block]]
@@ -2195,7 +2276,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** CoreBlock
     :PROPERTIES:
     :DESCRIPTION: the core block
-    :CUSTOM_ID: CoreBlock
     :END:
 
     Extends [[StorageBlock][StorageBlock]]
@@ -2218,7 +2298,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** Vault
     :PROPERTIES:
     :DESCRIPTION: block who's only purpose is to store things
-    :CUSTOM_ID: Vault
     :END:
 
     Extends [[StorageBlock][StorageBlock]]
@@ -2234,7 +2313,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** Unloader
     :PROPERTIES:
     :DESCRIPTION: block to unload things from storage blocks
-    :CUSTOM_ID: Unloader
     :END:
 
     Extends [[Block][Block]]
@@ -2261,7 +2339,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** LaunchPad
     :PROPERTIES:
     :DESCRIPTION: block to launch things to space
-    :CUSTOM_ID: LaunchPad
     :END:
     Extends [[StorageBlock][StroageBlock]]
 
@@ -2281,7 +2358,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** Attributes
    :PROPERTIES:
-   :CUSTOM_ID: Attributes
    :END:
 
    An object with an array of [[Attribute][attribute]]. Used in the ~Floor~ type to give a tile specific properties, like /hottness/ or /sporness/ for efficiency of various systems, like ThermalPumps and WaterExtractors.
@@ -2313,7 +2389,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** Attribute
    :PROPERTIES:
-   :CUSTOM_ID: Attributes
    :END:
 
    New attributes cannot be added. List of built-in attributes:
@@ -2324,7 +2399,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    * ~oil~
 ** BuildVisibility
    :PROPERTIES:
-   :CUSTOM_ID: BuildVisibility
    :END:
 
    A flag used by the game to change a few special-case things. It may be one of the following strings:
@@ -2338,7 +2412,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** BlockGroup
    :PROPERTIES:
-   :CUSTOM_ID: BlockGroup
    :END:
 
    Groups for blocks to build on top of each other:
@@ -2357,31 +2430,30 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** Item
    :PROPERTIES:
-   :CUSTOM_ID: Item
    :END:
 
    Extends [[Content][Content]] -- It's the object that can ride conveyors, sorters and be stored in containers, and is commonly used in crafters.
 
-   | field          | type      |  default | notes      |
-   |----------------+-----------+----------+------------|
-   |                |           |          | <10>       |
-   | color          | [[Color][Color]]     |    black | hex string of color |
-   | type           | [[ItemType][ItemTypes]] | resource | used for tabs and core acceptance |
-   | explosiveness  | float     |        0 | how explosive this item is. |
-   | flammability   | float     |        0 | flammability above 0.3 makes this eleigible for item burners. |
-   | radioactivity  | float     |          | how radioactive this item is. 0=none, 1=chernobyl ground zero |
-   | hardness       | int       |        0 | drill hardness of the item |
-   | cost           | float     |        1 | used for calculating place times; 1 cost = 1 tick added to build time |
-   | alwaysUnlocked | boolean   |    false | If true, item is always unlocked. |
+   | field          | type     |  default | notes      |
+   |----------------+----------+----------+------------|
+   |                |          |          | <10>       |
+   | color          | [[Color][Color]]    |    black | hex string of color |
+   | type           | [[ItemType][ItemType]] | resource | used for tabs and core acceptance |
+   | explosiveness  | float    |        0 | how explosive this item is. |
+   | flammability   | float    |        0 | flammability above 0.3 makes this eleigible for item burners. |
+   | radioactivity  | float    |          | how radioactive this item is. 0=none, 1=chernobyl ground zero |
+   | hardness       | int      |        0 | drill hardness of the item |
+   | cost           | float    |        1 | used for calculating place times; 1 cost = 1 tick added to build time |
+   | alwaysUnlocked | boolean  |    false | If true, item is always unlocked. |
 
-   <<ItemType>> *ItemTypes:*
+*** ItemType
+
    * ~resource~ can't go in the core;
    * ~material~ can go in the core.
 
 ** ItemStack
    :PROPERTIES:
    :DESCRIPTION: amount of item types
-   :CUSTOM_ID: ItemStack
    :END:
 
    A ~ItemStack~ can be a string or an object. It's used to describe the type and amount of items to a machine. 
@@ -2395,7 +2467,7 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    As an ~object~:
 
    #+BEGIN_SRC yaml
-   liquid: copper
+   item: copper
    amount: 5
    #+END_SRC
 
@@ -2408,7 +2480,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** Liquid
    :PROPERTIES:
-   :CUSTOM_ID: Liquid
    :END:
 
    Extends [[Content][Content]]
@@ -2434,7 +2505,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** LiquidStack
    :PROPERTIES:
    :DESCRIPTION: amount of liquid types
-   :CUSTOM_ID: LiquidStack
    :END:
 
    A ~LiquidStack~ can be a string or an object. It's used to describe the type and amount of liquid to a machine. 
@@ -2461,7 +2531,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
  
 ** Weapon
    :PROPERTIES:
-   :CUSTOM_ID: Weapon
    :END:
 
    Weapons are used by units and mechs alike. A weapon is a type used to shoot bullets [[BulletType][bullets]] just like turrets /(except that they don't have an ~ammo~ mapping)/. Weapons can only shoot one type of bullet, which you define in the ~bullet~ field.
@@ -2496,7 +2565,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** UnitType
    :PROPERTIES:
-   :CUSTOM_ID: UnitType
    :END:
 
    Extends [[Content][Content]]
@@ -2535,7 +2603,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** Mech
    :PROPERTIES:
-   :CUSTOM_ID: Mech
    :END:
 
    Extends [[Content][Content]] 
@@ -2570,7 +2637,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** Category
    :PROPERTIES:
-   :CUSTOM_ID: Category
    :END:
 
    Categories for building menu:
@@ -2588,7 +2654,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 ** Zone
    :PROPERTIES:
    :DESCRIPTION: type used to add maps into campaign
-   :CUSTOM_ID: Zone
    :END:
 
    Extends [[Content][Content]]
@@ -2664,7 +2729,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** StatusEffect
    :PROPERTIES:
-   :CUSTOM_ID: StatusEffect
    :END:
 
    /Not be be confused with [[Effect][Effect]]/, a status effect will give an entity special properties. It is currently *not possible to add custom status effects*. -- Status effects are used as transitions between intermediate effects. If some a ~wet~ unit gets ~shocked~ it then gets 20 damage.
@@ -2758,11 +2822,9 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 * Graphics
   :PROPERTIES:
   :DESCRIPTION: the rendering specific stuff.
-  :CUSTOM_ID: Graphics
   :END:
 ** Layer
    :PROPERTIES:
-   :CUSTOM_ID: Layer
    :END:
 
    Layers is an enumeration type, which the renderer will use to group rendering order:
@@ -2774,31 +2836,39 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    * ~power~ power lasers
 ** Color
    :PROPERTIES:
-   :CUSTOM_ID: Color
    :END:
 
    Color is a hexadecimal string, ~<rr><gg><bb>~ for example:
 
    * ~ff0000~ is red,
    * ~00ff00~ is green,
-   * ~00ffff~ is blue,
+   * ~0000ff~ is blue,
    * ~ffff00~ is yellow,
    * ~00ffff~ is cyan,
    * /ect../
 
+** CacheLayer
+   :PROPERTIES:
+   :DESCRIPTION: cached rendering flags
+   :END:
+  
+   Flags used by for cache render:
+   + ~normal~ normal layer;
+   + ~walls~ walls layer;
+   + ~water~ water layer, adding tile water shaders, and giving wave reflections;
+   + ~tar~ tar layer, adding tar shaders, making it darker and giving it some bubble reflections;
+
 * Entities
   :PROPERTIES:
   :DESCRIPTION: the things that exists as themselves.
-  :CUSTOM_ID: Entities
   :END:
 ** BulletType
    :PROPERTIES:
-   :CUSTOM_ID: BulletType
    :END:
 
    [[Abstract][Abstract]] type which extends [[Content][Content]]
 
-   BulletType can either be an object ~{}~ or a ~"string"~, where a string would be reusing [[Built-in-Bullets][Built-in Bullets]] and an object would be making a custom one.
+   BulletType can either be an object ~{}~ or a ~"string"~, where a string would be reusing [[Built-in Bullets][Built-in Bullets]] and an object would be making a custom one.
 
    There are two major categories of bullet types:
    * [[BasicBulletType][BasicBulletType]] and,
@@ -2856,7 +2926,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    | ammoMultiplier     | float        |       2 | how many bullets get created per item/liquid |
    | reloadMultiplier   | float        |       1 | multiplied by turret reload speed |
    | recoil             | float        |         | recoil from shooter entities |
-   | splashDamage       | float        |       0 |            |
    | knockback          | float        |         | Knockback in velocity. |
    | hitTiles           | boolean      |    true | Whether this bullet hits tiles. |
    | status             | [[StatusEffect][StatusEffect]] |    none | Status effect applied on hit. |
@@ -2866,16 +2935,17 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    | collidesAir        | boolean      |    true | Whether this bullet type collides with air units. |
    | collides           | boolean      |    true | Whether this bullet types collides with anything at all. |
    | keepVelocity       | boolean      |    true | Whether velocity is inherited from the shooter. |
-   | fragBullets        | int          |       9 |            |
-   | fragVelocityMin    | float        |     0.2 |            |
-   | fragVelocityMax    | float        |       1 |            |
-   | fragBullet         | [[BulletType][BulletType]]   |    null |            |
-   | splashDamageRadius | float        |      -1 | Use a negative value to disable splash damage. |
+   | fragBullets        | int          |       9 | Number of frag bullets created. |
+   | fragVelocityMin    | float        |     0.2 | Minimum random multiplier. |
+   | fragVelocityMax    | float        |       1 | Maximum random multiplier. |
+   | fragBullet         | [[BulletType][BulletType]]   |    null | The frag bullet that will be created, may be a string, an object or null. If field is null, no frag bullet is created. |
+   | splashDamage       | float        |       0 | Area of effect damage when the bullet despawns or hits a target. Damage is calculated with [[https://en.wikipedia.org/wiki/Linear_interpolation][linear interpolation]], also known as lerp. |
+   | splashDamageRadius | float        |      -1 | Use a negative value to disable splash damage. ~splashDamageRadius~ is a value used in the equation ~lerp(1 - distance / radius, 1, 0.4)~ which is a multiplier for ~splashDamage~. |
    | incendAmount       | int          |       0 |            |
    | incendSpread       | float        |       8 |            |
    | incendChance       | float        |       1 |            |
    | homingPower        | float        |       0 | Doesn't do anything complicated; if ~homingPower~ larger then ~0.01~ it gets rendered in the UI, if ~homingPower~ is larger then ~0.0001~ it allows ~homingRange~ to work. |
-   | homingRange        | float        |      50 | How far the bullet can home towards target from itself. |
+   | homingRange        | float        |      50 | How close the bullet needs from a target in order to home/seek said target. |
    | lightining         | int          |         |            |
    | lightningLength    | int          |       5 |            |
    | hitShake           | float        |       0 |            |
@@ -2883,7 +2953,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** BasicBulletType
     :PROPERTIES:
     :DESCRIPTION: colored destruction
-    :CUSTOM_ID: BasicBulletType
     :END:
 
     Extends [[BulletType][BulletType]]
@@ -2924,7 +2993,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 **** ArtilleryBulletType
      :PROPERTIES:
      :DESCRIPTION: raining bullet effects
-     :CUSTOM_ID: ArtilleryBulletType
      :END:
 
      Extends [[BasicBulletType][BasicBulletType]]
@@ -2949,7 +3017,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 **** FlakBulletType
      :PROPERTIES:
      :DESCRIPTION: proximity fuze
-     :CUSTOM_ID: FlakBulletType
      :END:
 
      Extends [[BasicBulletType][BasicBulletType]]
@@ -2972,7 +3039,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 **** MissileBulletType
      :PROPERTIES:
      :DESCRIPTION: weave and trail effects
-     :CUSTOM_ID: MissileBulletType
      :END:
 
      Extends [[BasicBulletType][BasicBulletType]]
@@ -2998,7 +3064,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 **** BombBulletType
      :PROPERTIES:
      :DESCRIPTION: minor overwrite of defaults
-     :CUSTOM_ID: BombBulletType
      :END:
 
      Extends [[BasicBulletType][BasicBulletType]]
@@ -3018,7 +3083,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** HealBulletType
     :PROPERTIES:
-    :CUSTOM_ID: HealBulletType
     :END:
 
     Extends [[BulletType][BulletType]] -- Bullets that can heal blocks of the same team as the shooter.
@@ -3039,7 +3103,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** LiquidBulletType
     :PROPERTIES:
-    :CUSTOM_ID: LiquidBulletType
     :END:
 
     Extends [[BulletType][BulletType]]
@@ -3064,7 +3127,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** MassDriverBolt
     :PROPERTIES:
-    :CUSTOM_ID: MassDriverBolt
     :END:
 
     Extends [[BulletType][BulletType]]
@@ -3081,7 +3143,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 *** Built-in Bullets
     :PROPERTIES:
-    :CUSTOM_ID: Built-in-Bullets
     :END:
 
    * artillery:
@@ -3103,22 +3164,19 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** BaseUnit
    :PROPERTIES:
-   :CUSTOM_ID: BaseUnit
    :END:
 
    There are a few useful base unit types:
 
    * ~FlyingUnit~
-     * ~Revenant~
-     * ~BaseDrone~
-       * ~BuilderDrone~
-       * ~MinerDrone~
-       * ~RepairDrone~
+     * ~HoverUnit~
+     * ~BuilderDrone~
+     * ~MinerDrone~
+     * ~RepairDrone~
    * ~GroundUnit~
 
 ** Effect
    :PROPERTIES:
-   :CUSTOM_ID: Effect
    :END:
 
    Type should be a ~string~. You can't currently create custom effects. List of built-in effects are as follows:
@@ -3144,7 +3202,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
        ~impactcloud~ ~impactsmoke~ ~dynamicExplosion~ ~padlaunch~ ~commandSend~ ~coreLand~
 ** TargetPriority
    :PROPERTIES:
-   :CUSTOM_ID: TargetPriority
    :END:
 
    * ~base~
@@ -3153,7 +3210,6 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 * Objective
   :PROPERTIES:
   :DESCRIPTION: types to set game objectives
-  :CUSTOM_ID: Objective
   :END:
 
   Objective is a trait, which a few types implement, which is used by [[Zone][Zone]] to give campaign maps objectives.
@@ -3179,13 +3235,11 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 * Other
   :PROPERTIES:
   :DESCRIPTION: ...
-  :CUSTOM_ID: Other
   :END:
 
 ** Mindustry Source Structure
    :PROPERTIES:
-   :CUSTOM_ID: Mindustry-Source-Structure
-   :END:
+:END:
 
    #+BEGIN_SRC fundamental
    core/src/io/anuke/mindustry/

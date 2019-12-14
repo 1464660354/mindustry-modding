@@ -1,23 +1,49 @@
+# Modifying `index.org`
+
+The `.org` file at the root of the project is the meat of everything. It starts with some metadata *(`#+WORD: ..` and `:PREAMBEL: ... :END:`)* which you can easily skip over.
+
+Sections are split-up with `* Headline`. It's important for `*` to be prefixed with a newline and no white spaces, and it shouldn't be confused with ` *` which is actually just an unnamed list element.
+
+Sections themselves may be referenced with `[[Section Name][Description text]]`
+
+Tables are much like Markdown tables, except that you may see some metadata flags in them to assist org-mode in knowing how to align things or whether to cutoff overflow text:
+
+```org
+| column1 | column2    |
+|---------|------------|
+|         | <8>        |
+| value   | long val=> |
+```
+
+You can `*bold*` `/italic/` and `~inline code~` text or use code blocks:
+
+```org
+#+BEGIN_SRC js
+// block code
+const x = "This is JavaScript";
+print(x);
+#+END_SRC
+```
+
+`js` should be used for JavaScript, as it colors the output text itself,  `yaml` mode is what is currently used for `hjson`, because it usually lines up nicely, and `json` can be used for `json` itself, although `yaml` would just work. `fundamental` for anything that not uncolored.
+
 # Building `index.html`
 
-Currently a four step process is used to generate the `index.html`:
+Currently there's three steps to build the `index.html`:
 
-1. copy `index.org` to `index.tmp.org`
-2. generate templates with jinja2 *(for change log and `README.md` content table)*
-3. generate `index.tmp.org` with Org Mode
-4. copy `index.tmp.thml` to `index.html`
+1. generate templates with jinja2;
+2. activate [export-to-html-with-useful-anchors](https://github.com/alphapapa/unpackaged.el#export-to-html-with-useful-anchors)))) minor mode;
+3. generate `index.html` with org-modes html export function.
 
-Expected dependencies required to generate the `index.html` are the following:
+Expected dependencies required to generate the `README.md` are the following:
 
-- emacs26
 - python3.8
-  - humanize
-  - PyGitHub
-  - PyYAML
-  - Jinja2
-  - Click
+- Jinja2
+- Click
 
-Running Org-Mode's html export alone is sufficient for testing.
+I use Emacs 26 to generate the `index.html` with:
+
+- https://github.com/alphapapa/unpackaged.el#export-to-html-with-useful-anchors minor mode which gives the exported anchors better names without adding `:CUSTOM_ID:` to everything.
 
 # Building `styles/main/js/main.js`
 
