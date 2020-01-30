@@ -1,5 +1,5 @@
 #+TITLE: Mindustry Modding Guide
-#+SUBTITLE: Modding documentation for Mindustry v101
+#+SUBTITLE: Modding documentation for Mindustry v102 (a4e820f90)
 :PREAMBLE:
 
 #+AUTHOR: Simon Woodbury-Forget
@@ -37,7 +37,7 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
   You could just resprite existing game content, you can create new game content with the simpler Json API (which is the main focus of this documentation), you can add custom sounds (or reuse existing ones). It's possible to add maps to compaing mode, and add scripts to program special behavior into your mod, like custom effects. 
 
-  Sharing your mod is as simple as giving someone your project directory; mods are also cross platfrom to any platform that supports them. Realistically speaking you'll want to use GitHub.
+  Sharing your mod is as simple as giving someone your project directory; mods are also cross platfrom to any platform that supports them. Realistically speaking you'll want to use [[GitHub][GitHub]], you should also checkout the Example Mod repository on GitHub: https://github.com/Anuken/ExampleMod
 
   To make mods all you really need is any computer with a text editor.
 
@@ -156,6 +156,10 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    * ~content/zones/~ for [[Zone][zones]], configuration of campaign maps.
 
    Note that each one of these subdirectories needs a specific content type. The filenames of these files is important, because the stem name of your path /(filename without the extension)/ is used to reference it.
+
+   [ *new* [[#62b2b25ee474fcf44aa86832c1373b38e16d703d]] ] Furthermore the files within these ~content/<content-type>/*~ directories may be arbitrarly nested into other sub-directories of any name, to help you organize them further, for example:
+
+   * ~content/items/metals/iron.hjson~, which would respectively create an item named ~iron~.
 
    The content of these files will tend to look something like this:
 
@@ -536,6 +540,16 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
        consumes: { items: { items: [ "scrap/10" ] } }
      #+END_SRC
 
+** GitHub
+
+   Once you have a mod of some kind, you'll want to actually share it, and you may even want to work with other people on it, and to do that you can use [[https://github.com/][GitHub]]. If you don't know what Git (or GitHub) is at all, then you should look into [[https://desktop.github.com/][GitHub Desktop]], otherwise simply use your favorite command line tool or text editor plugin. 
+
+   All you need understand is how to open repositories on GitHub, stage and commit changes in your local repository, and push changes to the GitHub repository. Once your project is on GitHub, there are three ways to share it:
+
+   * with the endpoint, for example ~Anuken/ExampleMod~, which could then be typed in the ingame GitHub interface, and that would download it;
+   * with the zip file, for example ~https://github.com/Anuken/ExampleMod/archive/master.zip~, which would download the repository as a zip file, and put in mod directory (unzipping is not required);
+   * add the typic/tags ~mindustry-mod~ on your repository, which should cause the ~#mods~ Discord bot to pick it up and render it in it's listh.
+
 ** FAQ
     :PROPERTIES:
     :DESCRIPTION: simple questions and awnsers
@@ -553,83 +567,169 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
    This is a log of changes done on the Mindustry Master branch that affected the modding API. The sections are ordered by date commited, and provide a description of what was changed, with a link to the diff on Github.
 
-*** Dec 09
-    :PROPERTIES:
-    :UNNUMBERED: t
-    :CUSTOM_ID: 74dc31b10a82763d4f1ff29d32ae430ee87b9def
-    :END:
+*** 2020
 
-    [ [[https://github.com/Anuken/Mindustry/commit/74dc31b10a82763d4f1ff29d32ae430ee87b9def][commit]]  Removed unnecessary unit types ]
+**** Jan 23
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: 235142c8698f0d8cd9fc296a2ecabf430d7ea261
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/235142c8698f0d8cd9fc296a2ecabf430d7ea261][commit]] implemented #1093 ]
 
-    * changed unit types names:
-      * ~Draug~ \to ~MinerDrone~;
-      * ~Spirit~ \to ~RepairDrone~;
-      * ~Phantom~ \to ~BuilderDrone~;
-      * [ ~Dagger~ ~Crawler~ ~Titan~ ~Fortress~ ~Eruptor~ ] \to ~GroundUnit~;
-      * [ ~Wraith~ ~Ghoul~ ] \to ~FlyingUnit~;
-      * ~Revenant~ \to ~HoverUnit~;
+     * added ~attribute~ to ~ThermalGenerator~;
 
-*** Dec 08
-    :PROPERTIES:
-    :UNNUMBERED: t
-    :CUSTOM_ID: 268f3cc3c
-    :END:
-    [ [[https://github.com/Anuken/Mindustry/commit/268f3cc3c][commit]] Merge branches ~master~ and ~rhino-js-suffering~ ]
+**** Jan 22
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: a4e820f90733148de4b75f5b60928e0523bf51b3
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/a4e820f90733148de4b75f5b60928e0523bf51b3][commit]] added default ore flags for modded ores ]
 
-    * ~scripts/~ sub-directory and Rhino JS runtime was added;
-    * ~displayName~ can now be used as field name in ~mod.json~
+     * added ~oreDefault~ and ~oreScale~ to ~Floor~;
 
-*** Dec 04
-    :PROPERTIES:
-    :UNNUMBERED: t
-    :DESCRIPTION: Added experimental server block syncing
-    :CUSTOM_ID: a087df077
-    :END:
-    [ [[https://github.com/Anuken/Mindustry/commit/a087df077][commit]] Added experimental server block syncing ]
+**** Jan 19
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: b1df52e0c83ae44f5bd70892fcda5ac2fa69e36c
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/b1df52e0c83ae44f5bd70892fcda5ac2fa69e36c][commit]] cleanup of scripts ]
 
-    * ~sync~ field for ~Block~ type was added;
+     * added ~killShooter~ attribute for ~BulletType~;
 
-*** Nov 26
-    :PROPERTIES:
-    :UNNUMBERED: t
-    :DESCRIPTION: Texture overrides / Potential mod texture binding optimizations
-    :CUSTOM_ID: a5fbc0756
-    :END:
-    [ [[https://github.com/Anuken/Mindustry/commit/a5fbc0756][commit]] Texture overrides / Potential mod texture binding optimizations ]
+**** Jan 14
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: eaa86023f9854b6e8d574cbfdd43ee32488b2de5
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/eaa86023f9854b6e8d574cbfdd43ee32488b2de5][commit]] visual tweaks ]
 
-    * ~sprites-override/~ subdirectory can now be used to override existing ingame sprites;
+     * added ~-spinner~ region to ~Separator~;
+     * removed ~spinnerRadius~, ~spinnerLength~, ~spinnerThickness~, ~color~ from ~Separator~;
 
-*** Nov 22
-    :PROPERTIES:
-    :UNNUMBERED: t
-    :DESCRIPTION: Switched to hjson extension
-    :CUSTOM_ID: 2d4270406
-    :END:
-    [ [[https://github.com/Anuken/Mindustry/commit/2d4270406][commit]] Switched to hjson extension ]
+**** Jan 08
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: 406c11a14d31c9680b914c60cd1d8577ddd5fc7d
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/406c11a14d31c9680b914c60cd1d8577ddd5fc7d][commit]] make rebuildable a block attribute (#1338) ]
 
-    * ~.hjson~ can now be used as a file extension;
+     * added ~rebuildable~ to ~Block~;
 
-*** Nov 22
-    :PROPERTIES:
-    :UNNUMBERED: t
-    :DESCRIPTION: Added optional mod minimum game version
-    :CUSTOM_ID: 2c61fcdfa
-    :END:
-    [ [[https://github.com/Anuken/Mindustry/commit/2c61fcdfa][commit]] Added optional mod minimum game version ]
+**** Jan 07
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: b0d65dcedb26014580632a9b0d8d597f0c7f8ccc
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/b0d65dcedb26014580632a9b0d8d597f0c7f8ccc][commit]] cleanup ]
 
-    * ~minGameVersion~ can now be used within ~mod.json~;
+     * added ~drawCell~, ~drawItems~ and ~drawLight~ to ~Mech~;
 
-*** Nov 20
-    :PROPERTIES:
-    :UNNUMBERED: t
-    :DESCRIPTION: Better mod parsing
-    :CUSTOM_ID: 968f3ace3
-    :END:
-    [ [[https://github.com/Anuken/Mindustry/commit/968f3ace3][commit]] Better mod parsing ]
+**** Jan 04
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: 1dd0295c45e6ea6f0967f291b41ff3a58ab7202c
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/1dd0295c45e6ea6f0967f291b41ff3a58ab7202c][commit]] merge remote-tracking branch 'origin/master' ]
 
-    * ~liquid/amount~ can now be used as a string for ~LiquidStack~;
-    * ~item/amount~ can now be used as a string for ~ItemStack~;
-    * ~mod.json~ now supports hjson;
+     * added ~targetDistance~ to ~Weapon~;
+
+
+**** Jan 03
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: 62b2b25ee474fcf44aa86832c1373b38e16d703d
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/pull/1313/commits/62b2b25ee474fcf44aa86832c1373b38e16d703d][commit]] use findAll to iterate through mod content ]
+
+     * ~content/~ support for organizing ~.hjson~ files into directories;
+
+*** 2019
+**** Dec 12
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: 2366d25de73ab85bffc3352ab1e74ba1dea68dfe
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/2366d25de73ab85bffc3352ab1e74ba1dea68dfe][commit]] add liquid void block ]
+
+     * added ~LiquidVoid~ block;
+
+**** Dec 09
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: 74dc31b10a82763d4f1ff29d32ae430ee87b9def
+     :END:
+
+     [ [[https://github.com/Anuken/Mindustry/commit/74dc31b10a82763d4f1ff29d32ae430ee87b9def][commit]]  Removed unnecessary unit types ]
+
+     * changed unit types names:
+       * ~Draug~ \to ~MinerDrone~;
+       * ~Spirit~ \to ~RepairDrone~;
+       * ~Phantom~ \to ~BuilderDrone~;
+       * [ ~Dagger~ ~Crawler~ ~Titan~ ~Fortress~ ~Eruptor~ ] \to ~GroundUnit~;
+       * [ ~Wraith~ ~Ghoul~ ] \to ~FlyingUnit~;
+       * ~Revenant~ \to ~HoverUnit~;
+
+**** Dec 08
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :CUSTOM_ID: 268f3cc3c
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/268f3cc3c][commit]] Merge branches ~master~ and ~rhino-js-suffering~ ]
+
+     * ~scripts/~ sub-directory and Rhino JS runtime was added;
+     * ~displayName~ can now be used as field name in ~mod.json~
+
+**** Dec 04
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :DESCRIPTION: Added experimental server block syncing
+     :CUSTOM_ID: a087df077
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/a087df077][commit]] Added experimental server block syncing ]
+
+     * ~sync~ field for ~Block~ type was added;
+
+**** Nov 26
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :DESCRIPTION: Texture overrides / Potential mod texture binding optimizations
+     :CUSTOM_ID: a5fbc0756
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/a5fbc0756][commit]] Texture overrides / Potential mod texture binding optimizations ]
+
+     * ~sprites-override/~ subdirectory can now be used to override existing ingame sprites;
+
+**** Nov 22
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :DESCRIPTION: Switched to hjson extension
+     :CUSTOM_ID: 2d4270406
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/2d4270406][commit]] Switched to hjson extension ]
+
+     * ~.hjson~ can now be used as a file extension;
+
+**** Nov 22
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :DESCRIPTION: Added optional mod minimum game version
+     :CUSTOM_ID: 2c61fcdfa
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/2c61fcdfa][commit]] Added optional mod minimum game version ]
+
+     * ~minGameVersion~ can now be used within ~mod.json~;
+
+**** Nov 20
+     :PROPERTIES:
+     :UNNUMBERED: t
+     :DESCRIPTION: Better mod parsing
+     :CUSTOM_ID: 968f3ace3
+     :END:
+     [ [[https://github.com/Anuken/Mindustry/commit/968f3ace3][commit]] Better mod parsing ]
+
+     * ~liquid/amount~ can now be used as a string for ~LiquidStack~;
+     * ~item/amount~ can now be used as a string for ~ItemStack~;
+     * ~mod.json~ now supports hjson;
 
 * World
   :PROPERTIES:
@@ -647,53 +747,54 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
    Fields for all objects that are blocks.
 
-   | field               | type            |      default | notes                                                                              |
-   |---------------------+-----------------+--------------+------------------------------------------------------------------------------------|
-   |                     |                 |          <r> | <10>                                                                               |
-   | update              | boolean         |              | whether this block has a tile entity that updates                                  |
-   | destructible        | boolean         |              | whether this block has health and can be destroyed                                 |
-   | unloadable          | boolean         |         true | whether unloaders work on this block                                               |
-   | solid               | boolean         |              | whether this is solid                                                              |
-   | solidifes           | boolean         |              | whether this block CAN be solid.                                                   |
-   | rotate              | boolean         |              | whether this is rotateable                                                         |
-   | breakable           | boolean         |              | whether you can break this with rightclick                                         |
-   | placeableOn         | boolean         |         true | whether this [[Floor][floor]] can be placed on.                                               |
-   | insulated           | boolean         |        false | whether this block has insulating properties.                                      |
-   | health              | int             |           -1 | tile entity health                                                                 |
-   | baseExplosiveness   | float           |            0 | base block explosiveness                                                           |
-   | floating            | boolean         |        false | whether this block can be placed on edges of liquids.                              |
-   | size                | int             |            1 | multiblock size; 1 makes the block 1x1, 2 makes the block 2x2, and so on.          |
-   | expanded            | boolean         |        false | Whether to draw this block in the expanded draw range.                             |
-   | timers              | int             |            0 | Max of timers used.                                                                |
-   | cacheLayer          | [[CacheLayer][CacheLayer]]      |       normal | Cache layer. Only used for 'cached' rendering.                                     |
-   | fillesTile          | true            |              | Special flag; if false, [[Floor][floor]] will be drawn under this block even if it is cached. |
-   | alwaysReplace       | boolean         |        false | whether this block can be replaced in all cases                                    |
-   | group               | [[BlockGroup][BlockGroup]]      |         none | Unless ~canReplace~ is overriden, blocks in the same group can replace each other. |
-   | priority            | TargetPriority  |         base | Targeting priority of this block, as seen by enemies.                              |
-   | configurable        | boolean         |              | Whether the block can be tapped and selected to configure.                         |
-   | consumesTap         | boolean         |              | Whether this block consumes touchDown events when tapped.                          |
-   | drawLiquidLight     | boolean         |         true | Whether to draw the glow of the liquid for this block, if it has one.              |
-   | posConfig           | boolean         |              | Whether the config is positional and needs to be shifted.                          |
-   | sync                | boolean         |              | *[new [[#a087df077]]]* Whether to periodically sync this block across the network.     |
-   | targetable          | boolean         |         true | Whether units target this block.                                                   |
-   | canOverdrive        | boolean         |         true | Whether the overdrive core has any effect on this block.                           |
-   | outlineColor        | [[Color][Color]]           |       404049 | Outlined icon color.                                                               |
-   | outlineIcon         | boolean         |        false | Whether the icon region has an outline added.                                      |
-   | hasShadow           | boolean         |         true | Whether this block has a shadow under it.                                          |
-   | breakSound          | [[Sound][Sound]]           |         boom | Sounds made when this block breaks.                                                |
-   | activeSound         | [[Sound][Sound]]           |         none | The sound that this block makes while active. One sound loop. Do not overuse.      |
-   | activeSoundVolume   | float           |          0.5 | Active sound base volume.                                                          |
-   | idleSound           | [[Sound][Sound]]           |         none | The sound that this block makes while idle. Uses one sound loop for all blocks.    |
-   | idleSoundVolume     | float           |          0.5 | Idle sound base volume.                                                            |
-   | requirements        | [ [[ItemStack][ItemStack]] ]   |              | Cost of constructing and researching this block.                                   |
-   | category            | [[Category][Category]]        | distribution | Category in place menu.                                                            |
-   | buildCost           | float           |              | Cost of building this block; do not modify directly!                               |
-   | buildVisibility     | [[BuildVisibility][BuildVisibility]] |       hidden | Whether this block is visible and can currently be built.                          |
-   | buildCostMultiplier | float           |            1 | Multiplier for speed of building this block.                                       |
-   | instantTransfer     | boolean         |        false | Whether this block has instant transfer.                                           |
-   | alwaysUnlocked      | boolean         |        false |                                                                                    |
-   | layer               | [[Layer][Layer]]           |         null | Layer to draw extra stuff on.                                                      |
-   | layer2              | [[Layer][Layer]]           |         null | Extra layer to draw extra stuff on.                                                |
+   | field               | type            |      default | notes                                                                                   |
+   |---------------------+-----------------+--------------+-----------------------------------------------------------------------------------------|
+   |                     |                 |          <r> | <10>                                                                                    |
+   | update              | boolean         |              | whether this block has a tile entity that updates                                       |
+   | destructible        | boolean         |              | whether this block has health and can be destroyed                                      |
+   | unloadable          | boolean         |         true | whether unloaders work on this block                                                    |
+   | solid               | boolean         |              | whether this is solid                                                                   |
+   | solidifes           | boolean         |              | whether this block CAN be solid.                                                        |
+   | rotate              | boolean         |              | whether this is rotateable                                                              |
+   | breakable           | boolean         |              | whether you can break this with rightclick                                              |
+   | rebuildable         | boolean         |         true | whether to add this block to brokenblocks or not (like ~ShockMine~ or ~NuclearReactor~) |
+   | placeableOn         | boolean         |         true | whether this [[Floor][floor]] can be placed on.                                                    |
+   | insulated           | boolean         |        false | whether this block has insulating properties.                                           |
+   | health              | int             |           -1 | tile entity health                                                                      |
+   | baseExplosiveness   | float           |            0 | base block explosiveness                                                                |
+   | floating            | boolean         |        false | whether this block can be placed on edges of liquids.                                   |
+   | size                | int             |            1 | multiblock size; 1 makes the block 1x1, 2 makes the block 2x2, and so on.               |
+   | expanded            | boolean         |        false | Whether to draw this block in the expanded draw range.                                  |
+   | timers              | int             |            0 | Max of timers used.                                                                     |
+   | cacheLayer          | [[CacheLayer][CacheLayer]]      |       normal | Cache layer. Only used for 'cached' rendering.                                          |
+   | fillesTile          | true            |              | Special flag; if false, [[Floor][floor]] will be drawn under this block even if it is cached.      |
+   | alwaysReplace       | boolean         |        false | whether this block can be replaced in all cases                                         |
+   | group               | [[BlockGroup][BlockGroup]]      |         none | Unless ~canReplace~ is overriden, blocks in the same group can replace each other.      |
+   | priority            | [[TargetPriority][TargetPriority]]  |         base | Targeting priority of this block, as seen by enemies.                                   |
+   | configurable        | boolean         |              | Whether the block can be tapped and selected to configure.                              |
+   | consumesTap         | boolean         |              | Whether this block consumes touchDown events when tapped.                               |
+   | drawLiquidLight     | boolean         |         true | Whether to draw the glow of the liquid for this block, if it has one.                   |
+   | posConfig           | boolean         |              | Whether the config is positional and needs to be shifted.                               |
+   | sync                | boolean         |              | *[new [[#a087df077]]]* Whether to periodically sync this block across the network.          |
+   | targetable          | boolean         |         true | Whether units target this block.                                                        |
+   | canOverdrive        | boolean         |         true | Whether the overdrive core has any effect on this block.                                |
+   | outlineColor        | [[Color][Color]]           |       404049 | Outlined icon color.                                                                    |
+   | outlineIcon         | boolean         |        false | Whether the icon region has an outline added.                                           |
+   | hasShadow           | boolean         |         true | Whether this block has a shadow under it.                                               |
+   | breakSound          | [[Sound][Sound]]           |         boom | Sounds made when this block breaks.                                                     |
+   | activeSound         | [[Sound][Sound]]           |         none | The sound that this block makes while active. One sound loop. Do not overuse.           |
+   | activeSoundVolume   | float           |          0.5 | Active sound base volume.                                                               |
+   | idleSound           | [[Sound][Sound]]           |         none | The sound that this block makes while idle. Uses one sound loop for all blocks.         |
+   | idleSoundVolume     | float           |          0.5 | Idle sound base volume.                                                                 |
+   | requirements        | [ [[ItemStack][ItemStack]] ]   |              | Cost of constructing and researching this block.                                        |
+   | category            | [[Category][Category]]        | distribution | Category in place menu.                                                                 |
+   | buildCost           | float           |              | Cost of building this block; do not modify directly!                                    |
+   | buildVisibility     | [[BuildVisibility][BuildVisibility]] |       hidden | Whether this block is visible and can currently be built.                               |
+   | buildCostMultiplier | float           |            1 | Multiplier for speed of building this block.                                            |
+   | instantTransfer     | boolean         |        false | Whether this block has instant transfer.                                                |
+   | alwaysUnlocked      | boolean         |        false |                                                                                         |
+   | layer               | [[Layer][Layer]]           |         null | Layer to draw extra stuff on.                                                           |
+   | layer2              | [[Layer][Layer]]           |         null | Extra layer to draw extra stuff on.                                                     |
 
    Sprites:
    * ~<name>~ the main sprite for the block.
@@ -822,26 +923,29 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
     Type used for floors themselves or extended to make ores and other things.
 
-    | field             | type         | default | notes                                                   |
-    |-------------------+--------------+---------+---------------------------------------------------------|
-    |                   |              |     <r> | <10>                                                    |
-    | variants          | int          |       3 | number of different variant regions to use.             |
-    | edge              | String       |   stone | edge fallback, used mainly for ores.                    |
-    | speedMultiplier   | float        |       1 | multiplies unit velocity by this when walked on.        |
-    | dragMultiplier    | float        |       0 | multiplies unit drag by this when walked on.            |
-    | damageTaken       | float        |       0 | damage taken per tick on this tile.                     |
-    | drownTime         | float        |       0 | how many ticks it takes to drown on this.               |
-    | walkEffect        | [[Effect][Effect]]       |  ripple | effect when walking on this [[Floor][floor]].                      |
-    | drownUpdateEffect | [[Effect][Effect]]       |  bubble | effect displayed when drowning on this [[Floor][floor]].           |
-    | status            | StatusEffect |    none | status effect applied when walking on.                  |
-    | statusDuration    | float        |      60 | intensity of applied status effect.                     |
-    | liquidDrop        | [[Liquid][Liquid]]       |         | liquids that drop from this block, used for pumps.      |
-    | itemDrop          | [[Item][Item]]         |         | item that drops from this block, used for drills.       |
-    | isLiquid          | boolean      |         | whether this block can be drowned in.                   |
-    | playerUnmineable  | boolean      |   false | block cannot be mined by players if true.               |
-    | blendGroup        | [[Block][Block]]        |    this | group of blocks that this block does not draw edges on. |
-    | updateEffect      | [[Effect][Effect]]       |    none | effect displayed when randomly updated.                 |
-    | attributes        | [[Attributes][Attributes]]   |         | array of affinities to certain things.                  |
+    | field             | type         | default | notes                                                                        |
+    |-------------------+--------------+---------+------------------------------------------------------------------------------|
+    |                   |              |     <r> | <10>                                                                         |
+    | variants          | int          |       3 | number of different variant regions to use.                                  |
+    | edge              | String       |   stone | edge fallback, used mainly for ores.                                         |
+    | speedMultiplier   | float        |       1 | multiplies unit velocity by this when walked on.                             |
+    | dragMultiplier    | float        |       0 | multiplies unit drag by this when walked on.                                 |
+    | damageTaken       | float        |       0 | damage taken per tick on this tile.                                          |
+    | drownTime         | float        |       0 | how many ticks it takes to drown on this.                                    |
+    | walkEffect        | [[Effect][Effect]]       |  ripple | effect when walking on this [[Floor][floor]].                                           |
+    | drownUpdateEffect | [[Effect][Effect]]       |  bubble | effect displayed when drowning on this [[Floor][floor]].                                |
+    | status            | StatusEffect |    none | status effect applied when walking on.                                       |
+    | statusDuration    | float        |      60 | intensity of applied status effect.                                          |
+    | liquidDrop        | [[Liquid][Liquid]]       |         | liquids that drop from this block, used for pumps.                           |
+    | itemDrop          | [[Item][Item]]         |         | item that drops from this block, used for drills.                            |
+    | isLiquid          | boolean      |         | whether this block can be drowned in.                                        |
+    | playerUnmineable  | boolean      |   false | block cannot be mined by players if true.                                    |
+    | blendGroup        | [[Block][Block]]        |    this | group of blocks that this block does not draw edges on.                      |
+    | updateEffect      | [[Effect][Effect]]       |    none | effect displayed when randomly updated.                                      |
+    | attributes        | [[Attributes][Attributes]]   |         | array of affinities to certain things.                                       |
+    | oreDefault        | boolean      |   false | whether this ore generates in maps by default.                               |
+    | oreScale          | float        |      24 | ore generation param, for example ~thorium~ is ~25.38~, ~copper~ is ~23.47~. |
+    | oreThreshold      | float        |   0.828 | ore generation param, for example ~thorium~ is ~0.882~, ~copper~ is ~0.81~.  |
 
     Notes:
     * this type requires a sprite to be visible from the map editor.
@@ -976,24 +1080,18 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
     * ~<name>-top~
 
 *** Separator
-    :PROPERTIES:
-    :DESCRIPTION: turn a liquid into many solids
-    :END:
+    
     Extends [[Block][Block]]
 
     Separator takes liquid as an input, and will produce items from it's stack randomly, using the amount of items in the stack as probability. Separator can't accept items as input, as it will output all the items you put in it, regardless of what you put in ~results~.
 
-    | field            | type          | default | notes        |
-    |------------------+---------------+---------+--------------|
-    |                  |               |         | <10>         |
-    | results          | [ [[ItemStack][ItemStack]] ] |         | *[required]* |
-    | craftTime        | float         |         |              |
-    | spinnerRadius    | float         |     2.5 |              |
-    | spinnerLength    | float         |       1 |              |
-    | spinnerThickness | float         |       1 |              |
-    | spinnerSpeed     | float         |       2 |              |
-    | color            | [[Color][Color]]         |  858585 |              |
-    | liquidRegion     | int           |         |              |
+    | field        | type          | default | notes        |
+    |--------------+---------------+---------+--------------|
+    |              |               |         | <10>         |
+    | results      | [ [[ItemStack][ItemStack]] ] |         | *[required]* |
+    | craftTime    | float         |         |              |
+    | spinnerSpeed | float         |       3 |              |
+    | color        | [[Color][Color]]         |  858585 |              |
 
     Defaults:
     | field      | default |
@@ -1005,7 +1103,9 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
     | hasLiquids |    true |
 
     Sprite suffixes:
-    * ~<name>-liquid~
+    * ~<name>-liquid~ 
+    * ~<name>-spinner~
+
 ** Sandbox
    :PROPERTIES:
    :DESCRIPTION: the magical stuff
@@ -1071,6 +1171,18 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
     | liquidCapacity |     100 |
     | configurable   |    true |
     | outputsLiquid  |    true |
+
+*** LiquidVoid
+
+    Extends [[Block][Block]]
+
+    Defaults:
+
+    | field      | default |
+    |------------+---------|
+    | hasLiquids | true    |
+    | solid      | true    |
+    | update     | true    |
 
 ** Logic
 *** MessageBlock
@@ -1254,6 +1366,8 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
     | solid        |   false |
     | targetable   |   false |
     | layer        | overlay |
+    | rebuildable  | false   |
+
 ** Turrets
    :PROPERTIES:
    :DESCRIPTION: blocks for shooting things
@@ -1508,6 +1622,19 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 *** ArmoredConveyor
     Extends [[Conveyor][Conveyor]]  -A type of conveyor don't accept item coming from side
 
+*** Router
+    Extends [[Block][Block]]
+
+    Defaults:
+    | field        | default        |
+    |--------------+----------------|
+    | solid        | true           |
+    | update       | true           |
+    | hasItems     | true           |
+    | itemCapacity | 1              |
+    | group        | transportation |
+    | uploadable   | false          |
+
 *** Junction
     Extends [[Block][Block]]
 
@@ -1596,11 +1723,15 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
     | unloadable      | false          |
 
 *** OverflowGate
+
     Extends [[Block][Block]]
 
-    | field | type  | default |
-    |-------+-------+---------|
-    | speed | float |       1 |
+    Type used for overflow and underflow gates. 
+
+    | field  | type    | default | notes                                                                        |
+    |--------+---------+---------+------------------------------------------------------------------------------|
+    | speed  | float   | 1       | delta time multiplier for whether an item can be moved after an update cycle |
+    | invert | boolean | false   | ~true~ makes it underflow                                                    |
 
     Defaults:
 
@@ -1822,12 +1953,12 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
     | sync              | true    |
 
 **** ThermalGenerator
-     Extends [[PowerGenerator][PowerGenerator]] -- Generates power with the heat [[Attributes][attribute]] of a tile. Power production is ~powerProduction * heat~, and ~heat~ must be greater then ~0.01~.
+     Extends [[PowerGenerator][PowerGenerator]] -- Generates power with the [[Attributes][attribute]] of a tile. Power production is ~powerProduction * attribute~, and ~attribute~ must be greater then ~0.01~.
 
-     | field          | type   | default | notes |
-     |----------------+--------+---------+-------|
-     |                |        |         | <10>  |
-     | generateEffect | [[Effect][Effect]] | none    |       |
+     | field          | type      | default | notes                                  |
+     |----------------+-----------+---------+----------------------------------------|
+     | generateEffect | [[Effect][Effect]]    | none    |                                        |
+     | attribute      | [[Attribute][Attribute]] | heat    | The attribute used to vary efficiency. |
 
 **** ItemLiquidGenerator
      Extends [[PowerGenerator][PowerGenerator]] -- Base of power generation blocks.
@@ -1901,6 +2032,7 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
      | liquidCapacity | 30      |
      | hasItems       | true    |
      | hasLiquids     | true    |
+     | rebuildable    | false   |
 
      Extra Sprites:
      * ~<name>-center~ top region
@@ -2308,6 +2440,7 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    * ~spores~
    * ~water~
    * ~oil~
+
 ** BuildVisibility
 
    A flag used by the game to change a few special-case things. It may be one of the following strings:
@@ -2436,28 +2569,29 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    Weapons are used by units and mechs alike. A weapon is a type used to shoot bullets [[BulletType][bullets]] just like turrets /(except that they don't have an ~ammo~ mapping)/. Weapons can only shoot one type of bullet, which you define in the ~bullet~ field.
 
    :DEF:
-   | field          | type       | default | notes                                                             |
-   |----------------+------------+---------+-------------------------------------------------------------------|
-   |                |            |         | <10>                                                              |
-   | name           | String     |         | used to fetch the sprite of the weapon                            |
-   | nimPlayerDist  | float      |      20 | minimum cursor distance from player, fixes 'cross-eyed' shooting. |
-   | sequenceNum    | int        |       0 |                                                                   |
-   | bullet         | [[BulletType][BulletType]] |         | bullet shot                                                       |
-   | ejectEffect    | [[Effect][Effect]]     |    none | shell ejection effect                                             |
-   | reload         | float      |         | weapon reload in frames                                           |
-   | shots          | int        |       1 | amount of shots per fire                                          |
-   | spacing        | float      |      12 | spacing in degrees between multiple shots, if applicable          |
-   | inaccuracy     | float      |       0 | inaccuracy of degrees of each shot                                |
-   | shake          | float      |       0 | intensity and duration of each shot's screen shake                |
-   | recoil         | float      |     1.5 | visual weapon knockback.                                          |
-   | length         | float      |       3 | shoot barrel y offset                                             |
-   | width          | float      |       4 | shoot barrel x offset.                                            |
-   | velocityRnd    | float      |       0 | fraction of velocity that is random                               |
-   | alternate      | bool       |   false | shoot one arm after another, rather than all at once              |
-   | lengthRand     | float      |       0 | randomization of shot length                                      |
-   | shotDelay      | float      |       0 | delay in ticks between shots                                      |
-   | ignoreRotation | boolean    |   false | whether shooter rotation is ignored when shooting.                |
-   | shootSound     | [[Sound][Sound]]      |     pew |                                                                   |
+   | field          | type       | default | notes                                                                       |
+   |----------------+------------+---------+-----------------------------------------------------------------------------|
+   |                |            |         | <10>                                                                        |
+   | name           | String     |         | used to fetch the sprite of the weapon                                      |
+   | nimPlayerDist  | float      |      20 | minimum cursor distance from player, fixes 'cross-eyed' shooting.           |
+   | sequenceNum    | int        |       0 |                                                                             |
+   | bullet         | [[BulletType][BulletType]] |         | bullet shot                                                                 |
+   | ejectEffect    | [[Effect][Effect]]     |    none | shell ejection effect                                                       |
+   | reload         | float      |         | weapon reload in frames                                                     |
+   | shots          | int        |       1 | amount of shots per fire                                                    |
+   | spacing        | float      |      12 | spacing in degrees between multiple shots, if applicable                    |
+   | inaccuracy     | float      |       0 | inaccuracy of degrees of each shot                                          |
+   | shake          | float      |       0 | intensity and duration of each shot's screen shake                          |
+   | recoil         | float      |     1.5 | visual weapon knockback.                                                    |
+   | length         | float      |       3 | shoot barrel y offset                                                       |
+   | width          | float      |       4 | shoot barrel x offset.                                                      |
+   | velocityRnd    | float      |       0 | fraction of velocity that is random                                         |
+   | alternate      | bool       |   false | shoot one arm after another, rather than all at once                        |
+   | lengthRand     | float      |       0 | randomization of shot length                                                |
+   | shotDelay      | float      |       0 | delay in ticks between shots                                                |
+   | ignoreRotation | boolean    |   false | whether shooter rotation is ignored when shooting.                          |
+   | targetDistance | float      |       1 | if ~turnCursor~ is ~false~ for a mech, how far away will the weapon target. |
+   | shootSound     | [[Sound][Sound]]      |     pew |                                                                             |
    :END:
 
    Sprite:
@@ -2505,31 +2639,34 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
    Mechs are the player controlled entities. They shoot [[BulletType][bullets]] just like turrets from their [[Weapon][weapon]].
 
-   | field              | type    | default |
-   |--------------------+---------+---------|
-   | flying             | boolean |         |
-   | speed              | float   |     1.1 |
-   | maxSpeed           | float   |      10 |
-   | boostSpeed         | float   |    0.75 |
-   | drag               | float   |     0.4 |
-   | mass               | float   |       1 |
-   | shake              | float   |       0 |
-   | health             | float   |     200 |
-   | hitsize            | float   |       6 |
-   | cellTrnsY          | float   |       0 |
-   | mineSpeed          | float   |       1 |
-   | drillPower         | int     |      -1 |
-   | buildPower         | float   |       1 |
-   | engineColor        | [[Color][Color]]   | boostTo |
-   | itemCapacity       | int     |      30 |
-   | turnCursor         | boolean |    true |
-   | canHeal            | boolean |   false |
-   | compoundSpeed      | float   |       5 |
-   | compoundSpeedBoost | float   |       5 |
-   | weaponOffsetY      | float   |       5 |
-   | engineOffset       | float   |       5 |
-   | engineSize         | float   |     2.5 |
-   | weapon             | [[Weapon][Weapon]]  |    null |
+   | field              | type    | default | notes                                         |
+   |--------------------+---------+---------+-----------------------------------------------|
+   | flying             | boolean |         |                                               |
+   | speed              | float   |     1.1 |                                               |
+   | maxSpeed           | float   |      10 |                                               |
+   | boostSpeed         | float   |    0.75 |                                               |
+   | drag               | float   |     0.4 |                                               |
+   | mass               | float   |       1 |                                               |
+   | shake              | float   |       0 |                                               |
+   | health             | float   |     200 |                                               |
+   | hitsize            | float   |       6 |                                               |
+   | cellTrnsY          | float   |       0 |                                               |
+   | mineSpeed          | float   |       1 |                                               |
+   | drillPower         | int     |      -1 |                                               |
+   | buildPower         | float   |       1 |                                               |
+   | engineColor        | [[Color][Color]]   | boostTo |                                               |
+   | itemCapacity       | int     |      30 |                                               |
+   | turnCursor         | boolean |    true |                                               |
+   | canHeal            | boolean |   false |                                               |
+   | compoundSpeed      | float   |       5 |                                               |
+   | compoundSpeedBoost | float   |       5 |                                               |
+   | drawCell           | boolean |    true | draw the health and team indicator            |
+   | drawItems          | boolean |    true | draw the items on its back                    |
+   | drawLight          | boolean |    true | draw the engine light if it's flying/boosting |
+   | weaponOffsetY      | float   |       5 |                                               |
+   | engineOffset       | float   |       5 |                                               |
+   | engineSize         | float   |     2.5 |                                               |
+   | weapon             | [[Weapon][Weapon]]  |    null |                                               |
 
    Sprites:
    * ~<name>~
@@ -2628,9 +2765,9 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
 
 ** StatusEffect
 
-   /Not be be confused with [[Effect][Effect]]/, a status effect will give an entity special properties. It is currently *not possible to add custom status effects*. -- Status effects are used as transitions between intermediate effects. If some a ~wet~ unit gets ~shocked~ it then gets 20 damage.
+   /Not be be confused with [[Effect][Effect]]/, a status effect will give an entity special properties. Status effects are used as transitions between intermediate effects. If some a ~wet~ unit gets ~shocked~ it then gets 20 damage.
 
-   | field            | type   | default |                                                     |
+   | field            | type   | default | notes                                               |
    |------------------+--------+---------+-----------------------------------------------------|
    |                  |        |         | <10>                                                |
    | damageMultiplier | float  |       1 |                                                     |
@@ -2817,6 +2954,7 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
    | ammoMultiplier     | float        |       2 | how many bullets get created per item/liquid                                                                                                                                        |
    | reloadMultiplier   | float        |       1 | multiplied by turret reload speed                                                                                                                                                   |
    | recoil             | float        |         | recoil from shooter entities                                                                                                                                                        |
+   | killShooter        | float        |         | whether to kill the shooter when this is shot. (for suicide bombers)                                                                                                                |
    | knockback          | float        |         | Knockback in velocity.                                                                                                                                                              |
    | hitTiles           | boolean      |    true | Whether this bullet hits tiles.                                                                                                                                                     |
    | status             | [[StatusEffect][StatusEffect]] |    none | Status effect applied on hit.                                                                                                                                                       |
@@ -3081,8 +3219,10 @@ Submit =test= pull requests, issues or suggestions on Github: https://github.com
        ~impactcloud~ ~impactsmoke~ ~dynamicExplosion~ ~padlaunch~ ~commandSend~ ~coreLand~
 ** TargetPriority
 
-   * ~base~
-   * ~turret~
+   A higher ordinal means a higher priority. Higher priority blocks will always get targeted over those of lower priority, regardless of distance.
+
+   1. ~base~
+   2. ~turret~
 
 * Objective
   :PROPERTIES:
